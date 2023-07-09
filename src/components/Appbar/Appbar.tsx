@@ -1,23 +1,36 @@
-import React from 'react';
-import { AppBar, Box, Button, FormControlLabel, Grid, Switch, Toolbar } from '@mui/material';
-import { useTheme } from 'context/globalContext';
-import darkTheme from 'themes/darkTheme.js';
+import React, { forwardRef } from 'react';
+import {
+	AppBar,
+	Box,
+	Button,
+	FormControlLabel,
+	Grid,
+	Hidden,
+	IconButton,
+	Switch,
+	Toolbar,
+} from '@mui/material';
 
-const Appbar = React.forwardRef(({}, ref) => {
-	const { theme, toggleMode } = useTheme();
+import DarkModeSwitch from 'components/DarkModeSwitch/DarkModeSwitch';
 
+const Appbar = forwardRef((props, ref: React.Ref<HTMLDivElement>) => {
 	return (
-		<AppBar ref={ref} position="fixed">
+		<AppBar ref={ref} color="inherit" position="fixed">
 			<Toolbar>
-				{/* <FormControlLabel
-					label="Dark Mode"
-					control={<Switch checked={theme === darkTheme} onClick={toggleMode} />}
-				/> */}
 				<Box flexGrow={1}></Box>
-				<Box></Box>
 				<Box>
-					<Button>Sign up</Button>
-					<Button>Sign in</Button>
+					{/* <FormControlLabel
+						label="Dark Mode"
+						control={<Switch checked={theme === darkTheme} onClick={toggleMode} />}
+					/> */}
+					<Hidden smDown>
+						<Button>Sign up</Button>
+						<Button>Sign in</Button>
+					</Hidden>
+					<Hidden smUp>
+						<IconButton></IconButton>
+					</Hidden>
+					<DarkModeSwitch />
 				</Box>
 			</Toolbar>
 		</AppBar>

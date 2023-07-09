@@ -1,4 +1,4 @@
-import { Button, Container, FormControlLabel, Switch, Grid, Typography, Box } from '@mui/material';
+import { Typography, Box, Divider } from '@mui/material';
 import * as React from 'react';
 
 import { useState } from 'react';
@@ -7,6 +7,8 @@ const HomePage = ({}) => {
 	return (
 		<>
 			<Typography variant="h3">Welcome to indietour</Typography>
+			<Divider />
+
 			<Typography variant="h3">
 				Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente esse dolor reprehenderit,
 				quas velit voluptates temporibus earum fugiat, quasi aliquid iste laboriosam pariatur
