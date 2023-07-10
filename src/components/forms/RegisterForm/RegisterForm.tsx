@@ -13,20 +13,47 @@ const RegisterForm = ({}) => {
 		onSubmit,
 	);
 
-	const fields = Object.entries(formData).map(([name, value]) => (
-		<TextField
-			name={name}
-			value={value}
-			label={name}
-			type={name}
-			onChange={handleChange}
-			key={`register-field-${name}`}
-		/>
-	));
+	const disabled = !formData.password || formData.password !== formData.password2;
 
 	return (
-		<ButtonForm btnText="Sign Up" spacing={1} onSubmit={handleSubmit}>
-			{fields}
+		<ButtonForm
+			title="Create Account"
+			btnText="Sign Up"
+			btnVariant="contained"
+			spacing={1}
+			btnColor="secondary"
+			onSubmit={handleSubmit}
+			info="Create new account."
+			disabled={disabled}
+		>
+			<TextField
+				label="Email"
+				name="email"
+				value={formData.email}
+				onChange={handleChange}
+				type="email"
+			/>
+			<TextField
+				label="Username"
+				name="username"
+				value={formData.username}
+				onChange={handleChange}
+				type="text"
+			/>
+			<TextField
+				label="Password"
+				name="password"
+				value={formData.password}
+				onChange={handleChange}
+				type="password"
+			/>
+			<TextField
+				label="Confirm Password"
+				name="password2"
+				value={formData.password2}
+				onChange={handleChange}
+				type="password"
+			/>
 		</ButtonForm>
 	);
 };

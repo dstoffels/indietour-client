@@ -10,7 +10,7 @@ const LoginForm = ({ inline = false }) => {
 	return (
 		<Box component="form" display="inline-block" onSubmit={handleSubmit}>
 			<Stack spacing={1} padding={1} direction={inline ? 'row' : 'column'}>
-				<TextField size="small" label="Email" />
+				<TextField size="small" label="Email" type="email" />
 				<TextField size="small" label="Password" type="password" />
 				<Button variant="contained" type="submit" color="secondary">
 					LOGIN
