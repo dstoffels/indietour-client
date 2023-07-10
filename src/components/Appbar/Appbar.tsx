@@ -1,36 +1,25 @@
 import React, { forwardRef } from 'react';
-import {
-	AppBar,
-	Box,
-	Button,
-	FormControlLabel,
-	Grid,
-	Hidden,
-	IconButton,
-	Switch,
-	Toolbar,
-} from '@mui/material';
+import { AppBar, Box, Button, Hidden, Toolbar } from '@mui/material';
 
 import DarkModeSwitch from 'components/DarkModeSwitch/DarkModeSwitch';
+import IconMenu from 'components/core/IconMenu/IconMenu';
+import MainMenu from 'components/MainMenu/MainMenu';
+import LoginForm from 'components/forms/LoginForm/LoginForm';
 
-const Appbar = forwardRef((props, ref: React.Ref<HTMLDivElement>) => {
+const Appbar = forwardRef(({}, ref: React.Ref<HTMLDivElement>) => {
 	return (
 		<AppBar ref={ref} color="inherit" position="fixed">
 			<Toolbar>
 				<Box flexGrow={1}></Box>
 				<Box>
-					{/* <FormControlLabel
-						label="Dark Mode"
-						control={<Switch checked={theme === darkTheme} onClick={toggleMode} />}
-					/> */}
 					<Hidden smDown>
 						<Button>Sign up</Button>
-						<Button>Sign in</Button>
+						<LoginForm inline />
+						<DarkModeSwitch />
 					</Hidden>
 					<Hidden smUp>
-						<IconButton></IconButton>
+						<MainMenu />
 					</Hidden>
-					<DarkModeSwitch />
 				</Box>
 			</Toolbar>
 		</AppBar>

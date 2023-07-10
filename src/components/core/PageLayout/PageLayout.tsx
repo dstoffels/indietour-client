@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Appbar from '../Appbar/Appbar';
+import Appbar from '../../Appbar/Appbar';
 import { Box } from '@mui/material';
 
 const PageLayout = ({ children }: React.PropsWithChildren) => {
 	const [marginTop, setMarginTop] = useState(0);
-	const appbarRef = useRef<HTMLDivElement>(null);
+	const appbarRef = useRef<HTMLDivElement | null>(null);
 
 	const handleWindowResize = () => {
 		if (appbarRef.current) {

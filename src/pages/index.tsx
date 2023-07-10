@@ -1,22 +1,28 @@
-import { Typography, Box, Divider } from '@mui/material';
+import { Typography, Box, Divider, Grid } from '@mui/material';
+import RegisterForm from 'components/forms/RegisterForm/RegisterForm';
 import * as React from 'react';
 
 import { useState } from 'react';
 
 const HomePage = ({}) => {
 	return (
-		<>
-			<Typography variant="h3">Welcome to indietour</Typography>
-			<Divider />
-
-			<Typography variant="h3">
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente esse dolor reprehenderit,
-				quas velit voluptates temporibus earum fugiat, quasi aliquid iste laboriosam pariatur
-				explicabo quam in fuga voluptas quae non? Lorem ipsum dolor sit amet consectetur adipisicing
-				elit. Sit quibusdam ab, voluptatem officia suscipit cum in modi autem hic consequuntur alias
-				iste facere architecto dicta expedita facilis corporis corrupti! Mollitia.
-			</Typography>
-		</>
+		<Grid
+			component="section"
+			container
+			padding={2}
+			justifyContent="center"
+			alignItems="center"
+			textAlign="center"
+		>
+			<Box maxWidth={500}>
+				<Typography variant="h3">indietour</Typography>
+				<Typography>
+					Booking and Tour Management made easy for the independent artist, so you can focus on the
+					shit that matters.
+				</Typography>
+				<RegisterForm />
+			</Box>
+		</Grid>
 	);
 };
 
