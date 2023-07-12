@@ -1,18 +1,29 @@
 import { Typography, Box, Divider, Grid, Button } from '@mui/material';
-import axios from 'axios';
 import RegisterForm from 'components/forms/RegisterForm/RegisterForm';
 import * as React from 'react';
 
-import { useState } from 'react';
 import apiRoutes from 'utils/apiRoutes';
 
 const HomePage = ({}) => {
 	const fetchBands = async () => {
 		try {
-			const response = await apiRoutes.get('/bands/d78ad203-97d0-4f81-bfa8-e138252578c7');
+			const response = await fetch('/api/bands', { method: 'GET' });
+			console.log(await response.json());
+		} catch (error) {}
+		// try {
+		// 	const response = await apiRoutes.get('/bands');
+		// 	console.log(response.data);
+		// } catch (error) {
+		// 	console.error(error);
+		// }
+	};
+
+	const logout = async () => {
+		try {
+			const response = await apiRoutes.post('/auth/logout');
 			console.log(response.data);
-		} catch (error) {
-			console.error(error);
+		} catch (error: Error | any) {
+			console.error(error.response.data);
 		}
 	};
 
@@ -32,6 +43,7 @@ const HomePage = ({}) => {
 					shit that matters.
 				</Typography>
 				<RegisterForm />
+				<Button onClick={logout}>Log Out</Button>
 				<Button onClick={fetchBands}>Get Bands</Button>
 			</Box>
 		</Grid>
