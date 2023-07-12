@@ -34,7 +34,10 @@
 		"**/*.tsx",
 		".next/types/**/*.ts",
 		"src/context/globalContext",
-		"src/pages/_app.tsx"
+		"src/pages/_app.tsx",
+		"src/utils/api.ts",
+		"src/utils/stuff.js",
+		"src/pages/api/auth/login.ts"
 	],
 	"exclude": ["node_modules"]
 }

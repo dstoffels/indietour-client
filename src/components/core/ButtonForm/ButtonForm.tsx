@@ -15,7 +15,7 @@ const ButtonForm = ({
 	children,
 	info,
 	autoclose = true,
-	timeout = 200,
+	timeout = 400,
 	disabled,
 	spacing,
 }: ButtonFormProps) => {
@@ -33,6 +33,17 @@ const ButtonForm = ({
 
 	return (
 		<Box my={2}>
+			<Collapse in={!showForm} timeout={timeout}>
+				<Button
+					variant={btnVariant}
+					color={btnColor}
+					size="large"
+					startIcon={btnIcon}
+					onClick={handleShowForm}
+				>
+					{btnText}
+				</Button>
+			</Collapse>
 			<Collapse in={showForm} timeout={timeout}>
 				<Box component="form" onSubmit={handleSubmit} padding={1}>
 					<Stack spacing={1}>
@@ -57,17 +68,6 @@ const ButtonForm = ({
 						</SideStack>
 					</Stack>
 				</Box>
-			</Collapse>
-			<Collapse in={!showForm} timeout={timeout}>
-				<Button
-					variant={btnVariant}
-					color={btnColor}
-					size="large"
-					startIcon={btnIcon}
-					onClick={handleShowForm}
-				>
-					{btnText}
-				</Button>
 			</Collapse>
 		</Box>
 	);

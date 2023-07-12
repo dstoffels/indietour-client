@@ -4,14 +4,13 @@ import useForm from 'hooks/useForm';
 import * as React from 'react';
 
 const RegisterForm = ({}) => {
+	const initialData = { email: '', username: '', password: '', password2: '' };
+
 	const onSubmit = (formData: object) => {
 		console.log(formData);
 	};
 
-	const { formData, handleChange, handleSubmit } = useForm<FormData>(
-		{ email: '', username: '', password: '', password2: '' },
-		onSubmit,
-	);
+	const { formData, handleChange, handleSubmit } = useForm<FormData>(initialData, onSubmit);
 
 	const disabled = !formData.password || formData.password !== formData.password2;
 
@@ -23,7 +22,6 @@ const RegisterForm = ({}) => {
 			spacing={1}
 			btnColor="secondary"
 			onSubmit={handleSubmit}
-			info="Create new account."
 			disabled={disabled}
 		>
 			<TextField

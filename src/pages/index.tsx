@@ -1,10 +1,21 @@
-import { Typography, Box, Divider, Grid } from '@mui/material';
+import { Typography, Box, Divider, Grid, Button } from '@mui/material';
+import axios from 'axios';
 import RegisterForm from 'components/forms/RegisterForm/RegisterForm';
 import * as React from 'react';
 
 import { useState } from 'react';
+import apiRoutes from 'utils/apiRoutes';
 
 const HomePage = ({}) => {
+	const fetchBands = async () => {
+		try {
+			const response = await apiRoutes.get('/bands/d78ad203-97d0-4f81-bfa8-e138252578c7');
+			console.log(response.data);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	return (
 		<Grid
 			component="section"
@@ -21,6 +32,7 @@ const HomePage = ({}) => {
 					shit that matters.
 				</Typography>
 				<RegisterForm />
+				<Button onClick={fetchBands}>Get Bands</Button>
 			</Box>
 		</Grid>
 	);

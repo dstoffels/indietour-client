@@ -13,7 +13,6 @@ const Appbar = forwardRef(({}, ref: React.Ref<HTMLDivElement>) => {
 				<Box flexGrow={1}></Box>
 				<Box>
 					<Hidden smDown>
-						<Button>Sign up</Button>
 						<LoginForm inline />
 						<DarkModeSwitch />
 					</Hidden>

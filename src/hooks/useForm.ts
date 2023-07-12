@@ -1,12 +1,17 @@
 import * as React from 'react';
 import { useState } from 'react';
 
-const useForm=<T extends object> (initialData: T, onSubmit: (formData: object) => void) => {
+const useForm=<T extends object> (initialData: T, onSubmit: (formData: T) => void) => {
     const [formData, setformData] = useState(initialData);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        onSubmit(formData)
+        try{
+            onSubmit(formData)
+        }
+        catch (e) {
+            console.error(e)
+        }
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
