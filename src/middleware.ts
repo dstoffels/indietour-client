@@ -2,45 +2,41 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(request: NextRequest) {
 	let access = request.cookies.get('access');
-	let headers;
+	let cookies = '';
+
 	if (!access) {
 		let refresh = request.cookies.get('refresh');
-		const response = await fetch('http://127.0.0.1:8000/api/auth/refresh', {
-			method: 'POST',
-			body: JSON.stringify({ refresh: refresh?.value }),
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
-
-		const refreshResponse = new NextResponse(response.body, {
-			status: response.status,
-			headers: response.headers,
-		});
-
-		access = refreshResponse.cookies.get('access');
-		headers = refreshResponse.headers;
+		if (refresh) {
+			// auto refresh request
+			const response = await fetch('http://127.0.0.1:8000/api/auth/refresh', {
+				method: 'POST',
+				body: JSON.stringify({ refresh: refresh?.value }),
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			cookies = response.headers.get('Set-Cookie') || cookies;
+		} else {
+			// logic to clear user from localstorage?
+		}
 	}
 
-	const body = (await request.text()) || null;
+	const headers = !cookies
+		? request.headers
+		: {
+				'Content-Type': 'application/json',
+				Cookie: cookies,
+		  };
 
+	// initial request
+	const body = (await request.text()) || null;
 	let response = await fetch(`http://127.0.0.1:8000${request.nextUrl.pathname}`, {
 		method: request.method,
 		body,
-		headers: {
-			Authorization: `Bearer ${access?.value}`,
-			'Content-Type': 'application/json',
-		},
+		headers,
 	});
 
-	if (headers) {
-		const nextRes = new NextResponse(response.body, {
-			status: response.status,
-			headers,
-		});
-
-		return nextRes;
-	}
+	if (cookies) response.headers.set('Set-Cookie', cookies);
 
 	return response;
 }
