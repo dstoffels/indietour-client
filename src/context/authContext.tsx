@@ -7,12 +7,13 @@ const defaultContext: AuthContextOutput = {
 	login: async (credentials: LoginCredentials) => false,
 	logout: async () => false,
 	register: async (formData: RegiserFormData) => false,
+	loading: true,
 };
 
 const AuthContext = createContext<AuthContextOutput>(defaultContext);
 
 const AuthProvider = ({ children }: any) => {
-	const [user, setUser] = useLocalStorage<object | null>('user');
+	const [user, setUser, loading] = useLocalStorage<object | null>('user');
 
 	const login = async (credentials: LoginCredentials) => {
 		try {
@@ -46,7 +47,7 @@ const AuthProvider = ({ children }: any) => {
 	};
 
 	return (
-		<AuthContext.Provider value={{ user, login, logout, register }}>
+		<AuthContext.Provider value={{ user, login, logout, register, loading }}>
 			{children}
 		</AuthContext.Provider>
 	);
@@ -61,6 +62,7 @@ export interface AuthContextOutput {
 	login: loginFn;
 	logout: logoutFn;
 	register: registerFn;
+	loading: boolean;
 }
 
 export interface LoginCredentials {

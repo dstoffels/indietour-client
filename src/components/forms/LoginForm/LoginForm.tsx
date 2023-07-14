@@ -5,13 +5,13 @@ import useForm from 'hooks/useForm';
 import * as React from 'react';
 
 const LoginForm = ({ inline = false }) => {
-	const { user, login } = useAuth();
+	const { user, login, loading } = useAuth();
 	const initialData = { email: '', password: '' };
 
 	const { formData, handleChange, handleSubmit, ErrorPopover, popoverRef } =
 		useForm<LoginCredentials>(initialData, login);
 
-	return user ? null : (
+	return loading || user ? null : (
 		<Box ref={popoverRef} component="form" display="inline-block" onSubmit={handleSubmit}>
 			<Stack spacing={1} padding={1} direction={inline ? 'row' : 'column'}>
 				<TextField

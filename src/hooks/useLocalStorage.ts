@@ -1,25 +1,16 @@
 import { useEffect, useState } from 'react';
 
-const useLocalStorage = <T>(key: string): [T | null, (value: T) => void] => {
-	if (typeof window === 'undefined') {
-		return [null, (value: T) => {}];
-	}
-
-	const storedValue = localStorage.getItem(key);
-
-	const [value, setValue] = useState<T | null>(storedValue && JSON.parse(storedValue));
-
-	const handleStorageChange = (event: StorageEvent) => {
-		console.log(event);
-		if (event.key === key) {
-			event.newValue && setValue(JSON.parse(event.newValue));
-		}
-	};
+const useLocalStorage = <T>(
+	key: string,
+	defaultValue = null,
+): [T | null, (value: T) => void, boolean] => {
+	const [value, setValue] = useState<T | null>(defaultValue);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		window.addEventListener('storage', handleStorageChange);
-
-		return () => window.removeEventListener('storage', handleStorageChange);
+		const item = localStorage.getItem(key);
+		item && setValue(JSON.parse(item));
+		setLoading(false);
 	}, []);
 
 	function updateValue(value: T) {
@@ -27,7 +18,7 @@ const useLocalStorage = <T>(key: string): [T | null, (value: T) => void] => {
 		localStorage.setItem(key, JSON.stringify(value));
 	}
 
-	return [value, updateValue];
+	return [value, updateValue, loading];
 };
 
 export default useLocalStorage;

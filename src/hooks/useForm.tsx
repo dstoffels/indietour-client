@@ -1,19 +1,24 @@
 import { AxiosError } from 'axios';
 import * as React from 'react';
 import { useState } from 'react';
-import { Box, Popover, Typography } from '@mui/material';
+import { Box, CircularProgress, Popover, Typography } from '@mui/material';
 import { useTheme } from 'context/globalContext';
 
 const useForm = <T extends object>(initialData: T, onSubmit: (formData: T) => Promise<boolean>) => {
 	const [formData, setformData] = useState(initialData);
 	const [errors, setErrors] = useState<string | React.ReactElement[]>('');
+	const [loading, setLoading] = useState(false);
 	const { theme } = useTheme();
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		try {
 			e.preventDefault();
-			return await onSubmit(formData);
+			setLoading(true);
+			const success = await onSubmit(formData);
+			setLoading(false);
+			return success;
 		} catch (e: AxiosError | any) {
+			// setLoading(false)
 			console.error(e.response.data);
 			const { data } = e.response;
 			if (data.detail) setErrors(data.detail);
@@ -49,7 +54,29 @@ const useForm = <T extends object>(initialData: T, onSubmit: (formData: T) => Pr
 		</Popover>
 	);
 
-	return { formData, handleChange, handleSubmit, ErrorPopover, popoverRef };
+	const LoadingAnimation = () =>
+		loading && (
+			<CircularProgress
+				size={24}
+				sx={{
+					position: 'absolute',
+					top: '50%',
+					left: '50%',
+					marginTop: '-12px',
+					marginBottom: '-12px',
+				}}
+			/>
+		);
+
+	return {
+		formData,
+		handleChange,
+		handleSubmit,
+		ErrorPopover,
+		popoverRef,
+		loading,
+		LoadingAnimation,
+	};
 };
 
 export default useForm;

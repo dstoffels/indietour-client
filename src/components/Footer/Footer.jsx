@@ -15,8 +15,8 @@ const Footer = ({}) => {
 				<Box flexGrow={1}>
 					<Button onClick={handleHome}>Home</Button>
 				</Box>
-				<DarkModeSwitch />
 				<LogoutBtn />
+				<DarkModeSwitch />
 			</SideStack>
 		</AppBar>
 	);
