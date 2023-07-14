@@ -4,8 +4,9 @@ import api from 'utils/api';
 
 const defaultContext: AuthContextOutput = {
 	user: null,
-	login: async function (credentials: LoginCredentials): Promise<void> {},
-	logout: async function (): Promise<void> {},
+	login: async (credentials: LoginCredentials) => false,
+	logout: async () => false,
+	register: async (formData: RegiserFormData) => false,
 };
 
 const AuthContext = createContext<AuthContextOutput>(defaultContext);
@@ -17,6 +18,7 @@ const AuthProvider = ({ children }: any) => {
 		try {
 			const response = await api.post('/auth/login', credentials);
 			setUser(response.data);
+			return true;
 		} catch (error) {
 			throw error;
 		}
@@ -26,12 +28,28 @@ const AuthProvider = ({ children }: any) => {
 		try {
 			const response = await api.post('/auth/logout');
 			setUser(response.data);
+			return true;
 		} catch (error: any) {
 			console.log(error.response.data);
+			return false;
 		}
 	};
 
-	return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;
+	const register = async (formData: RegiserFormData) => {
+		try {
+			const response = await api.post('/auth/register', formData);
+			setUser(response.data);
+			return true;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	return (
+		<AuthContext.Provider value={{ user, login, logout, register }}>
+			{children}
+		</AuthContext.Provider>
+	);
 };
 
 export default AuthProvider;
@@ -40,8 +58,9 @@ export const useAuth = () => useContext<AuthContextOutput>(AuthContext);
 
 export interface AuthContextOutput {
 	user: object | null;
-	login: (credentials: LoginCredentials) => Promise<void>;
-	logout: () => Promise<void>;
+	login: loginFn;
+	logout: logoutFn;
+	register: registerFn;
 }
 
 export interface LoginCredentials {
@@ -55,3 +74,7 @@ export interface RegiserFormData {
 	password: string;
 	password2: string;
 }
+
+type loginFn = (credentials: LoginCredentials) => Promise<boolean>;
+type logoutFn = () => Promise<boolean>;
+type registerFn = (formData: RegiserFormData) => Promise<boolean>;

@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Popover, Popper, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Popover, Stack, TextField, Typography } from '@mui/material';
 
 import { useAuth, LoginCredentials } from 'context/authContext';
 import useForm from 'hooks/useForm';
@@ -8,17 +8,11 @@ const LoginForm = ({ inline = false }) => {
 	const { user, login } = useAuth();
 	const initialData = { email: '', password: '' };
 
-	const { formData, handleChange, handleSubmit, errors, clearErrors } = useForm<LoginCredentials>(
-		initialData,
-		login,
-	);
-
-	const ref = React.useRef(null);
-
-	const open = Boolean(errors);
+	const { formData, handleChange, handleSubmit, ErrorPopover, popoverRef } =
+		useForm<LoginCredentials>(initialData, login);
 
 	return user ? null : (
-		<Box ref={ref} component="form" display="inline-block" onSubmit={handleSubmit}>
+		<Box ref={popoverRef} component="form" display="inline-block" onSubmit={handleSubmit}>
 			<Stack spacing={1} padding={1} direction={inline ? 'row' : 'column'}>
 				<TextField
 					required
@@ -41,17 +35,8 @@ const LoginForm = ({ inline = false }) => {
 				<Button variant="contained" type="submit" color="secondary">
 					LOGIN
 				</Button>
-				<Popover
-					open={open}
-					onClose={clearErrors}
-					anchorEl={ref.current}
-					anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-				>
-					<Typography padding={1} color="error">
-						{errors}
-					</Typography>
-				</Popover>
 			</Stack>
+			<ErrorPopover />
 		</Box>
 	);
 };

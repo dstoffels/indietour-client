@@ -15,8 +15,8 @@ interface SideStackProps {
 const SideStack = ({
 	spacing = 2,
 	padding = 0,
-	paddingX = 0,
-	paddingY = 0,
+	paddingX,
+	paddingY,
 	justifyContent = 'space-between',
 	children,
 	className = '',

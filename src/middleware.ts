@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
 			});
 			cookies = response.headers.get('Set-Cookie') || cookies;
 		} else {
-			// logic to clear user from localstorage?
+			// return TODO: response to nullify user in localstorage on client goes here? :)
 		}
 	}
 

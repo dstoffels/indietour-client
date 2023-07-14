@@ -1,6 +1,6 @@
 import * as React from 'react';
 import GlobalContextProvider from 'context/globalContext';
-import PageLayout from 'components/core/PageLayout/PageLayout';
+import BasePage from 'components/page/BasePage/BasePage';
 import 'themes/global.css';
 import AuthProvider from 'context/authContext';
 

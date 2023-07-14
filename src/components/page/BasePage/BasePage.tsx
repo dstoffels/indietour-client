@@ -3,7 +3,7 @@ import Header from '../../Header/Header';
 import { Box } from '@mui/material';
 import Footer from 'components/Footer/Footer';
 
-const PageLayout = ({ children }: React.PropsWithChildren) => {
+const BasePage = ({ headerChildren, children }: PageProps) => {
 	const [marginTop, setMarginTop] = useState(0);
 	const appbarRef = useRef<HTMLDivElement | null>(null);
 
@@ -21,7 +21,7 @@ const PageLayout = ({ children }: React.PropsWithChildren) => {
 
 	return (
 		<Box className="main">
-			<Header ref={appbarRef} />
+			<Header ref={appbarRef}>{headerChildren}</Header>
 			<Box className="page-content" marginTop={`${marginTop}px`}>
 				{children}
 			</Box>
@@ -30,4 +30,8 @@ const PageLayout = ({ children }: React.PropsWithChildren) => {
 	);
 };
 
-export default PageLayout;
+export default BasePage;
+
+interface PageProps extends React.PropsWithChildren {
+	headerChildren?: React.ReactNode;
+}

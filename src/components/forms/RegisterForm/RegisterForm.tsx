@@ -1,16 +1,16 @@
 import { TextField } from '@mui/material';
-import ButtonForm from 'components/core/ButtonForm/ButtonForm';
+import ButtonForm from 'components/forms/ButtonForm/ButtonForm';
+import { RegiserFormData, useAuth } from 'context/authContext';
 import useForm from 'hooks/useForm';
 import * as React from 'react';
 
 const RegisterForm = ({}) => {
 	const initialData = { email: '', username: '', password: '', password2: '' };
 
-	const onSubmit = (formData: object) => {
-		console.log(formData);
-	};
+	const { register } = useAuth();
 
-	const { formData, handleChange, handleSubmit } = useForm<FormData>(initialData, onSubmit);
+	const { formData, handleChange, handleSubmit, ErrorPopover, popoverRef } =
+		useForm<RegiserFormData>(initialData, register);
 
 	const disabled = !formData.password || formData.password !== formData.password2;
 
@@ -23,6 +23,8 @@ const RegisterForm = ({}) => {
 			btnColor="secondary"
 			onSubmit={handleSubmit}
 			disabled={disabled}
+			submitBtnTxt="Sign Up"
+			ref={popoverRef}
 		>
 			<TextField
 				label="Email"
@@ -52,6 +54,7 @@ const RegisterForm = ({}) => {
 				onChange={handleChange}
 				type="password"
 			/>
+			<ErrorPopover />
 		</ButtonForm>
 	);
 };

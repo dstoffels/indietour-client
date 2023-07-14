@@ -1,20 +1,12 @@
 import { Typography, Box, Divider, Grid, Button } from '@mui/material';
-import PageLayout from 'components/core/PageLayout/PageLayout';
+import BasePage from 'components/page/BasePage/BasePage';
 import RegisterForm from 'components/forms/RegisterForm/RegisterForm';
 import * as React from 'react';
-
-import api from 'utils/api';
+import PublicPage from 'components/page/PublicPage/PublicPage';
 
 const HomePage = ({}) => {
-	const fetchBands = async () => {
-		try {
-			const response = await fetch('/api/bands', { method: 'GET' });
-			console.log(await response.json());
-		} catch (error) {}
-	};
-
 	return (
-		<PageLayout>
+		<PublicPage>
 			<Grid
 				component="section"
 				container
@@ -30,10 +22,9 @@ const HomePage = ({}) => {
 						the shit that matters.
 					</Typography>
 					<RegisterForm />
-					<Button onClick={fetchBands}>Get Bands</Button>
 				</Box>
 			</Grid>
-		</PageLayout>
+		</PublicPage>
 	);
 };
 
