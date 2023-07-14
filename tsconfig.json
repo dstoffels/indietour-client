@@ -21,11 +21,11 @@
 		],
 		"baseUrl": ".",
 		"paths": {
-			"*": ["./src/*"]
-			// "@components/*": ["components/*"],
-			// "@styles/*": ["styles/*"],
-			// "@utils/*": ["utils/*"],
-			// "@hooks/*": ["hooks/*"],
+			"*": ["./src/*"],
+			"@components/*": ["components/*"],
+			"@styles/*": ["styles/*"],
+			"@utils/*": ["utils/*"],
+			"@hooks/*": ["hooks/*"]
 		}
 	},
 	"include": [

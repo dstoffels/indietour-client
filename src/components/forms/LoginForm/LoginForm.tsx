@@ -1,28 +1,27 @@
-import { Box, Button, Grid, Stack, TextField } from '@mui/material';
-import axios from 'axios';
+import { Box, Button, Grid, Popover, Popper, Stack, TextField, Typography } from '@mui/material';
+
+import { useAuth, LoginCredentials } from 'context/authContext';
 import useForm from 'hooks/useForm';
 import * as React from 'react';
-import { useState } from 'react';
-import apiRoutes from 'utils/apiRoutes';
 
 const LoginForm = ({ inline = false }) => {
+	const { user, login } = useAuth();
 	const initialData = { email: '', password: '' };
 
-	const onSubmit = async (formData: LoginCredentials) => {
-		try {
-			const response = await axios.post('/api/auth/login', formData);
-			console.log(response.data);
-		} catch (error: Error | any) {
-			console.error(error.response.data);
-		}
-	};
+	const { formData, handleChange, handleSubmit, errors, clearErrors } = useForm<LoginCredentials>(
+		initialData,
+		login,
+	);
 
-	const { formData, handleChange, handleSubmit } = useForm<LoginCredentials>(initialData, onSubmit);
+	const ref = React.useRef(null);
 
-	return (
-		<Box component="form" display="inline-block" onSubmit={handleSubmit}>
+	const open = Boolean(errors);
+
+	return user ? null : (
+		<Box ref={ref} component="form" display="inline-block" onSubmit={handleSubmit}>
 			<Stack spacing={1} padding={1} direction={inline ? 'row' : 'column'}>
 				<TextField
+					required
 					size="small"
 					label="Email"
 					type="email"
@@ -31,6 +30,7 @@ const LoginForm = ({ inline = false }) => {
 					onChange={handleChange}
 				/>
 				<TextField
+					required
 					size="small"
 					label="Password"
 					type="password"
@@ -41,14 +41,19 @@ const LoginForm = ({ inline = false }) => {
 				<Button variant="contained" type="submit" color="secondary">
 					LOGIN
 				</Button>
+				<Popover
+					open={open}
+					onClose={clearErrors}
+					anchorEl={ref.current}
+					anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+				>
+					<Typography padding={1} color="error">
+						{errors}
+					</Typography>
+				</Popover>
 			</Stack>
 		</Box>
 	);
 };
 
 export default LoginForm;
-
-interface LoginCredentials {
-	email: string;
-	password: string;
-}

@@ -2,14 +2,15 @@ import * as React from 'react';
 import GlobalContextProvider from 'context/globalContext';
 import PageLayout from 'components/core/PageLayout/PageLayout';
 import 'themes/global.css';
+import AuthProvider from 'context/authContext';
 
 const App = ({ Component, props }: any) => {
 	return (
-		<GlobalContextProvider>
-			<PageLayout>
+		<AuthProvider>
+			<GlobalContextProvider>
 				<Component {...props} />
-			</PageLayout>
-		</GlobalContextProvider>
+			</GlobalContextProvider>
+		</AuthProvider>
 	);
 };
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Appbar from '../../Appbar/Appbar';
+import Header from '../../Header/Header';
 import { Box } from '@mui/material';
+import Footer from 'components/Footer/Footer';
 
 const PageLayout = ({ children }: React.PropsWithChildren) => {
 	const [marginTop, setMarginTop] = useState(0);
@@ -20,10 +21,11 @@ const PageLayout = ({ children }: React.PropsWithChildren) => {
 
 	return (
 		<Box className="main">
-			<Appbar ref={appbarRef} />
+			<Header ref={appbarRef} />
 			<Box className="page-content" marginTop={`${marginTop}px`}>
 				{children}
 			</Box>
+			<Footer />
 		</Box>
 	);
 };

@@ -1,8 +1,9 @@
 import { Typography, Box, Divider, Grid, Button } from '@mui/material';
+import PageLayout from 'components/core/PageLayout/PageLayout';
 import RegisterForm from 'components/forms/RegisterForm/RegisterForm';
 import * as React from 'react';
 
-import apiRoutes from 'utils/apiRoutes';
+import api from 'utils/api';
 
 const HomePage = ({}) => {
 	const fetchBands = async () => {
@@ -10,43 +11,29 @@ const HomePage = ({}) => {
 			const response = await fetch('/api/bands', { method: 'GET' });
 			console.log(await response.json());
 		} catch (error) {}
-		// try {
-		// 	const response = await apiRoutes.get('/bands');
-		// 	console.log(response.data);
-		// } catch (error) {
-		// 	console.error(error);
-		// }
-	};
-
-	const logout = async () => {
-		try {
-			const response = await apiRoutes.post('/auth/logout');
-			console.log(response.data);
-		} catch (error: Error | any) {
-			console.error(error.response.data);
-		}
 	};
 
 	return (
-		<Grid
-			component="section"
-			container
-			padding={2}
-			justifyContent="center"
-			alignItems="center"
-			textAlign="center"
-		>
-			<Box maxWidth={500}>
-				<Typography variant="h3">indietour</Typography>
-				<Typography>
-					Booking and Tour Management made easy for the independent artist, so you can focus on the
-					shit that matters.
-				</Typography>
-				<RegisterForm />
-				<Button onClick={logout}>Log Out</Button>
-				<Button onClick={fetchBands}>Get Bands</Button>
-			</Box>
-		</Grid>
+		<PageLayout>
+			<Grid
+				component="section"
+				container
+				padding={2}
+				justifyContent="center"
+				alignItems="center"
+				textAlign="center"
+			>
+				<Box maxWidth={500}>
+					<Typography variant="h3">indietour</Typography>
+					<Typography>
+						Booking and Tour Management made easy for the independent artist, so you can focus on
+						the shit that matters.
+					</Typography>
+					<RegisterForm />
+					<Button onClick={fetchBands}>Get Bands</Button>
+				</Box>
+			</Grid>
+		</PageLayout>
 	);
 };
 

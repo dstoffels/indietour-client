@@ -5,8 +5,9 @@ import DarkModeSwitch from 'components/DarkModeSwitch/DarkModeSwitch';
 import IconMenu from 'components/core/IconMenu/IconMenu';
 import MainMenu from 'components/MainMenu/MainMenu';
 import LoginForm from 'components/forms/LoginForm/LoginForm';
+import LogoutBtn from 'components/LogoutBtn/LogoutBtn';
 
-const Appbar = forwardRef(({}, ref: React.Ref<HTMLDivElement>) => {
+const Header = forwardRef(({}, ref: React.Ref<HTMLDivElement>) => {
 	return (
 		<AppBar ref={ref} color="inherit" position="fixed">
 			<Toolbar>
@@ -14,6 +15,7 @@ const Appbar = forwardRef(({}, ref: React.Ref<HTMLDivElement>) => {
 				<Box>
 					<Hidden smDown>
 						<LoginForm inline />
+						<LogoutBtn />
 						<DarkModeSwitch />
 					</Hidden>
 					<Hidden smUp>
@@ -25,4 +27,4 @@ const Appbar = forwardRef(({}, ref: React.Ref<HTMLDivElement>) => {
 	);
 });
 
-export default Appbar;
+export default Header;

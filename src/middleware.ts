@@ -30,6 +30,7 @@ export async function middleware(request: NextRequest) {
 
 	// initial request
 	const body = (await request.text()) || null;
+
 	let response = await fetch(`http://127.0.0.1:8000${request.nextUrl.pathname}`, {
 		method: request.method,
 		body,
