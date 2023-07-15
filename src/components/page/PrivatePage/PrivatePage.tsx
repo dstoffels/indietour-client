@@ -5,11 +5,11 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 const PrivatePage = ({ children }: React.PropsWithChildren) => {
-	const { user, loading } = useAuth();
+	const { user } = useAuth();
 	const { push } = useRouter();
 
 	useEffect(() => {
-		!loading && !user && push('/');
+		!user && push('/');
 	}, [user]);
 
 	return <BasePage>{children}</BasePage>;

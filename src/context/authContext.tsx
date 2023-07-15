@@ -12,6 +12,7 @@ const AuthContext = createContext<AuthContextOutput>(defaultContext);
 
 const AuthProvider = ({ children }: any) => {
 	const [user, setUser] = useState<object | null>(null);
+	console.log(user);
 
 	const login = async (credentials: LoginCredentials) => {
 		try {

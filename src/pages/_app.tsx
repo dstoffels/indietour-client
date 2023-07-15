@@ -6,11 +6,11 @@ import AuthProvider from 'context/authContext';
 
 const App = ({ Component, props }: any) => {
 	return (
-		<AuthProvider>
-			<GlobalContextProvider>
+		<GlobalContextProvider>
+			<AuthProvider>
 				<Component {...props} />
-			</GlobalContextProvider>
-		</AuthProvider>
+			</AuthProvider>
+		</GlobalContextProvider>
 	);
 };
 

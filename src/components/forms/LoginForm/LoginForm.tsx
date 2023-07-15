@@ -5,7 +5,7 @@ import useForm from 'hooks/useForm';
 import * as React from 'react';
 
 const LoginForm = ({ inline = false }) => {
-	const { user, login, loading } = useAuth();
+	const { user, login } = useAuth();
 	const initialData = { email: '', password: '' };
 
 	const { formData, handleChange, handleSubmit, ErrorPopover, popoverRef } =
@@ -13,7 +13,7 @@ const LoginForm = ({ inline = false }) => {
 
 	const disabled = !formData.email || !formData.password;
 
-	return loading || user ? null : (
+	return user ? null : (
 		<Box ref={popoverRef} component="form" display="inline-block" onSubmit={handleSubmit}>
 			<Stack spacing={1} padding={1} direction={inline ? 'row' : 'column'}>
 				<TextField

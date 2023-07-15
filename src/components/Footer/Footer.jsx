@@ -12,9 +12,7 @@ const Footer = ({}) => {
 	return (
 		<AppBar color="inherit" position="fixed" sx={{ top: 'auto', bottom: 0 }}>
 			<SideStack paddingX={2}>
-				<Box flexGrow={1}>
-					<Button onClick={handleHome}>Home</Button>
-				</Box>
+				<Box flexGrow={1}></Box>
 				<LogoutBtn />
 				<DarkModeSwitch />
 			</SideStack>
