@@ -1,5 +1,4 @@
-import useLocalStorage from 'hooks/useLocalStorage';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import api from 'utils/api';
 
 const defaultContext: AuthContextOutput = {
@@ -7,13 +6,14 @@ const defaultContext: AuthContextOutput = {
 	login: async (credentials: LoginCredentials) => false,
 	logout: async () => false,
 	register: async (formData: RegiserFormData) => false,
-	loading: true,
 };
 
 const AuthContext = createContext<AuthContextOutput>(defaultContext);
 
 const AuthProvider = ({ children }: any) => {
-	const [user, setUser, loading] = useLocalStorage<object | null>('user');
+	const [user, setUser] = useState<object | null>(null);
+
+	console.log(typeof user);
 
 	const login = async (credentials: LoginCredentials) => {
 		try {
@@ -46,8 +46,23 @@ const AuthProvider = ({ children }: any) => {
 		}
 	};
 
+	const refresh = async () => {
+		try {
+			const response = await api.post('/auth/refresh');
+			setUser(response.data);
+			return true;
+		} catch (error: any) {
+			console.log(error.response.data);
+			return false;
+		}
+	};
+
+	useEffect(() => {
+		refresh();
+	}, [setUser]);
+
 	return (
-		<AuthContext.Provider value={{ user, login, logout, register, loading }}>
+		<AuthContext.Provider value={{ user, login, logout, register }}>
 			{children}
 		</AuthContext.Provider>
 	);
@@ -62,7 +77,6 @@ export interface AuthContextOutput {
 	login: loginFn;
 	logout: logoutFn;
 	register: registerFn;
-	loading: boolean;
 }
 
 export interface LoginCredentials {

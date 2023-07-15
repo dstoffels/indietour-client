@@ -6,7 +6,10 @@ import BasePage from '../BasePage/BasePage';
 const PublicPage = ({ children }: React.PropsWithChildren) => {
 	const { push } = useRouter();
 	const { user } = useAuth();
-	user && push('/dashboard');
+	if (user) {
+		push('/dashboard');
+		return null;
+	}
 
 	return <BasePage>{children}</BasePage>;
 };

@@ -59,11 +59,11 @@ const ButtonForm = React.forwardRef(
 							<Stack spacing={spacing}>{children}</Stack>
 							<SideStack justifyContent="end" spacing={1}>
 								{info && <Typography variant="caption">{info}</Typography>}
-								<Button variant="contained" color="info" type="submit" disabled={disabled}>
-									{submitBtnTxt}
-								</Button>
 								<Button variant="contained" color="error" onClick={handleShowForm}>
 									Cancel
+								</Button>
+								<Button variant="contained" color="info" type="submit" disabled={disabled}>
+									{submitBtnTxt}
 								</Button>
 								{/* <Tooltip title="Submit">
 								<span>

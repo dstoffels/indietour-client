@@ -11,6 +11,8 @@ const LoginForm = ({ inline = false }) => {
 	const { formData, handleChange, handleSubmit, ErrorPopover, popoverRef } =
 		useForm<LoginCredentials>(initialData, login);
 
+	const disabled = !formData.email || !formData.password;
+
 	return loading || user ? null : (
 		<Box ref={popoverRef} component="form" display="inline-block" onSubmit={handleSubmit}>
 			<Stack spacing={1} padding={1} direction={inline ? 'row' : 'column'}>
@@ -32,7 +34,7 @@ const LoginForm = ({ inline = false }) => {
 					value={formData.password}
 					onChange={handleChange}
 				/>
-				<Button variant="contained" type="submit" color="secondary">
+				<Button disabled={disabled} variant="contained" type="submit" color="secondary">
 					LOGIN
 				</Button>
 			</Stack>

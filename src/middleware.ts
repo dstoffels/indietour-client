@@ -10,14 +10,9 @@ export async function middleware(request: NextRequest) {
 			// auto refresh request
 			const response = await fetch('http://127.0.0.1:8000/api/auth/refresh', {
 				method: 'POST',
-				body: JSON.stringify({ refresh: refresh?.value }),
-				headers: {
-					'Content-Type': 'application/json',
-				},
+				headers: request.headers,
 			});
 			cookies = response.headers.get('Set-Cookie') || cookies;
-		} else {
-			// return TODO: response to nullify user in localstorage on client goes here? :)
 		}
 	}
 
