@@ -4,7 +4,7 @@ export async function middleware(request: NextRequest) {
 	let access = request.cookies.get('access');
 	let cookies = '';
 
-	if (!access) {
+	if (!access && !request.nextUrl.pathname.includes('/api/auth')) {
 		let refresh = request.cookies.get('refresh');
 		if (refresh) {
 			// auto refresh request

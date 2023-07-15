@@ -13,8 +13,6 @@ const AuthContext = createContext<AuthContextOutput>(defaultContext);
 const AuthProvider = ({ children }: any) => {
 	const [user, setUser] = useState<object | null>(null);
 
-	console.log(typeof user);
-
 	const login = async (credentials: LoginCredentials) => {
 		try {
 			const response = await api.post('/auth/login', credentials);
@@ -22,17 +20,6 @@ const AuthProvider = ({ children }: any) => {
 			return true;
 		} catch (error) {
 			throw error;
-		}
-	};
-
-	const logout = async () => {
-		try {
-			const response = await api.post('/auth/logout');
-			setUser(response.data);
-			return true;
-		} catch (error: any) {
-			console.log(error.response.data);
-			return false;
 		}
 	};
 
@@ -55,6 +42,20 @@ const AuthProvider = ({ children }: any) => {
 			console.log(error.response.data);
 			return false;
 		}
+	};
+	const logout = async () => {
+		const success = await refresh();
+		if (success) {
+			try {
+				const response = await api.post('/auth/logout');
+				setUser(null);
+				return true;
+			} catch (error: any) {
+				console.log(error.response.data);
+				return false;
+			}
+		}
+		return false;
 	};
 
 	useEffect(() => {
