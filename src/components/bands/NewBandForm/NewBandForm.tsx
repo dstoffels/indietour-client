@@ -4,16 +4,8 @@ import useBand, { Band, useBands } from 'hooks/useBand';
 import useForm from 'hooks/useForm';
 import { useEffect, useRef } from 'react';
 
-const NewBandForm = ({ onClose, autoFocus }: BandFormProps) => {
-	const { createBand } = useBands();
-
-	const onSubmit = async (formData: object) => {
-		await createBand(formData);
-
-		// onClose && onClose();
-	};
-
-	const { formData, handleChange, handleSubmit } = useForm({ name: '' }, onSubmit);
+const NewBandForm = ({ bands, createBand, onClose, autoFocus }: BandFormProps) => {
+	const { formData, handleChange, handleSubmit } = useForm({ name: '' }, createBand);
 
 	const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -28,6 +20,7 @@ const NewBandForm = ({ onClose, autoFocus }: BandFormProps) => {
 			<TextField
 				size="small"
 				label="Band Name"
+				placeholder={!bands.length ? 'Create New Band' : ''}
 				name="name"
 				value={formData.name}
 				onChange={handleChange}
@@ -48,4 +41,6 @@ export default NewBandForm;
 interface BandFormProps {
 	onClose?: () => void;
 	autoFocus: boolean;
+	createBand: (bandData: object) => Promise<void>;
+	bands: Array<Band>;
 }

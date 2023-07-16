@@ -16,9 +16,9 @@ const AuthContext = createContext<AuthContextProps>(defaultContext);
 const AuthProvider = ({ children }: any) => {
 	const [user, setUser] = useState<User | null>(null);
 
-	useEffect(() => {
-		console.log(user);
-	}, [user]);
+	// useEffect(() => {
+	// 	console.log(user);
+	// }, [user]);
 
 	const login = async (credentials: LoginCredentials) => {
 		const response = await api.post('/auth/login', credentials);

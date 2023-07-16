@@ -14,8 +14,7 @@ import SideStack from 'components/core/SideStack/SideStack';
 
 interface iSelectorItem extends ReactElement<SelectorItemProps> {}
 
-const Selector = ({ initSelection, children }: SelectorProps) => {
-	const [selected, setSelected] = useState<string>(initSelection);
+const Selector = ({ selected, children }: SelectorProps) => {
 	const [anchor, setAnchor] = useState<HTMLButtonElement | null>(null);
 
 	const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -33,7 +32,6 @@ const Selector = ({ initSelection, children }: SelectorProps) => {
 		isValidElement<SelectorItemProps>(child)
 			? cloneElement(child, {
 					onClose: handleClose,
-					onSelect: setSelected,
 					selected: selected === child.props.children,
 			  })
 			: child,
@@ -61,5 +59,5 @@ const Selector = ({ initSelection, children }: SelectorProps) => {
 export default Selector;
 
 interface SelectorProps extends PropsWithChildren {
-	initSelection: string;
+	selected: string;
 }

@@ -18,44 +18,32 @@ const useBand = () => {
 		}
 	};
 
-	return { activeBand, setActiveBand, fetchBand };
+	return { activeBand, fetchBand };
 };
 
 export default useBand;
 
 export const useBands = () => {
 	const { user, updateUser } = useAuth();
-	const { activeBand, setActiveBand } = useBand();
 	const [bands, setBands] = useState<Array<Band>>([]);
 
 	const fetchBands = async () => {
-		try {
-			const response = await api.get('/bands?include=all');
-			setBands(response.data);
-		} catch (error) {
-			if (error instanceof AxiosError) {
-				console.error(error.response?.data);
-				throw error;
-			}
-		}
+		const response = await api.get('/bands?include=all');
+		setBands(response.data);
+	};
+
+	const setActiveBand = async (band_id: string) => {
+		const response = await updateUser({ active_band_id: band_id });
+		await fetchBands();
 	};
 
 	const createBand = async (bandData: object) => {
-		try {
-			const response = await api.post('/bands', bandData);
-			const band: Band = response.data;
-			updateUser({ active_band_id: band.id });
-			fetchBands();
-		} catch (error) {
-			if (error instanceof AxiosError) {
-				throw error;
-			}
-		}
+		const response = await api.post('/bands', bandData);
+		const band: Band = response.data;
+		setActiveBand(band.id);
 	};
 
-	useEffect(() => {
-		fetchBands();
-	}, []);
+	const activeBand = bands.find((band) => user?.active_band_id === band.id);
 
 	return { activeBand, setActiveBand, bands, fetchBands, createBand };
 };

@@ -17,7 +17,7 @@ export const globalErrorHandler = (setErrors: (errorMsgs: Array<string>) => void
 
 	api.interceptors.response.use(
 		(response) => response,
-		(error: AxiosError<ErrorData>) => {
+		(error: AxiosError<ErrorData> | any) => {
 			if (error.response) {
 				const { status, data } = error.response;
 				if (status === 400) {
