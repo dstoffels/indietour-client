@@ -1,12 +1,11 @@
 import { Typography, Box, Divider, Grid, Button } from '@mui/material';
-import BasePage from 'components/page/BasePage/BasePage';
-import RegisterForm from 'components/forms/RegisterForm/RegisterForm';
+import RegisterForm from 'components/auth/RegisterForm/RegisterForm';
 import * as React from 'react';
-import PublicPage from 'components/page/PublicPage/PublicPage';
+import PublicOnlyPage from 'components/page/PublicOnlyPage/PublicOnlyPage';
 
 const HomePage = ({}) => {
 	return (
-		<PublicPage>
+		<PublicOnlyPage>
 			<Grid
 				component="section"
 				container
@@ -24,7 +23,7 @@ const HomePage = ({}) => {
 					<RegisterForm />
 				</Box>
 			</Grid>
-		</PublicPage>
+		</PublicOnlyPage>
 	);
 };
 

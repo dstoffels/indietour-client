@@ -1,9 +1,8 @@
 import { Box, Button, Collapse, IconButton, Stack, Tooltip, Typography } from '@mui/material';
 import * as React from 'react';
 import { useState } from 'react';
-import SideStack from '../../core/SideStack/SideStack';
+import SideStack from '../SideStack/SideStack';
 import { Add, Check, Close } from '@mui/icons-material';
-import { useTheme } from 'context/globalContext';
 
 const ButtonForm = React.forwardRef(
 	(
@@ -28,9 +27,8 @@ const ButtonForm = React.forwardRef(
 
 		const handleSubmit = async (e: React.FormEvent) => {
 			e.preventDefault();
-			const success = await onSubmit(e);
-			console.log(success);
-			success && autoclose && setShowForm(false);
+			await onSubmit(e);
+			autoclose && setShowForm(false);
 		};
 
 		const handleShowForm = () => {
@@ -94,7 +92,7 @@ interface ButtonFormProps {
 	btnIcon?: React.ReactNode;
 	btnVariant?: 'contained' | 'outlined' | 'text';
 	btnColor?: 'inherit' | 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error';
-	onSubmit: (e: React.FormEvent) => Promise<boolean>;
+	onSubmit: (e: React.FormEvent) => Promise<void>;
 	children: React.ReactNode;
 	info?: string;
 	autoclose?: boolean;

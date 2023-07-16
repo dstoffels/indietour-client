@@ -11,6 +11,9 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@fontsource-variable/quicksand": "^5.0.5",
+    "@fontsource-variable/space-grotesk": "^5.0.5",
+    "@fontsource/titillium-web": "^5.0.5",
     "@mui/icons-material": "^5.13.7",
     "@mui/material": "^5.13.7",
     "@types/node": "20.4.1",

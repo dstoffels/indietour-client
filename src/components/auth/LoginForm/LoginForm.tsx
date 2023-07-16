@@ -1,4 +1,4 @@
-import { Box, Button, Popover, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Stack, TextField } from '@mui/material';
 
 import { useAuth, LoginCredentials } from 'context/authContext';
 import useForm from 'hooks/useForm';
@@ -8,13 +8,12 @@ const LoginForm = ({ inline = false }) => {
 	const { user, login } = useAuth();
 	const initialData = { email: '', password: '' };
 
-	const { formData, handleChange, handleSubmit, ErrorPopover, popoverRef } =
-		useForm<LoginCredentials>(initialData, login);
+	const { formData, handleChange, handleSubmit } = useForm<LoginCredentials>(initialData, login);
 
 	const disabled = !formData.email || !formData.password;
 
 	return user ? null : (
-		<Box ref={popoverRef} component="form" display="inline-block" onSubmit={handleSubmit}>
+		<Box component="form" display="inline-block" onSubmit={handleSubmit}>
 			<Stack spacing={1} padding={1} direction={inline ? 'row' : 'column'}>
 				<TextField
 					required
@@ -38,7 +37,6 @@ const LoginForm = ({ inline = false }) => {
 					LOGIN
 				</Button>
 			</Stack>
-			<ErrorPopover />
 		</Box>
 	);
 };

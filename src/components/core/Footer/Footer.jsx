@@ -1,8 +1,8 @@
 import { AppBar, Box, Button, Divider } from '@mui/material';
 import React from 'react';
-import DarkModeSwitch from 'components/DarkModeSwitch/DarkModeSwitch';
+import DarkModeSwitch from 'components/theme/DarkModeSwitch/DarkModeSwitch';
 import SideStack from 'components/core/SideStack/SideStack';
-import LogoutBtn from 'components/LogoutBtn/LogoutBtn';
+import LogoutBtn from 'components/auth/LogoutBtn/LogoutBtn';
 import { useRouter } from 'next/router';
 
 const Footer = ({}) => {

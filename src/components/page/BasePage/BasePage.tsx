@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Header from '../../Header/Header';
+import Header from '../../core/Header/Header';
 import { Box } from '@mui/material';
-import Footer from 'components/Footer/Footer';
+import Footer from 'components/core/Footer/Footer';
 
 const BasePage = ({ headerChildren, children }: PageProps) => {
 	const [marginTop, setMarginTop] = useState(0);
@@ -32,6 +32,6 @@ const BasePage = ({ headerChildren, children }: PageProps) => {
 
 export default BasePage;
 
-interface PageProps extends React.PropsWithChildren {
+export interface PageProps extends React.PropsWithChildren {
 	headerChildren?: React.ReactNode;
 }

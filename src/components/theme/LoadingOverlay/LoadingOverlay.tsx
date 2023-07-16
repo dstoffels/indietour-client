@@ -1,9 +1,9 @@
 import { Backdrop, Box, CircularProgress, Dialog } from '@mui/material';
 import * as React from 'react';
 
-const LoadingOverlay = ({ waiting }: LoadingOverlayProps) => {
+const LoadingOverlay = ({ loading }: LoadingOverlayProps) => {
 	return (
-		<Backdrop open={waiting}>
+		<Backdrop open={loading}>
 			<CircularProgress size={50} />
 		</Backdrop>
 	);
@@ -12,5 +12,5 @@ const LoadingOverlay = ({ waiting }: LoadingOverlayProps) => {
 export default LoadingOverlay;
 
 interface LoadingOverlayProps {
-	waiting: boolean;
+	loading: boolean;
 }

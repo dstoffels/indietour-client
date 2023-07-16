@@ -2,8 +2,8 @@ import React from 'react';
 import IconMenu from '../core/IconMenu/IconMenu';
 import { Divider, MenuItem } from '@mui/material';
 import { Menu } from '@mui/icons-material';
-import DarkModeSwitch from 'components/DarkModeSwitch/DarkModeSwitch';
-import LoginForm from 'components/forms/LoginForm/LoginForm';
+import DarkModeSwitch from 'components/theme/DarkModeSwitch/DarkModeSwitch';
+import LoginForm from 'components/auth/LoginForm/LoginForm';
 
 const MainMenu = ({}) => {
 	return (

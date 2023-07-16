@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { useAuth } from 'context/authContext';
 
 const LogoutBtn = ({}) => {
-	const { user, loading, logout } = useAuth();
+	const { user, logout } = useAuth();
 
 	return user && <Button onClick={logout}>Log Out</Button>;
 };

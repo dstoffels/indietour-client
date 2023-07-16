@@ -1,70 +1,29 @@
-import { createContext, useState, useContext, useEffect } from 'react';
-import lightTheme from 'themes/lightTheme.js';
-import darkTheme from 'themes/darkTheme.js';
-import { ThemeProvider, CssBaseline, Theme } from '@mui/material';
-import api from 'utils/api';
-import LoadingOverlay from 'components/LoadingOverlay/LoadingOverlay';
+import { Band } from 'hooks/useBand';
+import { createContext, useState, useContext, useEffect, PropsWithChildren } from 'react';
 
-const defaultContext: GlobalContextProps = {
-	waiting: false,
-	setWaiting: function (waiting: boolean): void {},
-	theme: darkTheme,
-	setTheme: function (theme: Theme): void {},
-};
+class GlobalContextProps {
+	activeBand: Band | null = null;
+	setActiveBand = (band: Band | null) => {};
+	activeTour = null;
+	setActiveTour = (tour: any) => {};
+	activeDate = null;
+	setActiveDate = (date: any) => {};
+}
 
-const GlobalContext = createContext(defaultContext);
+export const GlobalContext = createContext(new GlobalContextProps());
 
-export const GlobalContextProvider = ({ children }: any) => {
-	const [theme, setTheme] = useState(darkTheme);
-	const [waiting, setWaiting] = useState<boolean>(false);
-
-	useEffect(() => {
-		api.interceptors.request.use((config) => {
-			setWaiting(true);
-			return config;
-		});
-
-		api.interceptors.response.use(
-			(response) => {
-				setWaiting(false);
-				return response;
-			},
-			(error) => {
-				setWaiting(false);
-				return error;
-			},
-		);
-	}, []);
+export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
+	const [activeBand, setActiveBand] = useState<Band | null>(null);
+	const [activeTour, setActiveTour] = useState(null);
+	const [activeDate, setActiveDate] = useState(null);
 
 	return (
-		<GlobalContext.Provider value={{ theme, setTheme, waiting, setWaiting }}>
-			<ThemeProvider theme={theme}>
-				<CssBaseline />
-				{children}
-				<LoadingOverlay waiting={waiting} />
-			</ThemeProvider>
+		<GlobalContext.Provider
+			value={{ activeBand, setActiveBand, activeTour, setActiveTour, activeDate, setActiveDate }}
+		>
+			{children}
 		</GlobalContext.Provider>
 	);
 };
 
 export default GlobalContextProvider;
-
-export const useGlobals = () => useContext<GlobalContextProps>(GlobalContext);
-
-export const useTheme = () => {
-	const { theme, setTheme } = useGlobals();
-
-	const toggleMode = () => {
-		if (theme === darkTheme) setTheme(lightTheme);
-		else setTheme(darkTheme);
-	};
-
-	return { theme, toggleMode };
-};
-
-interface GlobalContextProps {
-	waiting: boolean;
-	setWaiting: (waiting: boolean) => void;
-	theme: Theme;
-	setTheme: (theme: Theme) => void;
-}

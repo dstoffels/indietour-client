@@ -1,30 +1,32 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import api from 'utils/api';
 
-const defaultContext: AuthContextOutput = {
-	user: null,
-	login: async (credentials: LoginCredentials) => false,
-	logout: async () => false,
-	register: async (formData: RegiserFormData) => false,
-};
+export class AuthContextProps {
+	user: User | null = null;
+	login = async (credentials: LoginCredentials) => false;
+	logout = async () => false;
+	register = async (formData: RegisterFormData) => false;
+	updateUser = async (data: object) => false;
+}
 
-const AuthContext = createContext<AuthContextOutput>(defaultContext);
+const defaultContext = new AuthContextProps();
+
+const AuthContext = createContext<AuthContextProps>(defaultContext);
 
 const AuthProvider = ({ children }: any) => {
-	const [user, setUser] = useState<object | null>(null);
-	console.log(user);
+	const [user, setUser] = useState<User | null>(null);
+
+	useEffect(() => {
+		console.log(user);
+	}, [user]);
 
 	const login = async (credentials: LoginCredentials) => {
-		try {
-			const response = await api.post('/auth/login', credentials);
-			setUser(response.data);
-			return true;
-		} catch (error) {
-			throw error;
-		}
+		const response = await api.post('/auth/login', credentials);
+		setUser(response.data);
+		return true;
 	};
 
-	const register = async (formData: RegiserFormData) => {
+	const register = async (formData: RegisterFormData) => {
 		try {
 			const response = await api.post('/auth/register', formData);
 			setUser(response.data);
@@ -44,6 +46,7 @@ const AuthProvider = ({ children }: any) => {
 			return false;
 		}
 	};
+
 	const logout = async () => {
 		const success = await refresh();
 		if (success) {
@@ -59,12 +62,23 @@ const AuthProvider = ({ children }: any) => {
 		return false;
 	};
 
+	const updateUser = async (data: object) => {
+		try {
+			const response = await api.patch('/auth/user', data);
+			setUser(response.data);
+			return true;
+		} catch (error: any) {
+			console.log(error.response.data);
+			return false;
+		}
+	};
+
 	useEffect(() => {
 		refresh();
-	}, [setUser]);
+	}, []);
 
 	return (
-		<AuthContext.Provider value={{ user, login, logout, register }}>
+		<AuthContext.Provider value={{ user, login, logout, register, updateUser }}>
 			{children}
 		</AuthContext.Provider>
 	);
@@ -72,27 +86,25 @@ const AuthProvider = ({ children }: any) => {
 
 export default AuthProvider;
 
-export const useAuth = () => useContext<AuthContextOutput>(AuthContext);
-
-export interface AuthContextOutput {
-	user: object | null;
-	login: loginFn;
-	logout: logoutFn;
-	register: registerFn;
-}
+export const useAuth = () => useContext<AuthContextProps>(AuthContext);
 
 export interface LoginCredentials {
 	email: string;
 	password: string;
 }
 
-export interface RegiserFormData {
+export interface RegisterFormData {
 	email: string;
 	username: string;
 	password: string;
 	password2: string;
 }
 
-type loginFn = (credentials: LoginCredentials) => Promise<boolean>;
-type logoutFn = () => Promise<boolean>;
-type registerFn = (formData: RegiserFormData) => Promise<boolean>;
+export interface User {
+	email: string;
+	username: string;
+	is_active: boolean;
+	email_verified: boolean;
+	active_band_id: string;
+	active_tour_id: string;
+}

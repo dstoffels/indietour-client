@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useAuth } from 'context/authContext';
 import { useRouter } from 'next/router';
-import BasePage from '../BasePage/BasePage';
+import BasePage, { PageProps } from '../BasePage/BasePage';
 
-const PublicPage = ({ children }: React.PropsWithChildren) => {
+const PublicOnlyPage = ({ headerChildren, children }: PageProps) => {
 	const { push } = useRouter();
 	const { user } = useAuth();
 	if (user) {
@@ -11,7 +11,7 @@ const PublicPage = ({ children }: React.PropsWithChildren) => {
 		return null;
 	}
 
-	return <BasePage>{children}</BasePage>;
+	return <BasePage headerChildren={headerChildren}>{children}</BasePage>;
 };
 
-export default PublicPage;
+export default PublicOnlyPage;

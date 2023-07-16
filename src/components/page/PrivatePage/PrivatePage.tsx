@@ -1,10 +1,10 @@
 import * as React from 'react';
-import BasePage from '../BasePage/BasePage';
+import BasePage, { PageProps } from '../BasePage/BasePage';
 import { useAuth } from 'context/authContext';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-const PrivatePage = ({ children }: React.PropsWithChildren) => {
+const PrivatePage = ({ headerChildren, children }: PageProps) => {
 	const { user } = useAuth();
 	const { push } = useRouter();
 
@@ -12,7 +12,7 @@ const PrivatePage = ({ children }: React.PropsWithChildren) => {
 		!user && push('/');
 	}, [user]);
 
-	return <BasePage>{children}</BasePage>;
+	return <BasePage headerChildren={headerChildren}>{children}</BasePage>;
 };
 
 export default PrivatePage;

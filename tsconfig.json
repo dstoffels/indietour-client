@@ -35,7 +35,7 @@
 		".next/types/**/*.ts",
 		"src/context/globalContext",
 		"src/pages/_app.tsx",
-		"src/utils/api.ts",
+		"src/utils/api.tsx",
 		"src/utils/stuff.js",
 		"src/pages/api/auth/login.ts"
 	],
