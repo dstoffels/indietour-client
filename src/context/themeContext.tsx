@@ -40,7 +40,7 @@ export const ThemeContextProvider = ({ children }: React.PropsWithChildren) => {
 			(error) => {
 				requests.pop();
 				setRequests([...requests]);
-				return Promise.reject(error);
+				return error;
 			},
 		);
 	}, []);

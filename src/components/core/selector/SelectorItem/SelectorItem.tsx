@@ -12,7 +12,7 @@ const SelectorItem = ({ onClick, onClose, selected, children }: SelectorItemProp
 			{onClick ? (
 				<ListItemButton selected={selected}>{children}</ListItemButton>
 			) : (
-				<Box>{children}</Box>
+				<Box width="100%">{children}</Box>
 			)}
 		</ListItem>
 	);
