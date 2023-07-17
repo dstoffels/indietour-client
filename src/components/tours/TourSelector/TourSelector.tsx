@@ -1,39 +1,40 @@
-import { Add } from '@mui/icons-material';
 import { Box, Button, Collapse, Divider } from '@mui/material';
-import NewBandForm from 'components/bands/NewBandForm/NewBandForm';
 import Selector from 'components/core/selector/Selector/Selector';
 import SelectorItem from 'components/core/selector/SelectorItem/SelectorItem';
-import { useBands } from 'context/bandContext';
+import { useTours } from 'context/tourContext';
 import { useEffect, useState } from 'react';
+import NewTourForm from '../NewTourForm/NewTourForm';
+import { Add } from '@mui/icons-material';
 
-const BandSelector = ({}) => {
-	const { activeBand, bands, setActiveBand } = useBands();
+const TourSelector = ({}) => {
+	const { tours, activeTour, setActiveTour } = useTours();
 
 	const [formOpen, setFormOpen] = useState(false);
+
 	const toggleForm = () => setFormOpen(!formOpen);
 
-	const selectorItems = bands.map((band) => (
-		<SelectorItem onClick={() => setActiveBand(band.id)} key={`band-selector-${band.id}`}>
-			{band.name}
+	const selectorItems = tours?.map((tour) => (
+		<SelectorItem onClick={() => setActiveTour(tour.id)} key={`tour-selector-${tour.id}`}>
+			{tour.name}
 		</SelectorItem>
 	));
 
 	useEffect(() => {
-		setFormOpen(!activeBand);
-	}, [activeBand]);
+		setFormOpen(!tours?.length);
+	}, [activeTour]);
 
 	return (
 		<Box>
 			<Collapse in={formOpen}>
-				<NewBandForm onClose={toggleForm} autoFocus={formOpen} />
+				<NewTourForm onClose={toggleForm} autoFocus={formOpen} />
 			</Collapse>
 			<Collapse in={!formOpen}>
-				<Selector selected={activeBand?.name || 'Select a band'}>
+				<Selector selected={activeTour?.name || 'Select A Tour'}>
 					{selectorItems}
 					<Divider />
 					<SelectorItem disableBtn>
 						<Button onClick={toggleForm} fullWidth startIcon={<Add />}>
-							Add Band
+							Add Tour
 						</Button>
 					</SelectorItem>
 				</Selector>
@@ -42,4 +43,4 @@ const BandSelector = ({}) => {
 	);
 };
 
-export default BandSelector;
+export default TourSelector;

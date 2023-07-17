@@ -1,12 +1,12 @@
 import { Check, Close } from '@mui/icons-material';
 import { Box, IconButton, TextField } from '@mui/material';
-import { Band, useBands } from 'context/bandContext';
+import { useTours } from 'context/tourContext';
 import useForm from 'hooks/useForm';
 import { useEffect, useRef } from 'react';
 
-const NewBandForm = ({ onClose, autoFocus }: BandFormProps) => {
-	const { bands, createBand } = useBands();
-	const { formData, handleChange, handleSubmit } = useForm({ name: '' }, createBand);
+const NewTourForm = ({ onClose, autoFocus }: TourFormProps) => {
+	const { tours, createTour } = useTours();
+	const { formData, handleChange, handleSubmit } = useForm({ name: '' }, createTour);
 
 	const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -20,8 +20,8 @@ const NewBandForm = ({ onClose, autoFocus }: BandFormProps) => {
 		<Box component="form" display="flex" onSubmit={handleSubmit}>
 			<TextField
 				size="small"
-				label="Band Name"
-				placeholder={!bands.length ? 'Create New Band' : ''}
+				label="Tour Name"
+				placeholder={!tours?.length ? 'Create New Tour' : ''}
 				name="name"
 				value={formData.name}
 				onChange={handleChange}
@@ -30,16 +30,16 @@ const NewBandForm = ({ onClose, autoFocus }: BandFormProps) => {
 			<IconButton disabled={disabled} type="submit" color="info">
 				<Check />
 			</IconButton>
-			<IconButton color="error" onClick={onClose}>
+			<IconButton disabled={!tours?.length} color="error" onClick={onClose}>
 				<Close />
 			</IconButton>
 		</Box>
 	);
 };
 
-export default NewBandForm;
+export default NewTourForm;
 
-interface BandFormProps {
+interface TourFormProps {
 	onClose?: () => void;
 	autoFocus: boolean;
 }

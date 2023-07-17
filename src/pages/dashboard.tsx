@@ -1,12 +1,26 @@
 import BandSelector from 'components/bands/BandSelector/BandSelector';
+import SideStack from 'components/core/SideStack/SideStack';
 import PrivatePage from 'components/page/PrivatePage/PrivatePage';
+import TourSelector from 'components/tours/TourSelector/TourSelector';
 import BandProvider, { Band } from 'context/bandContext';
+import TourProvider from 'context/tourContext';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 
 const DashboardPage = ({ initBands }: DashboardPageProps) => {
 	return (
 		<BandProvider initBands={initBands}>
-			<PrivatePage headerChildren={<BandSelector />}>Dashboard</PrivatePage>
+			<TourProvider>
+				<PrivatePage
+					headerChildren={
+						<SideStack>
+							<BandSelector />
+							<TourSelector />
+						</SideStack>
+					}
+				>
+					Dashboard
+				</PrivatePage>
+			</TourProvider>
 		</BandProvider>
 	);
 };
@@ -15,7 +29,7 @@ export const getServerSideProps: GetServerSideProps<{ initBands: Array<Band> }> 
 	context: GetServerSidePropsContext,
 ) => {
 	const { req } = context;
-	const response = await fetch('http://127.0.0.1:8000/api/bands', {
+	const response = await fetch('http://127.0.0.1:8000/api/bands?include=tours', {
 		method: 'GET',
 		headers: {
 			Cookie: Object.entries(req.cookies)

@@ -12,8 +12,9 @@ const useForm = <T extends object>(initialData: T, onSubmit: (formData: T) => Pr
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
-		const success = await onSubmit(formData);
+		await onSubmit(formData);
 		setLoading(false);
+		setformData(initialData);
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
