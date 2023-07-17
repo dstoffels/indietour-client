@@ -5,9 +5,11 @@ import { useTours } from 'context/tourContext';
 import { useEffect, useState } from 'react';
 import NewTourForm from '../NewTourForm/NewTourForm';
 import { Add } from '@mui/icons-material';
+import { useBands } from 'context/bandContext';
 
 const TourSelector = ({}) => {
 	const { tours, activeTour, setActiveTour } = useTours();
+	const { activeBand } = useBands();
 
 	const [formOpen, setFormOpen] = useState(false);
 
@@ -21,7 +23,7 @@ const TourSelector = ({}) => {
 
 	useEffect(() => {
 		setFormOpen(!tours?.length);
-	}, [activeTour]);
+	}, [activeTour, activeBand]);
 
 	return (
 		<Box>
