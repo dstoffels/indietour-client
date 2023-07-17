@@ -38,7 +38,7 @@ const Selector = ({ selected, children }: SelectorProps) => {
 	);
 
 	return (
-		<SideStack>
+		<>
 			<Button onClick={handleClick} endIcon={<KeyboardArrowDown />}>
 				{selected}
 			</Button>
@@ -52,7 +52,7 @@ const Selector = ({ selected, children }: SelectorProps) => {
 					<List>{children}</List>
 				</Paper>
 			</Popover>
-		</SideStack>
+		</>
 	);
 };
 

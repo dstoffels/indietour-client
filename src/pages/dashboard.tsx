@@ -12,10 +12,10 @@ const DashboardPage = ({ initBands }: DashboardPageProps) => {
 			<TourProvider>
 				<PrivatePage
 					headerChildren={
-						<SideStack>
+						<>
 							<BandSelector />
 							<TourSelector />
-						</SideStack>
+						</>
 					}
 				>
 					Dashboard

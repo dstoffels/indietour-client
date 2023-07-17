@@ -5,6 +5,7 @@ import Selector from 'components/core/selector/Selector/Selector';
 import SelectorItem from 'components/core/selector/SelectorItem/SelectorItem';
 import { useBands } from 'context/bandContext';
 import { useEffect, useState } from 'react';
+import darkTheme from 'themes/darkTheme';
 
 const BandSelector = ({}) => {
 	const { activeBand, bands, setActiveBand } = useBands();
@@ -25,7 +26,7 @@ const BandSelector = ({}) => {
 	return (
 		<Box>
 			<Collapse in={formOpen}>
-				<NewBandForm onClose={toggleForm} autoFocus={formOpen} />
+				{formOpen && <NewBandForm onClose={toggleForm} autoFocus={formOpen} />}
 			</Collapse>
 			<Collapse in={!formOpen}>
 				<Selector selected={activeBand?.name || 'Select a band'}>

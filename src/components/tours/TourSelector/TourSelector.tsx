@@ -26,7 +26,7 @@ const TourSelector = ({}) => {
 	return (
 		<Box>
 			<Collapse in={formOpen}>
-				<NewTourForm onClose={toggleForm} autoFocus={formOpen} />
+				{formOpen && <NewTourForm onClose={toggleForm} autoFocus={formOpen} />}
 			</Collapse>
 			<Collapse in={!formOpen}>
 				<Selector selected={activeTour?.name || 'Select A Tour'}>

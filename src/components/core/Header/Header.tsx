@@ -5,12 +5,13 @@ import IconMenu from 'components/core/IconMenu/IconMenu';
 import MainMenu from 'components/MainMenu/MainMenu';
 import LoginForm from 'components/auth/LoginForm/LoginForm';
 import LogoutBtn from 'components/auth/LogoutBtn/LogoutBtn';
+import SideStack from '../SideStack/SideStack';
 
 const Header = forwardRef(({ children }: PropsWithChildren, ref: React.Ref<HTMLDivElement>) => {
 	return (
 		<AppBar ref={ref} color="inherit" position="fixed">
 			<Toolbar>
-				<Box flexGrow={1}>{children}</Box>
+				<SideStack justifyContent="start">{children}</SideStack>
 				<Box>
 					<Hidden smDown>
 						<LoginForm inline />
