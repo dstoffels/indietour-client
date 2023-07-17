@@ -5,17 +5,17 @@ const LoadingOverlay = ({ loading }: LoadingOverlayProps) => {
 	const [open, setOpen] = useState(false);
 
 	useEffect(() => {
-		let timer;
+		let timer: any;
 		if (loading) {
 			timer = setTimeout(() => {
 				setOpen(true);
 			}, 200);
 		} else {
 			setOpen(false);
-			clearTimeout(timer);
+			timer && clearTimeout(timer);
 		}
 
-		return () => clearTimeout(timer);
+		return () => timer && clearTimeout(timer);
 	}, [loading]);
 
 	return (

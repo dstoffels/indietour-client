@@ -1,10 +1,11 @@
 import { Check, Close } from '@mui/icons-material';
 import { Box, IconButton, TextField } from '@mui/material';
-import useBand, { Band, useBands } from 'hooks/useBand';
+import { Band, useBands } from 'context/bandContext';
 import useForm from 'hooks/useForm';
 import { useEffect, useRef } from 'react';
 
-const NewBandForm = ({ bands, createBand, onClose, autoFocus }: BandFormProps) => {
+const NewBandForm = ({ onClose, autoFocus }: BandFormProps) => {
+	const { bands, createBand } = useBands();
 	const { formData, handleChange, handleSubmit } = useForm({ name: '' }, createBand);
 
 	const inputRef = useRef<HTMLInputElement | null>(null);

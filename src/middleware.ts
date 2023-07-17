@@ -25,12 +25,16 @@ export async function middleware(request: NextRequest) {
 
 	// initial request
 	const body = (await request.text()) || null;
+	const queryParams = request.nextUrl.searchParams;
 
-	let response = await fetch(`http://127.0.0.1:8000${request.nextUrl.pathname}`, {
-		method: request.method,
-		body,
-		headers,
-	});
+	let response = await fetch(
+		`http://127.0.0.1:8000${request.nextUrl.pathname}${queryParams ? '?' + queryParams : ''}`,
+		{
+			method: request.method,
+			body,
+			headers,
+		},
+	);
 
 	if (cookies) response.headers.set('Set-Cookie', cookies);
 

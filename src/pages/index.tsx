@@ -2,6 +2,7 @@ import { Typography, Box, Divider, Grid, Button } from '@mui/material';
 import RegisterForm from 'components/auth/RegisterForm/RegisterForm';
 import * as React from 'react';
 import PublicOnlyPage from 'components/page/PublicOnlyPage/PublicOnlyPage';
+import { GetServerSidePropsContext } from 'next';
 
 const HomePage = ({}) => {
 	return (
