@@ -8,9 +8,9 @@ const PrivatePage = ({ headerChildren, children }: PageProps) => {
 	const { user } = useAuth();
 	const { push } = useRouter();
 
-	useEffect(() => {
-		!user && push('/');
-	}, [user]);
+	// useEffect(() => {
+	// 	!user && push('/');
+	// }, [user]);
 
 	return <BasePage headerChildren={headerChildren}>{children}</BasePage>;
 };

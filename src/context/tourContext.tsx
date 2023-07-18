@@ -1,9 +1,9 @@
-import { createContext, useState, useContext, useEffect, PropsWithChildren } from 'react';
-import { User, useAuth } from './authContext';
+import { createContext, useContext, PropsWithChildren } from 'react';
+import { useAuth } from './authContext';
 import api from 'utils/api';
-import BandProvider, { Band, useBands } from './bandContext';
+import { useBands } from './bandContext';
 
-interface TourContextProps {
+interface TourContextValues {
 	activeTour: Tour | undefined;
 	tours: Tour[] | undefined;
 	// fetchTours: () => Promise<void>;
@@ -15,7 +15,7 @@ interface TourProviderProps extends PropsWithChildren {
 	// initBands: Band[];
 }
 
-const TourContext = createContext<TourContextProps>({} as TourContextProps);
+const TourContext = createContext<TourContextValues>({} as TourContextValues);
 
 const TourProvider = ({ children }: TourProviderProps) => {
 	const { user, updateUser } = useAuth();
@@ -44,7 +44,7 @@ const TourProvider = ({ children }: TourProviderProps) => {
 
 export default TourProvider;
 
-export const useTours = () => useContext<TourContextProps>(TourContext);
+export const useTours = () => useContext<TourContextValues>(TourContext);
 
 export class Tour {
 	id = '';
