@@ -6,8 +6,9 @@ import BasePage, { PageProps } from '../BasePage/BasePage';
 const PublicOnlyPage = ({ headerChildren, children }: PageProps) => {
 	const { push } = useRouter();
 	const { user } = useAuth();
+
 	if (user) {
-		push('/dashboard');
+		push('/tour');
 		return null;
 	}
 

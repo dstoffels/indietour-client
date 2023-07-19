@@ -3,17 +3,29 @@ import { User, useAuth } from './authContext';
 import api from 'utils/api';
 import { Tour } from './tourContext';
 
-const BandContext = createContext<BandContextProps>({} as BandContextProps);
+interface BandContextValues {
+	activeBand: Band | undefined;
+	bands: Array<Band>;
+	fetchBands: () => Promise<void>;
+	setActiveBand: (band_id: string) => Promise<void>;
+	createBand: (bandData: object) => Promise<void>;
+}
+
+interface BandProviderProps extends PropsWithChildren {}
+
+const BandContext = createContext<BandContextValues>({} as BandContextValues);
 
 /**
  *
  * @param initBands must be populated with getServerSideProps via pageProps, for any page that require this Provider.
  * @returns
  */
-const BandProvider = ({ children, initBands }: BandProviderProps) => {
-	const [bands, setBands] = useState<Band[]>(initBands);
+const BandProvider = ({ children }: BandProviderProps) => {
+	const [bands, setBands] = useState<Band[]>([]);
 
 	const { user, updateUser } = useAuth();
+
+	if (!user) return children;
 
 	const fetchBands = async () => {
 		const response = await api.get('/bands?include=tours');
@@ -42,7 +54,7 @@ const BandProvider = ({ children, initBands }: BandProviderProps) => {
 
 export default BandProvider;
 
-export const useBands = () => useContext<BandContextProps>(BandContext);
+export const useBands = () => useContext<BandContextValues>(BandContext);
 
 export class Band {
 	id = '';
@@ -58,16 +70,4 @@ export class Banduser {
 	email = '';
 	is_admin = false;
 	username = '';
-}
-
-interface BandContextProps {
-	activeBand: Band | undefined;
-	bands: Array<Band>;
-	fetchBands: () => Promise<void>;
-	setActiveBand: (band_id: string) => Promise<void>;
-	createBand: (bandData: object) => Promise<void>;
-}
-
-interface BandProviderProps extends PropsWithChildren {
-	initBands: Array<Band>;
 }

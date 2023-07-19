@@ -1,4 +1,6 @@
+import axios from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
+import fetchAdapter from '@vespaiach/axios-fetch-adapter';
 
 export async function middleware(request: NextRequest) {
 	let access = request.cookies.get('access');

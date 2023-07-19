@@ -3,9 +3,13 @@ import { User, useAuth } from './authContext';
 import api from 'utils/api';
 import BandProvider, { Band, useBands } from './bandContext';
 import { useTours } from './tourContext';
+import { useRouter } from 'next/router';
 
 interface DateContextValues {
-	activeDate: TourDate;
+	activeDate: TourDate | null;
+	dates: TourDate[];
+	fetchTourDates: () => Promise<void>;
+	fetchDate: (date_id: string) => Promise<void>;
 }
 
 interface DateProviderProps extends PropsWithChildren {}
@@ -13,10 +17,36 @@ interface DateProviderProps extends PropsWithChildren {}
 const DateContext = createContext<DateContextValues>({} as DateContextValues);
 
 const DateProvider = ({ children }: DateProviderProps) => {
-	return <DateContext.Provider value={{}}>{children}</DateContext.Provider>;
+	const [dates, setDates] = useState<TourDate[]>([]);
+	const [activeDate, setActiveDate] = useState<TourDate | null>(null);
+	const { activeTour } = useTours();
+
+	const fetchTourDates = async () => {
+		if (activeTour) {
+			const response = await api.get(`/bands/${activeTour?.band_id}/tours/${activeTour?.id}/dates`);
+			setDates(response.data);
+		}
+	};
+
+	const fetchDate = async (date_id: string) => {
+		if (activeTour) {
+			const response = await api.get(
+				`/bands/${activeTour?.band_id}/tours/${activeTour?.id}/dates/${date_id}?include=all`,
+			);
+			setActiveDate(response.data);
+		}
+	};
+
+	return (
+		<DateContext.Provider value={{ activeDate, dates, fetchTourDates, fetchDate }}>
+			{children}
+		</DateContext.Provider>
+	);
 };
 
 export default DateProvider;
+
+export const useDates = () => useContext(DateContext);
 
 export class TourDate {
 	id = '';

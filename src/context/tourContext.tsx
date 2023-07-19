@@ -11,14 +11,15 @@ interface TourContextValues {
 	createTour: (tourData: object) => Promise<void>;
 }
 
-interface TourProviderProps extends PropsWithChildren {
-	// initBands: Band[];
-}
+interface TourProviderProps extends PropsWithChildren {}
 
 const TourContext = createContext<TourContextValues>({} as TourContextValues);
 
 const TourProvider = ({ children }: TourProviderProps) => {
 	const { user, updateUser } = useAuth();
+
+	if (!user) return children;
+
 	const { activeBand, fetchBands } = useBands();
 	const tours = activeBand?.tours;
 
@@ -27,7 +28,7 @@ const TourProvider = ({ children }: TourProviderProps) => {
 	};
 
 	const createTour = async (tourData: object) => {
-		const response = await api.post(`/bands/${activeBand?.id}/tours`, tourData);
+		const response = await api.post(`/bands/${activeBand?.id}/tours?include=dates`, tourData);
 		const tour: Tour = response.data;
 		setActiveTour(tour.id);
 		await fetchBands(); // is this the best way?

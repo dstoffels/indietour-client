@@ -5,10 +5,11 @@ import Selector from 'components/core/selector/Selector/Selector';
 import SelectorItem from 'components/core/selector/SelectorItem/SelectorItem';
 import { useBands } from 'context/bandContext';
 import { useEffect, useState } from 'react';
-import darkTheme from 'themes/darkTheme';
 
 const BandSelector = ({}) => {
-	const { activeBand, bands, setActiveBand } = useBands();
+	const { activeBand, bands, setActiveBand, fetchBands } = useBands();
+
+	if (!bands) return null;
 
 	const [formOpen, setFormOpen] = useState(false);
 	const toggleForm = () => setFormOpen(!formOpen);
@@ -22,6 +23,10 @@ const BandSelector = ({}) => {
 	useEffect(() => {
 		setFormOpen(!activeBand);
 	}, [activeBand]);
+
+	useEffect(() => {
+		fetchBands();
+	}, []);
 
 	return (
 		<Box>

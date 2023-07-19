@@ -1,23 +1,39 @@
 import {
 	Box,
-	Button,
-	Drawer,
 	IconButton,
 	List,
 	ListItem,
 	ListSubheader,
 	Paper,
 	SwipeableDrawer,
-	styled,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SideStack from '../SideStack/SideStack';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
+import { useDates } from 'context/dateContext';
+import { useRouter } from 'next/router';
+import { useTours } from 'context/tourContext';
 
 const DatesDrawer = ({}) => {
+	const { activeTour } = useTours();
+	const { dates, activeDate, fetchTourDates } = useDates();
+	const router = useRouter();
+
 	const [open, setOpen] = useState(true);
 
+	useEffect(() => {
+		fetchTourDates();
+	}, []);
+
+	if (!activeTour) return null;
+
 	const toggleDrawer = () => setOpen(!open);
+
+	const dateItems = dates.map((tourDate) => (
+		<ListItem onClick={() => router.push(`/tour/${tourDate.id}`)} key={`date-item-${tourDate.id}`}>
+			{tourDate.date}
+		</ListItem>
+	));
 
 	return (
 		<>
@@ -44,7 +60,7 @@ const DatesDrawer = ({}) => {
 								</ListSubheader>
 							}
 						>
-							<ListItem>Date</ListItem>
+							{dateItems}
 						</List>
 					</Paper>
 				</Box>

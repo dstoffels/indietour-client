@@ -13,6 +13,12 @@ const TourSelector = ({}) => {
 
 	const [formOpen, setFormOpen] = useState(false);
 
+	useEffect(() => {
+		setFormOpen(!tours?.length);
+	}, [activeTour, activeBand]);
+
+	if (!activeBand) return null;
+
 	const toggleForm = () => setFormOpen(!formOpen);
 
 	const selectorItems = tours?.map((tour) => (
@@ -20,10 +26,6 @@ const TourSelector = ({}) => {
 			{tour.name}
 		</SelectorItem>
 	));
-
-	useEffect(() => {
-		setFormOpen(!tours?.length);
-	}, [activeTour, activeBand]);
 
 	return (
 		<Box>
