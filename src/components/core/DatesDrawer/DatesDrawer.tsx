@@ -14,20 +14,23 @@ import { useDates } from 'context/dateContext';
 import { useRouter } from 'next/router';
 import { useTours } from 'context/tourContext';
 
-const DatesDrawer = ({}) => {
-	const { activeTour } = useTours();
-	const { dates, activeDate, fetchTourDates } = useDates();
-	const router = useRouter();
+interface DrawerProps {
+	width: number;
+}
 
-	const [open, setOpen] = useState(true);
+const DatesDrawer = ({ width }: DrawerProps) => {
+	const { activeTour } = useTours();
+	const { dates, activeDate, fetchTourDates, drawerOpen, setDrawerOpen } = useDates();
+
+	const router = useRouter();
 
 	useEffect(() => {
 		fetchTourDates();
-	}, []);
+	}, [activeTour]);
 
 	if (!activeTour) return null;
 
-	const toggleDrawer = () => setOpen(!open);
+	const toggleDrawer = () => setDrawerOpen(!open);
 
 	const dateItems = dates.map((tourDate) => (
 		<ListItem onClick={() => router.push(`/tour/${tourDate.id}`)} key={`date-item-${tourDate.id}`}>
@@ -36,36 +39,31 @@ const DatesDrawer = ({}) => {
 	));
 
 	return (
-		<>
-			<SwipeableDrawer
-				sx={{ width: 250 }}
-				anchor="left"
-				open={open}
-				onClose={toggleDrawer}
-				onOpen={toggleDrawer}
-				swipeAreaWidth={25}
-				hideBackdrop
-			>
-				<Box sx={{ marginTop: '64px', width: 250, height: '100%' }}>
-					<Paper sx={{ height: '100%' }}>
-						<List
-							subheader={
-								<ListSubheader>
-									<SideStack>
-										<Box>Dates</Box>
-										<IconButton onClick={toggleDrawer}>
-											<ChevronLeft />
-										</IconButton>
-									</SideStack>
-								</ListSubheader>
-							}
-						>
-							{dateItems}
-						</List>
-					</Paper>
-				</Box>
-			</SwipeableDrawer>
-		</>
+		<SwipeableDrawer
+			sx={{ width }}
+			anchor="left"
+			open={drawerOpen}
+			onClose={toggleDrawer}
+			onOpen={toggleDrawer}
+			swipeAreaWidth={25}
+			hideBackdrop
+		>
+			<Box sx={{ marginTop: '64px', width, height: '100%' }}>
+				<Paper sx={{ height: '100%' }}>
+					<List
+						subheader={
+							<ListSubheader>
+								<SideStack>
+									<Box>Dates</Box>
+								</SideStack>
+							</ListSubheader>
+						}
+					>
+						{dateItems}
+					</List>
+				</Paper>
+			</Box>
+		</SwipeableDrawer>
 	);
 };
 

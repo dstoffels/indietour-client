@@ -5,6 +5,7 @@ import SideStack from 'components/core/SideStack/SideStack';
 import LogoutBtn from 'components/auth/LogoutBtn/LogoutBtn';
 import { useRouter } from 'next/router';
 import darkTheme from 'themes/darkTheme';
+import DatesDrawerBtn from 'components/DATES/DateDrawerBtn/DateDrawerBtn';
 
 const Footer = ({}) => {
 	const { push } = useRouter();
@@ -17,9 +18,14 @@ const Footer = ({}) => {
 			sx={{ top: 'auto', bottom: 0, zIndex: darkTheme.zIndex.drawer + 1 }}
 		>
 			<SideStack paddingX={2}>
-				<Box flexGrow={1}></Box>
-				<DarkModeSwitch />
-				<LogoutBtn />
+				<Box>
+					<DatesDrawerBtn />
+				</Box>
+				<Box></Box>
+				<Box>
+					<DarkModeSwitch />
+					<LogoutBtn />
+				</Box>
 			</SideStack>
 		</AppBar>
 	);

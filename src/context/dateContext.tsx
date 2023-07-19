@@ -10,6 +10,8 @@ interface DateContextValues {
 	dates: TourDate[];
 	fetchTourDates: () => Promise<void>;
 	fetchDate: (date_id: string) => Promise<void>;
+	drawerOpen: boolean;
+	setDrawerOpen: (open: boolean) => void;
 }
 
 interface DateProviderProps extends PropsWithChildren {}
@@ -19,6 +21,7 @@ const DateContext = createContext<DateContextValues>({} as DateContextValues);
 const DateProvider = ({ children }: DateProviderProps) => {
 	const [dates, setDates] = useState<TourDate[]>([]);
 	const [activeDate, setActiveDate] = useState<TourDate | null>(null);
+	const [drawerOpen, setDrawerOpen] = useState(true);
 	const { activeTour } = useTours();
 
 	const fetchTourDates = async () => {
@@ -37,8 +40,14 @@ const DateProvider = ({ children }: DateProviderProps) => {
 		}
 	};
 
+	useEffect(() => {
+		setActiveDate(null);
+	}, [activeTour]);
+
 	return (
-		<DateContext.Provider value={{ activeDate, dates, fetchTourDates, fetchDate }}>
+		<DateContext.Provider
+			value={{ activeDate, dates, fetchTourDates, fetchDate, drawerOpen, setDrawerOpen }}
+		>
 			{children}
 		</DateContext.Provider>
 	);
