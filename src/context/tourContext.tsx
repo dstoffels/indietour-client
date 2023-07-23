@@ -2,6 +2,7 @@ import { createContext, useContext, PropsWithChildren } from 'react';
 import { useAuth } from './authContext';
 import api from 'utils/api';
 import { useBands } from './bandContext';
+import { useRouter } from 'next/router';
 
 interface TourContextValues {
 	activeTour: Tour | undefined;
@@ -17,6 +18,7 @@ const TourContext = createContext<TourContextValues>({} as TourContextValues);
 
 const TourProvider = ({ children }: TourProviderProps) => {
 	const { user, updateUser } = useAuth();
+	const router = useRouter();
 
 	if (!user) return children;
 
@@ -25,6 +27,7 @@ const TourProvider = ({ children }: TourProviderProps) => {
 
 	const setActiveTour = async (tour_id: string) => {
 		await updateUser({ active_tour_id: tour_id });
+		router.push({ query: {} });
 	};
 
 	const createTour = async (tourData: object) => {

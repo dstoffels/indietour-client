@@ -11,7 +11,7 @@ const DatesDrawerBtn = ({}) => {
 			onClick={() => setDrawerOpen(!drawerOpen)}
 			startIcon={drawerOpen ? <ChevronLeft /> : <ChevronRight />}
 		>
-			{drawerOpen ? 'Hide' : 'Show'} Dates
+			Dates
 		</Button>
 	);
 };

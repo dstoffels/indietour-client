@@ -1,18 +1,11 @@
-import {
-	Box,
-	IconButton,
-	List,
-	ListItem,
-	ListSubheader,
-	Paper,
-	SwipeableDrawer,
-} from '@mui/material';
+import { Box, Drawer, List, ListSubheader, Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 import SideStack from '../SideStack/SideStack';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { useDates } from 'context/dateContext';
 import { useRouter } from 'next/router';
 import { useTours } from 'context/tourContext';
+import DateItem from 'components/DATES/DateItem/DateItem';
 
 interface DrawerProps {
 	width: number;
@@ -32,20 +25,18 @@ const DatesDrawer = ({ width }: DrawerProps) => {
 
 	const toggleDrawer = () => setDrawerOpen(!open);
 
-	const dateItems = dates.map((tourDate) => (
-		<ListItem onClick={() => router.push(`/tour/${tourDate.id}`)} key={`date-item-${tourDate.id}`}>
-			{tourDate.date}
-		</ListItem>
+	const dateItems = dates.map((tourdate) => (
+		<DateItem key={`date-${tourdate.id}`} tourdate={tourdate} activeDate={activeDate} />
 	));
 
 	return (
-		<SwipeableDrawer
+		<Drawer
 			sx={{ width }}
 			anchor="left"
 			open={drawerOpen}
 			onClose={toggleDrawer}
-			onOpen={toggleDrawer}
-			swipeAreaWidth={25}
+			// onOpen={toggleDrawer}
+			// swipeAreaWidth={25}
 			hideBackdrop
 		>
 			<Box sx={{ marginTop: '64px', width, height: '100%' }}>
@@ -63,7 +54,7 @@ const DatesDrawer = ({ width }: DrawerProps) => {
 					</List>
 				</Paper>
 			</Box>
-		</SwipeableDrawer>
+		</Drawer>
 	);
 };
 

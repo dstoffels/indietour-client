@@ -9,7 +9,7 @@ interface DateContextValues {
 	activeDate: TourDate | null;
 	dates: TourDate[];
 	fetchTourDates: () => Promise<void>;
-	fetchDate: (date_id: string) => Promise<void>;
+	fetchDate: (date_id: string | undefined) => Promise<void>;
 	drawerOpen: boolean;
 	setDrawerOpen: (open: boolean) => void;
 }
@@ -31,13 +31,13 @@ const DateProvider = ({ children }: DateProviderProps) => {
 		}
 	};
 
-	const fetchDate = async (date_id: string) => {
-		if (activeTour) {
+	const fetchDate = async (date_id: string | undefined) => {
+		if (date_id && activeTour) {
 			const response = await api.get(
 				`/bands/${activeTour?.band_id}/tours/${activeTour?.id}/dates/${date_id}?include=all`,
 			);
 			setActiveDate(response.data);
-		}
+		} else setActiveDate(null);
 	};
 
 	useEffect(() => {

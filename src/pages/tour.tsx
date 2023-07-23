@@ -1,7 +1,6 @@
 import { Box, Button, Fade, IconButton, ListSubheader, Paper, Typography } from '@mui/material';
 import BandSelector from 'components/bands/BandSelector/BandSelector';
 import DatesDrawer from 'components/core/DatesDrawer/DatesDrawer';
-import SideStack from 'components/core/SideStack/SideStack';
 import PrivatePage from 'components/page/PrivatePage/PrivatePage';
 import TourSelector from 'components/tours/TourSelector/TourSelector';
 import { useRouter } from 'next/router';
@@ -10,21 +9,22 @@ import { Band } from 'context/bandContext';
 import { useDates } from 'context/dateContext';
 import Main from 'components/core/Main/Main';
 import dayjs from 'dayjs';
-import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 
 const TourPage = ({}) => {
 	const { activeDate, fetchDate, drawerOpen, setDrawerOpen } = useDates();
 	const router = useRouter();
 
-	let date_id: string | undefined = router.query.date_id as string;
+	// let date_id: string | undefined = router.query.date_id as string;
+
+	const date_id = router.query.date_id as string;
 
 	useEffect(() => {
-		date_id && fetchDate(date_id);
+		fetchDate(date_id);
 	}, [date_id]);
 
 	console.log(activeDate);
 
-	const drawerWidth = 250;
+	const drawerWidth = 300;
 
 	return (
 		<PrivatePage
