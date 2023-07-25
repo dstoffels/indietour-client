@@ -20,8 +20,8 @@ const NewBandForm = ({ onClose, autoFocus }: BandFormProps) => {
 		<Box component="form" display="flex" onSubmit={handleSubmit}>
 			<TextField
 				size="small"
-				label="Band Name"
-				placeholder={!bands.length ? 'Create New Band' : ''}
+				label="Create Band"
+				placeholder="Band Name"
 				name="name"
 				value={formData.name}
 				onChange={handleChange}
@@ -30,7 +30,7 @@ const NewBandForm = ({ onClose, autoFocus }: BandFormProps) => {
 			<IconButton disabled={disabled} type="submit" color="info">
 				<Check />
 			</IconButton>
-			<IconButton color="error" onClick={onClose}>
+			<IconButton disabled={!bands.length} color="error" onClick={onClose}>
 				<Close />
 			</IconButton>
 		</Box>

@@ -3,14 +3,10 @@ import React from 'react';
 import DarkModeSwitch from 'components/theme/DarkModeSwitch/DarkModeSwitch';
 import SideStack from 'components/core/SideStack/SideStack';
 import LogoutBtn from 'components/auth/LogoutBtn/LogoutBtn';
-import { useRouter } from 'next/router';
 import darkTheme from 'themes/darkTheme';
 import DatesDrawerBtn from 'components/DATES/DateDrawerBtn/DateDrawerBtn';
 
 const Footer = ({}) => {
-	const { push } = useRouter();
-	const handleHome = () => push('/');
-
 	return (
 		<AppBar
 			color="inherit"

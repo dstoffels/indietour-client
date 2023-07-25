@@ -2,7 +2,7 @@ import * as React from 'react';
 import 'themes/global.css';
 import AuthProvider from 'context/authContext';
 import ThemeContextProvider from 'context/themeContext';
-import ErrorContextProvider from 'context/errorContext';
+import ErrorProvider from 'context/errorContext';
 import BandProvider from 'context/bandContext';
 import TourProvider from 'context/tourContext';
 import DateProvider from 'context/dateContext';
@@ -10,8 +10,8 @@ import DateProvider from 'context/dateContext';
 const App = ({ Component, pageProps }: any) => {
 	return (
 		<ThemeContextProvider>
-			<AuthProvider>
-				<ErrorContextProvider>
+			<ErrorProvider>
+				<AuthProvider>
 					<BandProvider>
 						<TourProvider>
 							<DateProvider>
@@ -19,8 +19,8 @@ const App = ({ Component, pageProps }: any) => {
 							</DateProvider>
 						</TourProvider>
 					</BandProvider>
-				</ErrorContextProvider>
-			</AuthProvider>
+				</AuthProvider>
+			</ErrorProvider>
 		</ThemeContextProvider>
 	);
 };

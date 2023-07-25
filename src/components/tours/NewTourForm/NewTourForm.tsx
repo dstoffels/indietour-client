@@ -20,8 +20,8 @@ const NewTourForm = ({ onClose, autoFocus }: TourFormProps) => {
 		<Box component="form" display="flex" onSubmit={handleSubmit}>
 			<TextField
 				size="small"
-				label="Tour Name"
-				placeholder={!tours?.length ? 'Create New Tour' : ''}
+				label="Create Tour"
+				placeholder="Tour Name"
 				name="name"
 				value={formData.name}
 				onChange={handleChange}

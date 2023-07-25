@@ -10,9 +10,10 @@ interface DateItemProps {
 
 const DateItem = ({ tourdate, activeDate }: DateItemProps) => {
 	const router = useRouter();
+	const isActive = tourdate.id === activeDate?.id;
 
 	const handleClick = () => {
-		router.push({ query: { date_id: tourdate.id } });
+		isActive ? router.push({ query: {} }) : router.push({ query: { date_id: tourdate.id } });
 	};
 
 	const date = new Date(tourdate.date);
@@ -31,11 +32,11 @@ const DateItem = ({ tourdate, activeDate }: DateItemProps) => {
 
 	return (
 		<ListItem disablePadding>
-			<ListItemButton selected={tourdate.id === activeDate?.id} onClick={handleClick}>
+			<ListItemButton selected={isActive} onClick={handleClick}>
 				<SideStack>
 					{dateCard}
 					<Stack textAlign="right">
-						<Typography>{tourdate.title}</Typography>
+						<Typography>{tourdate.title || tourdate.place.name}</Typography>
 						<Typography variant="caption">{tourdate.place.political_address}</Typography>
 					</Stack>
 				</SideStack>

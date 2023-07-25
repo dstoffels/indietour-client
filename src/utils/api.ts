@@ -11,25 +11,29 @@ export const globalErrorHandler = (setErrors: (errorMsgs: Array<string>) => void
 			return config;
 		},
 		(error) => {
+			console.log(error);
 			throw error;
 		},
 	);
 
 	api.interceptors.response.use(
-		(response) => response,
+		(response) => {
+			return response;
+		},
 		(error: AxiosError<ErrorData> | any) => {
+			// console.log(error);
 			if (error.response) {
 				const { status, data } = error.response;
 				if (status === 400) {
 					if (data.detail) {
 						setErrors([data.detail]);
 					} else {
-						console.log();
 						const errors = Object.entries<[1]>(data).map(([key, msgs]) => `${key}: ${msgs[0]}`);
 						setErrors(errors);
 					}
 				} else if (status === 401) {
-					setErrors([data.detail]);
+					console.log(data.detail);
+					// setErrors([data.detail]);
 				} else if (status === 404) {
 					setErrors(['Not Found']);
 				} else if (status === 500) {

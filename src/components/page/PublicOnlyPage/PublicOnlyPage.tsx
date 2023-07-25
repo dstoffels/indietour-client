@@ -8,7 +8,7 @@ const PublicOnlyPage = ({ headerChildren, children }: PageProps) => {
 	const { user } = useAuth();
 
 	if (user) {
-		push('/tour');
+		user.email_verified ? push('/tour') : push('/verify');
 		return null;
 	}
 

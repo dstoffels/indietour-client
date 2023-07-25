@@ -9,18 +9,18 @@ import { Band } from 'context/bandContext';
 import { useDates } from 'context/dateContext';
 import Main from 'components/core/Main/Main';
 import dayjs from 'dayjs';
+import { useTours } from 'context/tourContext';
 
 const TourPage = ({}) => {
+	const { activeTour } = useTours();
 	const { activeDate, fetchDate, drawerOpen, setDrawerOpen } = useDates();
 	const router = useRouter();
-
-	// let date_id: string | undefined = router.query.date_id as string;
 
 	const date_id = router.query.date_id as string;
 
 	useEffect(() => {
 		fetchDate(date_id);
-	}, [date_id]);
+	}, [date_id, activeTour]);
 
 	console.log(activeDate);
 

@@ -5,11 +5,13 @@ import api, { globalErrorHandler } from 'utils/api';
 
 const ErrorContext = createContext(null);
 
-export const ErrorContextProvider = ({ children }: any) => {
+export const ErrorProvider = ({ children }: any) => {
+	const [loaded, setLoaded] = useState<boolean>(false);
 	const [errorMsgs, setErrorMsgs] = useState<Array<string>>([]);
 
 	useEffect(() => {
 		globalErrorHandler(setErrorMsgs);
+		setLoaded(true);
 	}, []);
 
 	const handleClose = (index: number) => {
@@ -21,6 +23,7 @@ export const ErrorContextProvider = ({ children }: any) => {
 	const errors = errorMsgs.map((msg, i) => (
 		<Snackbar
 			open
+			autoHideDuration={6000}
 			onClose={() => handleClose(i)}
 			key={`error-${i}`}
 			action={
@@ -29,18 +32,20 @@ export const ErrorContextProvider = ({ children }: any) => {
 				</IconButton>
 			}
 		>
-			<Alert severity="error">{msg}</Alert>
+			<Alert variant="filled" sx={{ width: '100%' }} severity="error">
+				{msg}
+			</Alert>
 		</Snackbar>
 	));
 
-	return (
+	return loaded ? (
 		<ErrorContext.Provider value={null}>
 			{children}
 			{errors}
 		</ErrorContext.Provider>
-	);
+	) : null;
 };
 
-export default ErrorContextProvider;
+export default ErrorProvider;
 
 // export const useErrors = () => useContext<ErrorContextProps>(ErrorContext);
