@@ -9,7 +9,7 @@ const LoadingOverlay = ({ loading }: LoadingOverlayProps) => {
 		if (loading) {
 			timer = setTimeout(() => {
 				setOpen(true);
-			}, 200);
+			}, 150);
 		} else {
 			setOpen(false);
 			timer && clearTimeout(timer);

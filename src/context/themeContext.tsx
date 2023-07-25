@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, useEffect } from 'react';
 import * as React from 'react';
-import { ThemeProvider, CssBaseline, Theme, useMediaQuery, createTheme } from '@mui/material';
+import { ThemeProvider, CssBaseline, Theme, createTheme } from '@mui/material';
 import LoadingOverlay from 'components/theme/LoadingOverlay/LoadingOverlay';
 import api from 'utils/api';
 import '@fontsource-variable/quicksand';
@@ -16,24 +16,21 @@ const ThemeContext = createContext({} as ThemeContextValues);
 export const ThemeContextProvider = ({ children }: React.PropsWithChildren) => {
 	const [loaded, setLoaded] = useState(false);
 	const [mode, setMode] = useState<'dark' | 'light'>('dark');
-	const [requests, setRequests] = useState<Array<number>>([]);
-	const loading = Boolean(requests.length);
+	const [loading, setLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		api.interceptors.request.use((config) => {
-			setRequests([...requests, requests.length]);
+			setLoading(true);
 			return config;
 		});
 
 		api.interceptors.response.use(
 			(response) => {
-				requests.pop();
-				setRequests([...requests]);
+				setLoading(false);
 				return response;
 			},
 			(error) => {
-				requests.pop();
-				setRequests([...requests]);
+				setLoading(false);
 				return error;
 			},
 		);
@@ -61,7 +58,6 @@ export const ThemeContextProvider = ({ children }: React.PropsWithChildren) => {
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<LoadingOverlay loading={loading} />
-
 				{children}
 			</ThemeProvider>
 		</ThemeContext.Provider>
