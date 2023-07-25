@@ -2,6 +2,7 @@ import { Box, ListItem, ListItemButton, Stack, Typography } from '@mui/material'
 import SideStack from 'components/core/SideStack/SideStack';
 import { TourDate } from 'context/dateContext';
 import { useRouter } from 'next/router';
+import dayjs from 'dayjs';
 
 interface DateItemProps {
 	tourdate: TourDate;
@@ -16,16 +17,13 @@ const DateItem = ({ tourdate, activeDate }: DateItemProps) => {
 		isActive ? router.push({ query: {} }) : router.push({ query: { date_id: tourdate.id } });
 	};
 
-	const date = new Date(tourdate.date);
+	const date = tourdate.date;
 
 	const dateCard = (
 		<Stack textAlign="center">
-			<Typography variant="caption">
-				{date.toLocaleDateString('en-US', { weekday: 'short' })}
-			</Typography>
+			<Typography variant="caption">{dayjs(date).format('ddd')}</Typography>
 			<Typography>
-				{date.toLocaleDateString('en-US', { day: '2-digit' })}{' '}
-				{date.toLocaleDateString('en-US', { month: 'short' })}
+				{dayjs(date).format('DD')} {dayjs(date).format('MM')}
 			</Typography>
 		</Stack>
 	);

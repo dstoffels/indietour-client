@@ -6,11 +6,12 @@ import MainMenu from 'components/MainMenu/MainMenu';
 import LoginForm from 'components/auth/LoginForm/LoginForm';
 import LogoutBtn from 'components/auth/LogoutBtn/LogoutBtn';
 import SideStack from '../SideStack/SideStack';
-import darkTheme from 'themes/darkTheme';
+import { useTheme } from 'context/themeContext';
 
 const Header = forwardRef(({ children }: PropsWithChildren, ref: React.Ref<HTMLDivElement>) => {
+	const { theme } = useTheme();
 	return (
-		<AppBar ref={ref} color="inherit" position="fixed" sx={{ zIndex: darkTheme.zIndex.drawer + 1 }}>
+		<AppBar ref={ref} color="inherit" position="fixed" sx={{ zIndex: theme.zIndex.drawer + 1 }}>
 			<Toolbar>
 				<SideStack justifyContent="start">{children}</SideStack>
 				<Box>

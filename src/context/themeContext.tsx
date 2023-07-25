@@ -1,27 +1,21 @@
-import lightTheme from 'themes/lightTheme';
-import darkTheme from 'themes/darkTheme';
 import { createContext, useState, useContext, useEffect } from 'react';
 import * as React from 'react';
-import { ThemeProvider, CssBaseline, Theme } from '@mui/material';
+import { ThemeProvider, CssBaseline, Theme, useMediaQuery, createTheme } from '@mui/material';
 import LoadingOverlay from 'components/theme/LoadingOverlay/LoadingOverlay';
 import api from 'utils/api';
+import '@fontsource-variable/quicksand';
 
-export class ThemeContextProps {
-	loading: boolean = true;
+interface ThemeContextValues {
+	loading: boolean;
 	theme: Theme;
-	setTheme = (theme: Theme) => {};
-
-	constructor(theme: Theme) {
-		this.theme = theme;
-	}
+	toggleThemeMode: () => void;
 }
 
-const defaultContext = new ThemeContextProps(darkTheme);
-
-const ThemeContext = createContext(defaultContext);
+const ThemeContext = createContext({} as ThemeContextValues);
 
 export const ThemeContextProvider = ({ children }: React.PropsWithChildren) => {
-	const [theme, setTheme] = useState(darkTheme);
+	const [loaded, setLoaded] = useState(false);
+	const [mode, setMode] = useState<'dark' | 'light'>('dark');
 	const [requests, setRequests] = useState<Array<number>>([]);
 	const loading = Boolean(requests.length);
 
@@ -43,10 +37,27 @@ export const ThemeContextProvider = ({ children }: React.PropsWithChildren) => {
 				return error;
 			},
 		);
+		setLoaded(true);
 	}, []);
 
-	return (
-		<ThemeContext.Provider value={{ loading, theme, setTheme }}>
+	const toggleThemeMode = () => setMode((prevMode) => (prevMode === 'dark' ? 'light' : 'dark'));
+
+	const theme = React.useMemo(
+		() =>
+			createTheme({
+				typography: {
+					fontFamily: 'Quicksand Variable',
+					allVariants: {
+						letterSpacing: 1,
+					},
+				},
+				palette: { mode },
+			}),
+		[mode],
+	);
+
+	return loaded ? (
+		<ThemeContext.Provider value={{ loading, theme, toggleThemeMode }}>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<LoadingOverlay loading={loading} />
@@ -54,18 +65,9 @@ export const ThemeContextProvider = ({ children }: React.PropsWithChildren) => {
 				{children}
 			</ThemeProvider>
 		</ThemeContext.Provider>
-	);
+	) : null;
 };
 
 export default ThemeContextProvider;
 
-export const useTheme = () => {
-	const { theme, setTheme } = useContext(ThemeContext);
-
-	const toggleMode = () => {
-		if (theme === darkTheme) setTheme(lightTheme);
-		else setTheme(darkTheme);
-	};
-
-	return { theme, toggleMode };
-};
+export const useTheme = () => useContext(ThemeContext);

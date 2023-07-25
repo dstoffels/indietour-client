@@ -1,7 +1,6 @@
-import { Alert, Box, Button, Grid, Snackbar, Stack, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Grid, Snackbar, Stack, Typography } from '@mui/material';
 import NumberField from 'components/core/NumberField/NumberField';
 import BasePage from 'components/page/BasePage/BasePage';
-import PrivatePage from 'components/page/PrivatePage/PrivatePage';
 import { useAuth } from 'context/authContext';
 import { useRouter } from 'next/router';
 import * as React from 'react';
@@ -16,7 +15,7 @@ const VerifyPage = ({}) => {
 
 	useEffect(() => {
 		if (verification_code.length === 6) {
-			const success = verifyUser(verification_code);
+			verifyUser(verification_code);
 		}
 	}, [verification_code]);
 

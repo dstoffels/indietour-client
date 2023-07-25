@@ -1,4 +1,4 @@
-import { Box, Button, Fade, IconButton, ListSubheader, Paper, Typography } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
 import BandSelector from 'components/bands/BandSelector/BandSelector';
 import DatesDrawer from 'components/core/DatesDrawer/DatesDrawer';
 import PrivatePage from 'components/page/PrivatePage/PrivatePage';
@@ -13,7 +13,7 @@ import { useTours } from 'context/tourContext';
 
 const TourPage = ({}) => {
 	const { activeTour } = useTours();
-	const { activeDate, fetchDate, drawerOpen, setDrawerOpen } = useDates();
+	const { activeDate, fetchDate } = useDates();
 	const router = useRouter();
 
 	const date_id = router.query.date_id as string;
@@ -41,9 +41,7 @@ const TourPage = ({}) => {
 					<Typography padding={2} variant="h6">
 						{activeDate && dayjs(activeDate?.date).format('dddd, DD MMMM, YYYY')}
 					</Typography>
-					<Paper>
-						<Box padding={1}>Content</Box>
-					</Paper>
+					<Paper></Paper>
 				</Main>
 			</Box>
 		</PrivatePage>
