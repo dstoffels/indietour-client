@@ -3,8 +3,9 @@ import BasePage, { PageProps } from '../BasePage/BasePage';
 import { useAuth } from 'context/authContext';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import MainMenu from 'components/menus/MainMenu/MainMenu';
 
-const PrivatePage = ({ headerChildren, footerChildren, children }: PageProps) => {
+const PrivatePage = (props: PageProps) => {
 	const { user } = useAuth();
 	const { push } = useRouter();
 
@@ -18,11 +19,7 @@ const PrivatePage = ({ headerChildren, footerChildren, children }: PageProps) =>
 		return null;
 	}
 
-	return (
-		<BasePage headerChildren={headerChildren} footerChildren={footerChildren}>
-			{children}
-		</BasePage>
-	);
+	return <BasePage {...props} headerMenu={<MainMenu />} />;
 };
 
 export default PrivatePage;

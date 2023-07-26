@@ -1,24 +1,27 @@
-import React, { PropsWithChildren, ReactPropTypes, forwardRef } from 'react';
-import { AppBar, Box, Button, Hidden, Toolbar } from '@mui/material';
-
-import IconMenu from 'components/core/IconMenu/IconMenu';
-import MainMenu from 'components/MainMenu/MainMenu';
+import React, { PropsWithChildren, forwardRef } from 'react';
+import { AppBar, Hidden, Toolbar } from '@mui/material';
 import LoginForm from 'components/auth/LoginForm/LoginForm';
-import LogoutBtn from 'components/auth/LogoutBtn/LogoutBtn';
 import SideStack from '../SideStack/SideStack';
 import { useTheme } from 'context/themeContext';
+import MobileHeaderMenu from 'components/menus/MobileHeaderMenu/MobileHeaderMenu';
 
-const Header = forwardRef(({ children }: PropsWithChildren, ref: React.Ref<HTMLDivElement>) => {
+interface HeaderProps extends PropsWithChildren {
+	menu: React.ReactNode;
+}
+
+const Header = forwardRef(({ children, menu }: HeaderProps, ref: React.Ref<HTMLDivElement>) => {
 	const { theme } = useTheme();
 	return (
 		<AppBar ref={ref} color="inherit" position="fixed" sx={{ zIndex: theme.zIndex.drawer + 1 }}>
 			<Toolbar>
 				<SideStack justifyContent="start">{children}</SideStack>
-				<Hidden mdDown>
+				{menu}
+				{/* <Hidden mdDown>
 					<LoginForm inline />
 				</Hidden>
-				<Hidden mdUp></Hidden>
-				<MainMenu />
+				<Hidden mdUp>
+					<MobileHeaderMenu />
+				</Hidden> */}
 			</Toolbar>
 		</AppBar>
 	);

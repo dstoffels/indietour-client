@@ -1,4 +1,4 @@
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Hidden, Paper, Typography } from '@mui/material';
 import BandSelector from 'components/bands/BandSelector/BandSelector';
 import DatesDrawer from 'components/core/DatesDrawer/DatesDrawer';
 import PrivatePage from 'components/page/PrivatePage/PrivatePage';
@@ -31,7 +31,9 @@ const TourPage = ({}) => {
 		<PrivatePage
 			headerChildren={
 				<>
-					<BandSelector />
+					<Hidden mdDown>
+						<BandSelector />
+					</Hidden>
 					<TourSelector />
 				</>
 			}

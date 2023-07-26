@@ -1,5 +1,5 @@
 import { KeyboardArrowDown } from '@mui/icons-material';
-import { Box, Button, List, Menu, MenuItem, Paper, Popover } from '@mui/material';
+import { Button, List, Paper, Popover } from '@mui/material';
 import {
 	Children,
 	MouseEvent,
@@ -10,7 +10,6 @@ import {
 	useState,
 } from 'react';
 import { SelectorItemProps } from '../SelectorItem/SelectorItem';
-import SideStack from 'components/core/SideStack/SideStack';
 
 interface iSelectorItem extends ReactElement<SelectorItemProps> {}
 

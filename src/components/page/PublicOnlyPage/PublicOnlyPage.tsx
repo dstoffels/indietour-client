@@ -2,8 +2,9 @@ import * as React from 'react';
 import { useAuth } from 'context/authContext';
 import { useRouter } from 'next/router';
 import BasePage, { PageProps } from '../BasePage/BasePage';
+import LoginMenu from 'components/menus/LoginMenu/LoginMenu';
 
-const PublicOnlyPage = ({ headerChildren, footerChildren, children }: PageProps) => {
+const PublicOnlyPage = (props: PageProps) => {
 	const { push } = useRouter();
 	const { user } = useAuth();
 
@@ -12,11 +13,7 @@ const PublicOnlyPage = ({ headerChildren, footerChildren, children }: PageProps)
 		return null;
 	}
 
-	return (
-		<BasePage headerChildren={headerChildren} footerChildren={footerChildren}>
-			{children}
-		</BasePage>
-	);
+	return <BasePage {...props} headerMenu={<LoginMenu />} />;
 };
 
 export default PublicOnlyPage;

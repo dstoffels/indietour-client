@@ -6,12 +6,14 @@ import { useDates } from 'context/dateContext';
 import { useRouter } from 'next/router';
 import { useTours } from 'context/tourContext';
 import DateItem from 'components/DATES/DateItem/DateItem';
+import { useTheme } from 'context/themeContext';
 
 interface DrawerProps {
 	width: number;
 }
 
 const DatesDrawer = ({ width }: DrawerProps) => {
+	const { theme, headerHeight, footerHeight } = useTheme();
 	const { activeTour } = useTours();
 	const { dates, activeDate, fetchTourDates, drawerOpen, setDrawerOpen } = useDates();
 
@@ -31,7 +33,7 @@ const DatesDrawer = ({ width }: DrawerProps) => {
 
 	return (
 		<Drawer
-			sx={{ width }}
+			sx={{ width, zIndex: theme.zIndex.drawer - 1 }}
 			anchor="left"
 			open={drawerOpen}
 			onClose={toggleDrawer}
@@ -39,7 +41,14 @@ const DatesDrawer = ({ width }: DrawerProps) => {
 			// swipeAreaWidth={25}
 			hideBackdrop
 		>
-			<Box sx={{ marginTop: '64px', width, height: '100%' }}>
+			<Box
+				sx={{
+					marginTop: `${headerHeight}px`,
+					marginBottom: `${footerHeight}px`,
+					width,
+					height: '100%',
+				}}
+			>
 				<Paper sx={{ height: '100%' }}>
 					<List
 						subheader={

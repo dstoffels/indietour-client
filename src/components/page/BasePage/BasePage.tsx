@@ -6,14 +6,17 @@ import { useTheme } from 'context/themeContext';
 
 export interface PageProps extends React.PropsWithChildren {
 	headerChildren?: React.ReactNode;
+	headerMenu?: React.ReactNode;
 	footerChildren?: React.ReactNode;
 }
-const BasePage = ({ headerChildren, footerChildren, children }: PageProps) => {
+const BasePage = ({ headerChildren, headerMenu, footerChildren, children }: PageProps) => {
 	const { headerRef, headerHeight, footerRef, footerHeight } = useTheme();
 
 	return (
 		<Box>
-			<Header ref={headerRef}>{headerChildren}</Header>
+			<Header ref={headerRef} menu={headerMenu}>
+				{headerChildren}
+			</Header>
 			<Box
 				className="page-content"
 				minHeight="100vh"

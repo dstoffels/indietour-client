@@ -1,11 +1,19 @@
 import React from 'react';
-import { Button, MenuItem } from '@mui/material';
+import {
+	Button,
+	ListItem,
+	ListItemButton,
+	ListItemIcon,
+	ListItemText,
+	MenuItem,
+} from '@mui/material';
 import { useAuth } from 'context/authContext';
+import { Logout } from '@mui/icons-material';
+import BaseMenuItem from 'components/core/menu/BaseMenuItem/BaseMenuItem';
 
 const LogoutBtn = ({}) => {
 	const { user, logout } = useAuth();
-
-	return user && <MenuItem onClick={logout}>Log Out</MenuItem>;
+	return user && <BaseMenuItem onClick={logout} icon={<Logout />} text="Log Out" />;
 };
 
 export default LogoutBtn;
