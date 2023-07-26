@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { useTours } from 'context/tourContext';
 import DateItem from 'components/DATES/DateItem/DateItem';
 import { useTheme } from 'context/themeContext';
+import DatePicker from 'components/core/DatePicker/DatePicker';
 
 interface DrawerProps {
 	width: number;
@@ -46,17 +47,7 @@ const DatesDrawer = ({ width }: DrawerProps) => {
 				}}
 			>
 				<Paper sx={{ height: '100%' }}>
-					<List
-						subheader={
-							<ListSubheader>
-								<SideStack>
-									<Box>Dates</Box>
-								</SideStack>
-							</ListSubheader>
-						}
-					>
-						{dateItems}
-					</List>
+					<List subheader={<ListSubheader></ListSubheader>}>{dateItems}</List>
 				</Paper>
 			</Box>
 		</Drawer>
