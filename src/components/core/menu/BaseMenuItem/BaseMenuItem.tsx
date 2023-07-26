@@ -10,11 +10,10 @@ import { useState, useEffect } from 'react';
 
 interface BaseMenuItemProps extends ListItemButtonProps {
 	onClose?: () => void;
-	icon: React.ReactNode;
-	text: string;
+	icon?: React.ReactNode;
 }
 
-const BaseMenuItem = ({ onClick, onClose, icon, text, children }: BaseMenuItemProps) => {
+const BaseMenuItem = ({ onClick, onClose, icon, children }: BaseMenuItemProps) => {
 	const handleClick: React.MouseEventHandler<HTMLDivElement> = (event) => {
 		onClick && onClick(event);
 		onClose && onClose();
@@ -23,7 +22,7 @@ const BaseMenuItem = ({ onClick, onClose, icon, text, children }: BaseMenuItemPr
 	const content = (
 		<>
 			{icon && <ListItemIcon>{icon}</ListItemIcon>}
-			{text ? <ListItemText>{text}</ListItemText> : children}
+			{<ListItemText>{children}</ListItemText>}
 		</>
 	);
 

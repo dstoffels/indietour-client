@@ -13,7 +13,13 @@ import BaseMenuItem from 'components/core/menu/BaseMenuItem/BaseMenuItem';
 
 const LogoutBtn = ({}) => {
 	const { user, logout } = useAuth();
-	return user && <BaseMenuItem onClick={logout} icon={<Logout />} text="Log Out" />;
+	return (
+		user && (
+			<BaseMenuItem onClick={logout} icon={<Logout />}>
+				Log Out
+			</BaseMenuItem>
+		)
+	);
 };
 
 export default LogoutBtn;
