@@ -4,6 +4,7 @@ import { useAuth } from 'context/authContext';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import MainMenu from 'components/menus/MainMenu/MainMenu';
+import NavItem from 'components/core/NavItem/NavItem';
 
 const PrivatePage = (props: PageProps) => {
 	const { user } = useAuth();
@@ -19,7 +20,18 @@ const PrivatePage = (props: PageProps) => {
 		return null;
 	}
 
-	return <BasePage {...props} headerMenu={<MainMenu />} />;
+	return (
+		<BasePage
+			navItems={
+				<>
+					<NavItem to="/today">Today</NavItem>
+					<NavItem to="/tour">Tour</NavItem>
+				</>
+			}
+			{...props}
+			headerMenu={<MainMenu />}
+		/>
+	);
 };
 
 export default PrivatePage;

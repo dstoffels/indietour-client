@@ -1,15 +1,23 @@
-import React, { Ref, useEffect, useRef, useState } from 'react';
-import Header from '../../core/Header/Header';
+import React from 'react';
+import Header from '../Header/Header';
 import { Box } from '@mui/material';
-import Footer from 'components/core/Footer/Footer';
+import Footer from '../Footer/Footer';
 import { useTheme } from 'context/themeContext';
+import NavItem from 'components/core/NavItem/NavItem';
 
 export interface PageProps extends React.PropsWithChildren {
 	headerChildren?: React.ReactNode;
 	headerMenu?: React.ReactNode;
 	footerChildren?: React.ReactNode;
+	navItems?: React.ReactNode;
 }
-const BasePage = ({ headerChildren, headerMenu, footerChildren, children }: PageProps) => {
+const BasePage = ({
+	headerChildren,
+	headerMenu,
+	footerChildren,
+	navItems,
+	children,
+}: PageProps) => {
 	const { headerRef, headerHeight, footerRef, footerHeight } = useTheme();
 
 	return (
@@ -25,7 +33,9 @@ const BasePage = ({ headerChildren, headerMenu, footerChildren, children }: Page
 			>
 				{children}
 			</Box>
-			<Footer ref={footerRef}>{footerChildren}</Footer>
+			<Footer ref={footerRef} navItems={navItems}>
+				{footerChildren}
+			</Footer>
 		</Box>
 	);
 };

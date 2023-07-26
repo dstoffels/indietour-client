@@ -1,10 +1,10 @@
-import { Box, Hidden, Paper, Typography } from '@mui/material';
+import { Box, Hidden, Typography } from '@mui/material';
 import BandSelector from 'components/bands/BandSelector/BandSelector';
-import DatesDrawer from 'components/core/DatesDrawer/DatesDrawer';
+import DatesDrawer from 'components/DATES/DatesDrawer/DatesDrawer';
 import PrivatePage from 'components/page/PrivatePage/PrivatePage';
 import TourSelector from 'components/tours/TourSelector/TourSelector';
 import { useRouter } from 'next/router';
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import { Band } from 'context/bandContext';
 import { useDates } from 'context/dateContext';
 import Main from 'components/core/Main/Main';
@@ -45,16 +45,11 @@ const TourPage = ({}) => {
 					<Typography padding={2} variant="h6">
 						{activeDate && dayjs(activeDate?.date).format('dddd, DD MMMM, YYYY')}
 					</Typography>
-					<Paper></Paper>
 				</Main>
 			</Box>
 		</PrivatePage>
 	);
 };
-
-// export const getServerSideProps: GetServerSideProps<{ initBands: Array<Band> }> = async (
-// 	context: GetServerSidePropsContext,
-// ) => getDashboardProps(context);
 
 export interface DashboardPageProps extends PropsWithChildren {
 	initBands: Array<Band>;

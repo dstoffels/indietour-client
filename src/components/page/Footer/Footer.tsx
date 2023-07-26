@@ -1,12 +1,14 @@
 import { AppBar, Box } from '@mui/material';
-import React, { forwardRef, PropsWithChildren, Ref } from 'react';
+import React, { forwardRef, PropsWithChildren, ReactNode, Ref } from 'react';
 import DarkModeSwitch from 'components/theme/DarkModeSwitch/DarkModeSwitch';
 import SideStack from 'components/core/SideStack/SideStack';
 import { useTheme } from 'context/themeContext';
 
-interface FooterProps extends PropsWithChildren {}
+interface FooterProps extends PropsWithChildren {
+	navItems?: ReactNode;
+}
 
-const Footer = forwardRef(({ children }: FooterProps, ref: Ref<HTMLDivElement>) => {
+const Footer = forwardRef(({ children, navItems }: FooterProps, ref: Ref<HTMLDivElement>) => {
 	const { theme } = useTheme();
 
 	return (
@@ -18,7 +20,7 @@ const Footer = forwardRef(({ children }: FooterProps, ref: Ref<HTMLDivElement>) 
 		>
 			<SideStack paddingX={2} justifyContent="space-between">
 				<Box>{children}</Box>
-
+				<Box>{navItems}</Box>
 				<Box>
 					<DarkModeSwitch />
 				</Box>
