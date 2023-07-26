@@ -9,6 +9,10 @@ interface ThemeContextValues {
 	loading: boolean;
 	theme: Theme;
 	toggleThemeMode: () => void;
+	headerRef: React.MutableRefObject<HTMLDivElement | null>;
+	headerHeight: number;
+	footerRef: React.MutableRefObject<HTMLDivElement | null>;
+	footerHeight: number;
 }
 
 const ThemeContext = createContext({} as ThemeContextValues);
@@ -17,7 +21,23 @@ export const ThemeContextProvider = ({ children }: React.PropsWithChildren) => {
 	const [loaded, setLoaded] = useState(false);
 	const [mode, setMode] = useState<'dark' | 'light'>('dark');
 	const [loading, setLoading] = useState<boolean>(false);
+	const [headerHeight, setHeaderHeight] = useState(0);
+	const [footerHeight, setFooterHeight] = useState(0);
 
+	const headerRef = React.useRef<HTMLDivElement | null>(null);
+	const footerRef = React.useRef<HTMLDivElement | null>(null);
+
+	const handleWindowResize = () => {
+		if (headerRef.current) {
+			setHeaderHeight(headerRef.current.clientHeight);
+		}
+
+		if (footerRef.current) {
+			setFooterHeight(footerRef.current.clientHeight);
+		}
+	};
+
+	// init context
 	useEffect(() => {
 		api.interceptors.request.use((config) => {
 			setLoading(true);
@@ -34,8 +54,17 @@ export const ThemeContextProvider = ({ children }: React.PropsWithChildren) => {
 				return error;
 			},
 		);
+
+		window.addEventListener('resize', handleWindowResize);
+
 		setLoaded(true);
+
+		return () => window.removeEventListener('resize', handleWindowResize);
 	}, []);
+
+	useEffect(() => {
+		handleWindowResize();
+	}, [headerRef.current]);
 
 	const toggleThemeMode = () => setMode((prevMode) => (prevMode === 'dark' ? 'light' : 'dark'));
 
@@ -54,7 +83,9 @@ export const ThemeContextProvider = ({ children }: React.PropsWithChildren) => {
 	);
 
 	return loaded ? (
-		<ThemeContext.Provider value={{ loading, theme, toggleThemeMode }}>
+		<ThemeContext.Provider
+			value={{ loading, theme, toggleThemeMode, headerRef, headerHeight, footerRef, footerHeight }}
+		>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<LoadingOverlay loading={loading} />

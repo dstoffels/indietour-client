@@ -1,31 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Ref, useEffect, useRef, useState } from 'react';
 import Header from '../../core/Header/Header';
 import { Box } from '@mui/material';
 import Footer from 'components/core/Footer/Footer';
+import { useTheme } from 'context/themeContext';
 
 const BasePage = ({ headerChildren, children }: PageProps) => {
-	const [marginTop, setMarginTop] = useState(0);
-	const appbarRef = useRef<HTMLDivElement | null>(null);
-
-	const handleWindowResize = () => {
-		if (appbarRef.current) {
-			setMarginTop(appbarRef.current.clientHeight);
-		}
-	};
-
-	useEffect(() => {
-		handleWindowResize();
-		window.addEventListener('resize', handleWindowResize);
-		return () => window.removeEventListener('resize', handleWindowResize);
-	}, []);
+	const { headerRef, headerHeight, footerRef, footerHeight } = useTheme();
 
 	return (
-		<Box className="main">
-			<Header ref={appbarRef}>{headerChildren}</Header>
-			<Box className="page-content" marginTop={`${marginTop}px`}>
+		<Box>
+			<Header ref={headerRef}>{headerChildren}</Header>
+			<Box
+				className="page-content"
+				minHeight="100vh"
+				paddingTop={`${headerHeight}px`}
+				paddingBottom={`${footerHeight}px`}
+			>
 				{children}
 			</Box>
-			<Footer />
+			<Footer ref={footerRef} />
 		</Box>
 	);
 };
