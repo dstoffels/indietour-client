@@ -4,15 +4,17 @@ import { Divider, MenuItem } from '@mui/material';
 import { Menu } from '@mui/icons-material';
 import DarkModeSwitch from 'components/theme/DarkModeSwitch/DarkModeSwitch';
 import LoginForm from 'components/auth/LoginForm/LoginForm';
+import LogoutBtn from 'components/auth/LogoutBtn/LogoutBtn';
+import { useAuth } from 'context/authContext';
 
 const MainMenu = ({}) => {
+	const { user } = useAuth();
 	return (
-		<IconMenu icon={<Menu />}>
-			<LoginForm />
-			<MenuItem>Sign Up</MenuItem>
-			<Divider />
-			<DarkModeSwitch />
-		</IconMenu>
+		user && (
+			<IconMenu icon={<Menu />}>
+				<LogoutBtn />
+			</IconMenu>
+		)
 	);
 };
 

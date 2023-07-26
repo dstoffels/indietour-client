@@ -4,7 +4,11 @@ import { Box } from '@mui/material';
 import Footer from 'components/core/Footer/Footer';
 import { useTheme } from 'context/themeContext';
 
-const BasePage = ({ headerChildren, children }: PageProps) => {
+export interface PageProps extends React.PropsWithChildren {
+	headerChildren?: React.ReactNode;
+	footerChildren?: React.ReactNode;
+}
+const BasePage = ({ headerChildren, footerChildren, children }: PageProps) => {
 	const { headerRef, headerHeight, footerRef, footerHeight } = useTheme();
 
 	return (
@@ -18,13 +22,9 @@ const BasePage = ({ headerChildren, children }: PageProps) => {
 			>
 				{children}
 			</Box>
-			<Footer ref={footerRef} />
+			<Footer ref={footerRef}>{footerChildren}</Footer>
 		</Box>
 	);
 };
 
 export default BasePage;
-
-export interface PageProps extends React.PropsWithChildren {
-	headerChildren?: React.ReactNode;
-}

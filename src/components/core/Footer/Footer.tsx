@@ -1,15 +1,13 @@
-import { AppBar, Box, Button, Divider } from '@mui/material';
-import React, { forwardRef, Ref } from 'react';
+import { AppBar, Box } from '@mui/material';
+import React, { forwardRef, PropsWithChildren, Ref } from 'react';
 import DarkModeSwitch from 'components/theme/DarkModeSwitch/DarkModeSwitch';
 import SideStack from 'components/core/SideStack/SideStack';
-import LogoutBtn from 'components/auth/LogoutBtn/LogoutBtn';
-import DatesDrawerBtn from 'components/DATES/DateDrawerBtn/DateDrawerBtn';
-import { useRouter } from 'next/router';
 import { useTheme } from 'context/themeContext';
 
-const Footer = forwardRef(({}, ref: Ref<HTMLDivElement>) => {
+interface FooterProps extends PropsWithChildren {}
+
+const Footer = forwardRef(({ children }: FooterProps, ref: Ref<HTMLDivElement>) => {
 	const { theme } = useTheme();
-	const { push } = useRouter();
 
 	return (
 		<AppBar
@@ -18,15 +16,11 @@ const Footer = forwardRef(({}, ref: Ref<HTMLDivElement>) => {
 			position="fixed"
 			sx={{ top: 'auto', bottom: 0, zIndex: theme.zIndex.drawer + 1 }}
 		>
-			<SideStack paddingX={2}>
+			<SideStack paddingX={2} justifyContent="space-between">
+				<Box>{children}</Box>
+
 				<Box>
-					<DatesDrawerBtn />
-				</Box>
-				<Box></Box>
-				<Box>
-					<Button onClick={() => push('/account')}>account</Button>
 					<DarkModeSwitch />
-					<LogoutBtn />
 				</Box>
 			</SideStack>
 		</AppBar>

@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Stack, StackProps } from '@mui/material';
 import React from 'react';
 
 interface SideStackProps {
@@ -21,7 +21,7 @@ const SideStack = ({
 	children,
 	className = '',
 	onClick,
-}: SideStackProps) => {
+}: StackProps) => {
 	return (
 		<Stack
 			onClick={onClick}

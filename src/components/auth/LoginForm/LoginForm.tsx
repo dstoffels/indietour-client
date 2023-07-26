@@ -1,4 +1,4 @@
-import { Box, Button, Stack, TextField } from '@mui/material';
+import { Box, Button, Hidden, Stack, TextField } from '@mui/material';
 
 import { useAuth, LoginCredentials } from 'context/authContext';
 import useForm from 'hooks/useForm';
@@ -13,8 +13,8 @@ const LoginForm = ({ inline = false }) => {
 	const disabled = !formData.email || !formData.password;
 
 	return user ? null : (
-		<Box component="form" display="inline-block" onSubmit={handleSubmit}>
-			<Stack spacing={1} padding={1} direction={inline ? 'row' : 'column'}>
+		<Box component="form" minWidth="50vw" onSubmit={handleSubmit}>
+			<Stack spacing={1} direction={inline ? 'row' : 'column'}>
 				<TextField
 					required
 					size="small"
@@ -23,6 +23,7 @@ const LoginForm = ({ inline = false }) => {
 					name="email"
 					value={formData.email}
 					onChange={handleChange}
+					fullWidth
 				/>
 				<TextField
 					required
@@ -32,6 +33,7 @@ const LoginForm = ({ inline = false }) => {
 					name="password"
 					value={formData.password}
 					onChange={handleChange}
+					fullWidth
 				/>
 				<Button disabled={disabled} variant="contained" type="submit" color="secondary">
 					LOGIN

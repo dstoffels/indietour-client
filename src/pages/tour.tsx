@@ -10,6 +10,7 @@ import { useDates } from 'context/dateContext';
 import Main from 'components/core/Main/Main';
 import dayjs from 'dayjs';
 import { useTours } from 'context/tourContext';
+import DatesDrawerBtn from 'components/DATES/DateDrawerBtn/DateDrawerBtn';
 
 const TourPage = ({}) => {
 	const { activeTour } = useTours();
@@ -34,6 +35,7 @@ const TourPage = ({}) => {
 					<TourSelector />
 				</>
 			}
+			footerChildren={<DatesDrawerBtn />}
 		>
 			<Box display="flex">
 				<DatesDrawer width={drawerWidth} />

@@ -3,7 +3,7 @@ import { useAuth } from 'context/authContext';
 import { useRouter } from 'next/router';
 import BasePage, { PageProps } from '../BasePage/BasePage';
 
-const PublicOnlyPage = ({ headerChildren, children }: PageProps) => {
+const PublicOnlyPage = ({ headerChildren, footerChildren, children }: PageProps) => {
 	const { push } = useRouter();
 	const { user } = useAuth();
 
@@ -12,7 +12,11 @@ const PublicOnlyPage = ({ headerChildren, children }: PageProps) => {
 		return null;
 	}
 
-	return <BasePage headerChildren={headerChildren}>{children}</BasePage>;
+	return (
+		<BasePage headerChildren={headerChildren} footerChildren={footerChildren}>
+			{children}
+		</BasePage>
+	);
 };
 
 export default PublicOnlyPage;

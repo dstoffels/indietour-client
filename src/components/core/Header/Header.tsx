@@ -14,14 +14,11 @@ const Header = forwardRef(({ children }: PropsWithChildren, ref: React.Ref<HTMLD
 		<AppBar ref={ref} color="inherit" position="fixed" sx={{ zIndex: theme.zIndex.drawer + 1 }}>
 			<Toolbar>
 				<SideStack justifyContent="start">{children}</SideStack>
-				<Box>
-					<Hidden smDown>
-						<LoginForm inline />
-					</Hidden>
-					<Hidden smUp>
-						<MainMenu />
-					</Hidden>
-				</Box>
+				<Hidden mdDown>
+					<LoginForm inline />
+				</Hidden>
+				<Hidden mdUp></Hidden>
+				<MainMenu />
 			</Toolbar>
 		</AppBar>
 	);
