@@ -23,7 +23,7 @@ const TourPage = ({}) => {
 		fetchDate(date_id);
 	}, [date_id, activeTour]);
 
-	console.log(activeDate);
+	// console.log(activeDate);
 
 	const drawerWidth = 300;
 

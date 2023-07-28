@@ -8,6 +8,7 @@ import { useTours } from 'context/tourContext';
 import DateItem from 'components/DATES/DateItem/DateItem';
 import { useTheme } from 'context/themeContext';
 import DatePicker from 'components/core/DatePicker/DatePicker';
+import NewDateForm from '../NewDateForm/NewDateForm';
 
 interface DrawerProps {
 	width: number;
@@ -32,7 +33,7 @@ const DatesDrawer = ({ width }: DrawerProps) => {
 
 	return (
 		<Drawer
-			sx={{ width, zIndex: theme.zIndex.drawer - 1 }}
+			sx={{ zIndex: theme.zIndex.drawer - 1 }}
 			anchor="left"
 			open={drawerOpen}
 			onClose={toggleDrawer}
@@ -42,12 +43,11 @@ const DatesDrawer = ({ width }: DrawerProps) => {
 				sx={{
 					marginTop: `${headerHeight}px`,
 					marginBottom: `${footerHeight}px`,
-					width,
 					height: '100%',
 				}}
 			>
 				<Paper sx={{ height: '100%' }}>
-					<List subheader={<ListSubheader></ListSubheader>}>{dateItems}</List>
+					<List subheader={<NewDateForm />}>{dateItems}</List>
 				</Paper>
 			</Box>
 		</Drawer>

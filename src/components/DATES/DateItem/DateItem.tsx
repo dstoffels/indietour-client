@@ -21,10 +21,10 @@ const DateItem = ({ tourdate, activeDate }: DateItemProps) => {
 
 	const dateCard = (
 		<Stack textAlign="center">
-			<Typography variant="caption">{dayjs(date).format('ddd')}</Typography>
 			<Typography>
-				{dayjs(date).format('DD')} {dayjs(date).format('MM')}
+				{dayjs(date).format('DD')} {dayjs(date).format('MMM')}
 			</Typography>
+			<Typography variant="caption">{dayjs(date).format('ddd')}</Typography>
 		</Stack>
 	);
 
@@ -34,8 +34,8 @@ const DateItem = ({ tourdate, activeDate }: DateItemProps) => {
 				<SideStack>
 					{dateCard}
 					<Stack textAlign="right">
-						<Typography>{tourdate.title || tourdate.place.name}</Typography>
-						<Typography variant="caption">{tourdate.place.political_address}</Typography>
+						<Typography>{tourdate.title || tourdate.place?.name}</Typography>
+						<Typography variant="caption">{tourdate.place?.political_address}</Typography>
 					</Stack>
 				</SideStack>
 			</ListItemButton>

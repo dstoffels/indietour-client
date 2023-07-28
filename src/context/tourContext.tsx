@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 interface TourContextValues {
 	activeTour: Tour | undefined;
 	tours: Tour[] | undefined;
-	// fetchTours: () => Promise<void>;
 	setActiveTour: (tour_id: string) => Promise<void>;
 	createTour: (tourData: object) => Promise<void>;
 }

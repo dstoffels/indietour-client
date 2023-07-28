@@ -4,6 +4,23 @@ import { useState } from 'react';
 import SideStack from '../SideStack/SideStack';
 import { Add, Check, Close } from '@mui/icons-material';
 
+interface ButtonFormProps {
+	title?: string;
+	btnText: string;
+	btnIcon?: React.ReactNode;
+	btnVariant?: 'contained' | 'outlined' | 'text';
+	btnColor?: 'inherit' | 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error';
+	onSubmit: (e: React.FormEvent) => Promise<void>;
+	children: React.ReactNode;
+	info?: string;
+	autoclose?: boolean;
+	timeout?: number;
+	disabled?: boolean;
+	spacing?: number;
+	submitBtnTxt: string;
+	iconBtns?: boolean;
+}
+
 const ButtonForm = React.forwardRef(
 	(
 		{
@@ -20,6 +37,7 @@ const ButtonForm = React.forwardRef(
 			timeout = 400,
 			disabled,
 			spacing,
+			iconBtns = false,
 		}: ButtonFormProps,
 		ref,
 	) => {
@@ -36,7 +54,7 @@ const ButtonForm = React.forwardRef(
 		};
 
 		return (
-			<Box my={2} ref={ref}>
+			<Box ref={ref}>
 				<Collapse in={!showForm} timeout={timeout}>
 					<Button
 						variant={btnVariant}
@@ -57,24 +75,31 @@ const ButtonForm = React.forwardRef(
 							<Stack spacing={spacing}>{children}</Stack>
 							<SideStack justifyContent="end" spacing={1}>
 								{info && <Typography variant="caption">{info}</Typography>}
-								<Button variant="contained" color="error" onClick={handleShowForm}>
-									Cancel
-								</Button>
-								<Button variant="contained" color="info" type="submit" disabled={disabled}>
-									{submitBtnTxt}
-								</Button>
-								{/* <Tooltip title="Submit">
-								<span>
-								<IconButton size="large" color="info" type="submit" disabled={disabled}>
-								<Check />
-								</IconButton>
-								</span>
-							</Tooltip> */}
-								{/* <Tooltip title="Cancel">
-								<IconButton color="error" onClick={handleShowForm}>
-								<Close />
-								</IconButton>
-							</Tooltip> */}
+								{iconBtns ? (
+									<>
+										<Tooltip title="Submit">
+											<span>
+												<IconButton size="large" color="info" type="submit" disabled={disabled}>
+													<Check />
+												</IconButton>
+											</span>
+										</Tooltip>
+										<Tooltip title="Cancel">
+											<IconButton color="error" onClick={handleShowForm}>
+												<Close />
+											</IconButton>
+										</Tooltip>
+									</>
+								) : (
+									<>
+										<Button variant="contained" color="error" onClick={handleShowForm}>
+											Cancel
+										</Button>
+										<Button variant="contained" color="info" type="submit" disabled={disabled}>
+											{submitBtnTxt}
+										</Button>
+									</>
+								)}
 							</SideStack>
 						</Stack>
 					</Box>
@@ -85,19 +110,3 @@ const ButtonForm = React.forwardRef(
 );
 
 export default ButtonForm;
-
-interface ButtonFormProps {
-	title?: string;
-	btnText: string;
-	btnIcon?: React.ReactNode;
-	btnVariant?: 'contained' | 'outlined' | 'text';
-	btnColor?: 'inherit' | 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error';
-	onSubmit: (e: React.FormEvent) => Promise<void>;
-	children: React.ReactNode;
-	info?: string;
-	autoclose?: boolean;
-	timeout?: number;
-	disabled?: boolean;
-	spacing?: number;
-	submitBtnTxt: string;
-}

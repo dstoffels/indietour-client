@@ -11,8 +11,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 const App = ({ Component, pageProps }: any) => {
 	return (
-		<ThemeContextProvider>
-			<ErrorProvider>
+		<ErrorProvider>
+			<ThemeContextProvider>
 				<AuthProvider>
 					<BandProvider>
 						<TourProvider>
@@ -24,8 +24,8 @@ const App = ({ Component, pageProps }: any) => {
 						</TourProvider>
 					</BandProvider>
 				</AuthProvider>
-			</ErrorProvider>
-		</ThemeContextProvider>
+			</ThemeContextProvider>
+		</ErrorProvider>
 	);
 };
 

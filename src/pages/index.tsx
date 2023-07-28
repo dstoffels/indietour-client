@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { Typography, Box, Grid, Stack } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import RegisterForm from 'components/auth/RegisterForm/RegisterForm';
 import PublicOnlyPage from 'components/page/PublicOnlyPage/PublicOnlyPage';
 import Section from 'components/core/Section/Section';
-import LoginMenu from 'components/menus/LoginMenu/LoginMenu';
 
 const HomePage = ({}) => {
 	return (

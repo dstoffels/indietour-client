@@ -1,39 +1,42 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 const api = axios.create({
-	baseURL: '/api',
+	baseURL: process.env.API_BASE_URL,
+	withCredentials: true,
 });
 
-export const globalErrorHandler = (setErrors: (errorMsgs: Array<string>) => void) => {
+export const globalErrorHandler = (setErrors: (errorMsgs: string[]) => void) => {
+	// REQUEST INTERCEPTORS
 	api.interceptors.request.use(
 		(config) => {
 			setErrors([]);
 			return config;
 		},
 		(error) => {
-			console.log(error);
-			throw error;
+			return Promise.reject(error);
 		},
 	);
 
+	// RESPONSE INTERCEPTORS
 	api.interceptors.response.use(
 		(response) => {
 			return response;
 		},
-		(error: AxiosError<ErrorData> | any) => {
-			// console.log(error);
+		(error: AxiosError) => {
+			console.log(error.response?.data);
 			if (error.response) {
-				const { status, data } = error.response;
+				const { status } = error.response;
+				const data = error.response.data as ErrorData;
 				if (status === 400) {
 					if (data.detail) {
-						setErrors([data.detail]);
+						setErrors([data.detail as string]);
 					} else {
-						const errors = Object.entries<[1]>(data).map(([key, msgs]) => `${key}: ${msgs[0]}`);
-						setErrors(errors);
+						// const errors = Object.entries<[1]>(data).map(([key, msgs]) => `${key}: ${msgs[0]}`);
+						// setErrors(errors);
 					}
 				} else if (status === 401) {
-					console.log(data.detail);
-					// setErrors([data.detail]);
+					if (data.detail === 'Authentication credentials were not provided.') {
+					} else setErrors([data.detail as string]);
 				} else if (status === 404) {
 					setErrors(['Not Found']);
 				} else if (status === 500) {
@@ -47,7 +50,7 @@ export const globalErrorHandler = (setErrors: (errorMsgs: Array<string>) => void
 				// Something happened in setting up the request
 				// Handle other types of errors
 			}
-			return error;
+			return Promise.reject(error);
 		},
 	);
 };
