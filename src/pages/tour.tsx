@@ -3,10 +3,7 @@ import MainPage from 'components/page/MainPage/MainPage';
 
 const TourPage = ({}) => {
 	return (
-		<MainPage
-			fetchDatesQuery="status=confirmed,cancelled"
-			defaultDateFields={{ status: 'CONFIRMED' }}
-		>
+		<MainPage defaultDateFields={{ status: 'CONFIRMED' }}>
 			<DatePanel />
 		</MainPage>
 	);

@@ -7,12 +7,12 @@ import { Dayjs } from 'dayjs';
 interface DateContextValues {
 	activeDate: TourDate | null;
 	dates: TourDate[];
-	fetchTourDates: (queryParams?: string) => Promise<void>;
+	fetchTourDates: () => Promise<void>;
 	fetchDate: (date_id: string | undefined) => Promise<void>;
 	updateTourdate: (tourdateData: TourDate) => Promise<void>;
 	drawerOpen: boolean;
 	setDrawerOpen: (open: boolean) => void;
-	createTourdate: (tourdateData: TourDate, callback?: Function) => Promise<void>;
+	createTourdate: (tourdateData: TourDate) => Promise<void>;
 	statusOptions: string[];
 }
 
@@ -27,12 +27,13 @@ const DateProvider = ({ children }: DateProviderProps) => {
 	const [statusOptions, setStatusOptions] = useState<string[]>([]);
 	const { activeTour } = useTours();
 
-	const { push } = useRouter();
+	const { push, query } = useRouter();
 
-	const fetchTourDates = async (queryParams = '') => {
+	const fetchTourDates = async () => {
 		if (activeTour) {
-			console.log('fetchTourDates');
-			const response = await api.get(`/tours/${activeTour?.id}/dates?${queryParams}`);
+			const statusQuery: string | undefined = query.status && `status=${query.status}`;
+			console.log('fetchTourDates', statusQuery);
+			const response = await api.get(`/tours/${activeTour?.id}/dates?${statusQuery}`);
 			setDates(response.data);
 		}
 	};
@@ -45,19 +46,19 @@ const DateProvider = ({ children }: DateProviderProps) => {
 		} else setActiveDate(null);
 	};
 
-	const updateTourdate = async (tourdataData: TourDate, callback?: Function) => {
+	const updateTourdate = async (tourdataData: TourDate) => {
 		if (activeDate) {
 			console.log('UpdateDate');
+
 			const response = await api.patch(`/dates/${activeDate.id}`, tourdataData);
 			setActiveDate(response.data);
-			callback && callback();
+			await fetchTourDates();
 		}
 	};
 
 	useEffect(() => {
 		if (activeTour) {
 			setActiveDate(null);
-			console.log('null active date');
 		}
 	}, [activeTour]);
 

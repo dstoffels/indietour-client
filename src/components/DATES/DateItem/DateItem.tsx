@@ -1,9 +1,10 @@
 import { Box, ListItem, ListItemButton, Stack, Theme, Typography } from '@mui/material';
 import SideStack from 'components/core/SideStack/SideStack';
-import { TourDate, useDates } from 'context/dateContext';
+import { TourDate, TourDateStatusOptions, useDates } from 'context/dateContext';
 import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
 import { useTheme } from 'context/themeContext';
+import { getStatusColor } from '../StatusSelector/StatusSelector';
 
 interface DateItemProps {
 	tourdate: TourDate;
@@ -11,18 +12,18 @@ interface DateItemProps {
 }
 
 const DateItem = ({ tourdate, activeDate }: DateItemProps) => {
-	const { push } = useRouter();
+	const { push, query } = useRouter();
 	const isActive = tourdate.id === activeDate?.id;
 
 	const handleClick = () => {
-		isActive ? push({ query: {} }) : push({ query: { date_id: tourdate.id } });
+		isActive ? push({ query: {} }) : push({ query: { ...query, date_id: tourdate.id } });
 	};
 
 	const fontStyle = tourdate.status !== 'CONFIRMED' ? 'italic' : '';
 
 	const fontWeight = tourdate.status === 'CONFIRMED' ? '500' : 'inherit';
 
-	const fontColor = getFontColor(tourdate);
+	const fontColor = getStatusColor(tourdate.status as TourDateStatusOptions);
 
 	const date = tourdate.date;
 
@@ -63,25 +64,3 @@ const DateItem = ({ tourdate, activeDate }: DateItemProps) => {
 };
 
 export default DateItem;
-
-function getFontColor(tourdate: TourDate) {
-	const { theme } = useTheme();
-
-	const { status } = tourdate;
-	switch (status) {
-		case 'INQUIRED':
-			return theme.palette.secondary.main;
-		case 'HOLD':
-			return theme.palette.info.main;
-		case 'CHALLENGED':
-			return theme.palette.warning.main;
-		case 'OPTION':
-			return theme.palette.success.main;
-		case 'RELEASED':
-			return theme.palette.action.disabled;
-		case 'CANCELLED':
-			return theme.palette.error.main;
-		default:
-			return 'inherit';
-	}
-}

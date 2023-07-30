@@ -6,6 +6,7 @@ import {
 	IconButton,
 	TextField,
 	TextFieldProps,
+	Tooltip,
 	Typography,
 	debounce,
 } from '@mui/material';
@@ -82,9 +83,11 @@ const EditField = (props: EditFieldProps) => {
 									}}
 								/>
 							)}
-							<IconButton color="error" onClick={handleClose}>
-								<Close fontSize="small" />
-							</IconButton>
+							<Tooltip title="Close">
+								<IconButton color="error" onClick={handleClose}>
+									<Close fontSize="small" />
+								</IconButton>
+							</Tooltip>
 						</Box>
 					</ClickAwayListener>
 				</Box>

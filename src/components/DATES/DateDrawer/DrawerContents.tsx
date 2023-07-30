@@ -8,13 +8,13 @@ import NewDateForm from '../NewDateForm/NewDateForm';
 import { DateDrawerProps } from './DateDrawer';
 
 const DrawerContent = forwardRef(
-	({ defaultDateFields, fetchDatesQuery }: DateDrawerProps, ref: Ref<HTMLElement>) => {
+	({ defaultDateFields }: DateDrawerProps, ref: Ref<HTMLElement>) => {
 		const { theme, headerHeight, footerHeight } = useTheme();
 		const { activeTour } = useTours();
-		const { dates, activeDate, fetchTourDates, drawerOpen, setDrawerOpen } = useDates();
+		const { dates, activeDate, fetchTourDates } = useDates();
 
 		useEffect(() => {
-			fetchTourDates(fetchDatesQuery);
+			fetchTourDates();
 		}, [activeTour]);
 
 		if (!activeTour) return null;

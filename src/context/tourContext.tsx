@@ -33,7 +33,7 @@ const TourProvider = ({ children }: TourProviderProps) => {
 		const response = await api.post(`/bands/${activeBand?.id}/tours?include=dates`, tourData);
 		const tour: Tour = response.data;
 		setActiveTour(tour.id);
-		await fetchBands(); // is this the best way?
+		await fetchBands();
 	};
 
 	const activeTour = tours?.find((tour) => user?.active_tour_id === tour.id);

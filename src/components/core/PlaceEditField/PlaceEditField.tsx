@@ -5,7 +5,7 @@ import PlaceSelector from '../PlaceSelector/PlaceSelector';
 import { Place, useDates } from 'context/dateContext';
 import { PlaceType } from '../PlaceSelector/PlaceSelectorOption';
 import api from 'utils/api';
-import { Box, ClickAwayListener, Collapse, IconButton, Typography } from '@mui/material';
+import { Box, ClickAwayListener, Collapse, IconButton, Tooltip, Typography } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { useTheme } from 'context/themeContext';
 import SideStack from '../SideStack/SideStack';
@@ -49,9 +49,11 @@ const PlaceEditField = ({ label }: PlaceEditFieldProps) => {
 								onChange={(place) => setPlace(place)}
 								initialInputValue={initialInputValue}
 							/>
-							<IconButton onClick={handleClose} color="error">
-								<Close fontSize="small" />
-							</IconButton>
+							<Tooltip title="Close">
+								<IconButton onClick={handleClose} color="error">
+									<Close fontSize="small" />
+								</IconButton>
+							</Tooltip>
 						</Box>
 					</ClickAwayListener>
 				</Box>

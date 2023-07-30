@@ -4,23 +4,21 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 
 const BookingToggle = ({}) => {
-	const { pathname } = useRouter();
+	const { push, pathname } = useRouter();
 
-	const [mode, setMode] = useState<string>(pathname);
-
-	const { push } = useRouter();
-
-	const handleChange = (e: React.MouseEvent<HTMLElement>, value: '/tour' | '/book') =>
-		setMode(value);
+	const handleChange = (e: React.MouseEvent<HTMLElement>, value: '/tour' | '/book') => {
+		const query = value === '/tour' ? { status: 'confirmed,cancelled' } : {};
+		pathname !== value && push({ pathname: value, query });
+	};
 
 	return (
-		<ToggleButtonGroup value={mode} onChange={handleChange} exclusive color="info">
-			<ToggleButton value={`/tour`} onClick={() => push(`/tour`)}>
+		<ToggleButtonGroup value={pathname} exclusive color="info">
+			<ToggleButton value={`/tour`} onClick={handleChange}>
 				<Tooltip title="Switch to Tour Mode">
 					<span>Tour</span>
 				</Tooltip>
 			</ToggleButton>
-			<ToggleButton value={`/book`} onClick={() => push(`/book`)}>
+			<ToggleButton value={`/book`} onClick={handleChange}>
 				<Tooltip title="Switch to Booking Mode">
 					<span>Book</span>
 				</Tooltip>
