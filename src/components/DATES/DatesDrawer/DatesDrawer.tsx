@@ -2,7 +2,7 @@ import { Box, Drawer, List, ListSubheader, Paper, SwipeableDrawer } from '@mui/m
 import { PropsWithRef, ReactNode, forwardRef, useEffect, useState } from 'react';
 import SideStack from '../../core/SideStack/SideStack';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
-import { useDates } from 'context/dateContext';
+import { TourDate, useDates } from 'context/dateContext';
 import { useRouter } from 'next/router';
 import { useTours } from 'context/tourContext';
 import DateItem from 'components/DATES/DateItem/DateItem';
@@ -12,16 +12,17 @@ import NewDateForm from '../NewDateForm/NewDateForm';
 
 export interface DatesDrawerProps {
 	queryParams?: string;
+	defaultDateFields?: TourDate;
 }
 
-const DatesDrawer = forwardRef(({ queryParams }: DatesDrawerProps, ref) => {
+const DatesDrawer = forwardRef(({ queryParams, defaultDateFields }: DatesDrawerProps, ref) => {
 	const { theme, headerHeight, footerHeight } = useTheme();
 	const { activeTour } = useTours();
 	const { dates, activeDate, fetchTourDates, drawerOpen, setDrawerOpen } = useDates();
 
 	useEffect(() => {
 		fetchTourDates(queryParams);
-	}, [activeTour]);
+	}, [activeTour, activeDate]);
 
 	if (!activeTour) return null;
 
@@ -38,6 +39,7 @@ const DatesDrawer = forwardRef(({ queryParams }: DatesDrawerProps, ref) => {
 			open={drawerOpen}
 			onClose={toggleDrawer}
 			hideBackdrop
+			variant="persistent"
 		>
 			<Box
 				ref={ref}
@@ -51,7 +53,7 @@ const DatesDrawer = forwardRef(({ queryParams }: DatesDrawerProps, ref) => {
 					<List
 						subheader={
 							<ListSubheader>
-								<NewDateForm />
+								<NewDateForm defaultDateFields={defaultDateFields} />
 							</ListSubheader>
 						}
 					>

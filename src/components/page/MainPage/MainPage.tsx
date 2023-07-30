@@ -7,17 +7,18 @@ import TourSelector from 'components/tours/TourSelector/TourSelector';
 import { useRouter } from 'next/router';
 import { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { Band } from 'context/bandContext';
-import { useDates } from 'context/dateContext';
+import { TourDate, useDates } from 'context/dateContext';
 import Main from 'components/core/Main/Main';
 import dayjs from 'dayjs';
 import { useTours } from 'context/tourContext';
 import DatesDrawerBtn from 'components/DATES/DateDrawerBtn/DateDrawerBtn';
 
-export interface MainPageProps {
+export interface MainPageProps extends PropsWithChildren {
 	queryParams?: string;
+	defaultDateFields?: TourDate;
 }
 
-const MainPage = ({ queryParams }: MainPageProps) => {
+const MainPage = ({ queryParams, defaultDateFields, children }: MainPageProps) => {
 	const { activeTour } = useTours();
 	const { activeDate, fetchDate } = useDates();
 	const router = useRouter();
@@ -49,11 +50,20 @@ const MainPage = ({ queryParams }: MainPageProps) => {
 			footerChildren={<DatesDrawerBtn />}
 		>
 			<Box display="flex">
-				<DatesDrawer ref={drawerRef} queryParams={queryParams} />
-				<Main drawerWidth={drawerWidth}>
-					<Typography padding={2} variant="h6">
-						{activeDate && dayjs(activeDate?.date).format('dddd, DD MMMM, YYYY')}
-					</Typography>
+				<DatesDrawer
+					ref={drawerRef}
+					queryParams={queryParams}
+					defaultDateFields={defaultDateFields}
+				/>
+				<Main
+					drawerWidth={drawerWidth}
+					header={
+						<Typography padding={2} variant="h6">
+							{activeDate && dayjs(activeDate?.date).format('dddd, DD MMMM, YYYY')}
+						</Typography>
+					}
+				>
+					{children}
 				</Main>
 			</Box>
 		</PrivatePage>

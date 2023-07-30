@@ -1,6 +1,6 @@
 import ButtonForm from 'components/core/ButtonForm/ButtonForm';
 import DatePicker from 'components/core/DatePicker/DatePicker';
-import { useDates } from 'context/dateContext';
+import { TourDate, useDates } from 'context/dateContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
@@ -10,9 +10,11 @@ import PlaceSelector from 'components/core/PlaceSelector/PlaceSelector';
 import { Paper, Typography } from '@mui/material';
 import { PlaceType } from 'components/core/PlaceSelector/PlaceSelectorOption';
 
-interface NewDateFormProps {}
+interface NewDateFormProps {
+	defaultDateFields?: TourDate;
+}
 
-const NewDateForm = ({}: NewDateFormProps) => {
+const NewDateForm = ({ defaultDateFields }: NewDateFormProps) => {
 	const { dates, createTourdate } = useDates();
 	const existingDates = dates.map(({ date }) => date as string);
 
@@ -22,9 +24,9 @@ const NewDateForm = ({}: NewDateFormProps) => {
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 		await createTourdate({
+			...defaultDateFields,
 			date: date.format('YYYY-MM-DD'),
 			place_id: place?.place_id,
-			status: 'CONFIRMED',
 		});
 	};
 

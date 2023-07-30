@@ -26,22 +26,23 @@ const DateItem = ({ tourdate, activeDate }: DateItemProps) => {
 
 	const date = tourdate.date;
 
-	const dateCard = (
-		<Stack textAlign="center">
-			<Typography color={fontColor} fontStyle={fontStyle} fontWeight={fontWeight}>
-				{dayjs(date).format('DD')} {dayjs(date).format('MMM')}
-			</Typography>
-			<Typography color={fontColor} fontStyle={fontStyle} fontWeight={fontWeight} variant="caption">
-				{dayjs(date).format('ddd')}
-			</Typography>
-		</Stack>
-	);
-
 	return (
 		<ListItem disablePadding>
 			<ListItemButton selected={isActive} onClick={handleClick}>
 				<SideStack>
-					{dateCard}
+					<Stack textAlign="center">
+						<Typography color={fontColor} fontStyle={fontStyle} fontWeight={fontWeight}>
+							{dayjs(date).format('DD')} {dayjs(date).format('MMM')}
+						</Typography>
+						<Typography
+							color={fontColor}
+							fontStyle={fontStyle}
+							fontWeight={fontWeight}
+							variant="caption"
+						>
+							{dayjs(date).format('ddd')}
+						</Typography>
+					</Stack>
 					<Stack textAlign="right">
 						<Typography color={fontColor} fontStyle={fontStyle} fontWeight={fontWeight}>
 							{tourdate.title || tourdate.place?.name}
@@ -66,7 +67,8 @@ export default DateItem;
 function getFontColor(tourdate: TourDate) {
 	const { theme } = useTheme();
 
-	switch (tourdate.status) {
+	const { status } = tourdate;
+	switch (status) {
 		case 'INQUIRED':
 			return theme.palette.secondary.main;
 		case 'HOLD':
@@ -75,8 +77,11 @@ function getFontColor(tourdate: TourDate) {
 			return theme.palette.warning.main;
 		case 'OPTION':
 			return theme.palette.success.main;
-		case 'CANCELLED':
 		case 'RELEASED':
 			return theme.palette.action.disabled;
+		case 'CANCELLED':
+			return theme.palette.error.main;
+		default:
+			return 'inherit';
 	}
 }

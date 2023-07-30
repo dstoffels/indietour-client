@@ -9,6 +9,7 @@ interface DateContextValues {
 	dates: TourDate[];
 	fetchTourDates: (queryParams?: string) => Promise<void>;
 	fetchDate: (date_id: string | undefined) => Promise<void>;
+	updateTourdate: (tourdateData: TourDate) => Promise<void>;
 	drawerOpen: boolean;
 	setDrawerOpen: (open: boolean) => void;
 	createTourdate: (tourdateData: TourDate) => Promise<void>;
@@ -40,6 +41,11 @@ const DateProvider = ({ children }: DateProviderProps) => {
 			const response = await api.get(`/dates/${date_id}?include=all`);
 			setActiveDate(response.data);
 		} else setActiveDate(null);
+	};
+
+	const updateTourdate = async (tourdataData: TourDate) => {
+		const response = await api.patch(`/dates/${activeDate?.id}`, tourdataData);
+		setActiveDate(response.data);
 	};
 
 	useEffect(() => {
@@ -75,6 +81,7 @@ const DateProvider = ({ children }: DateProviderProps) => {
 				setDrawerOpen,
 				createTourdate,
 				statusOptions,
+				updateTourdate,
 			}}
 		>
 			{children}
@@ -88,19 +95,11 @@ export const useDates = () => useContext(DateContext);
 
 export interface TourDate {
 	id?: string;
-	date: string | Dayjs | Date;
+	date?: string | Dayjs | Date;
 	place?: Place;
 	title?: string;
 	notes?: string;
-	status?:
-		| 'PROSPECT'
-		| 'INQUIRED'
-		| 'HOLD'
-		| 'CHALLENGED'
-		| 'RELEASED'
-		| 'OPTION'
-		| 'CONFIRMED'
-		| 'CANCELLED';
+	status?: TourDateStatusOptions;
 	shows?: [];
 	timeslots?: [];
 	lodgings?: [];
@@ -108,6 +107,16 @@ export interface TourDate {
 	tour_id?: string;
 	place_id?: string;
 }
+
+export type TourDateStatusOptions =
+	| 'PROSPECT'
+	| 'INQUIRED'
+	| 'HOLD'
+	| 'CHALLENGED'
+	| 'RELEASED'
+	| 'OPTION'
+	| 'CONFIRMED'
+	| 'CANCELLED';
 
 export class Place {
 	id = '';
