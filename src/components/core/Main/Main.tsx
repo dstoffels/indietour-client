@@ -17,10 +17,15 @@ const Main = ({ drawerWidth, children }: MainProps) => {
 			flexGrow={1}
 			marginLeft={drawerOpen ? `${drawerWidth}px` : 0}
 			sx={{
-				transition: theme.transitions.create('margin', {
-					easing: theme.transitions.easing.sharp,
-					duration: theme.transitions.duration.leavingScreen,
-				}),
+				transition: !drawerOpen
+					? theme.transitions.create('margin', {
+							easing: theme.transitions.easing.sharp,
+							duration: theme.transitions.duration.leavingScreen,
+					  })
+					: theme.transitions.create('margin', {
+							easing: theme.transitions.easing.easeOut,
+							duration: theme.transitions.duration.enteringScreen,
+					  }),
 			}}
 		>
 			{children}

@@ -15,7 +15,7 @@ const MainMenu = ({}) => {
 	return (
 		user && (
 			<BaseMenu>
-				<Hidden mdUp>
+				<Hidden smUp>
 					<BaseMenuItem>
 						<Box padding={1}>
 							<BandSelector />

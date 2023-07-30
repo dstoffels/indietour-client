@@ -10,6 +10,8 @@ export class AuthContextValues {
 	updateUser = async (data: object) => false;
 	verifyUser = async (verification_code: string) => false;
 	resendCode = async () => '';
+
+	loaded = false;
 }
 
 const defaultContext = new AuthContextValues();
@@ -26,16 +28,17 @@ const AuthProvider = ({ children }: any) => {
 
 		if (userData) {
 			setUser(response.data);
+			!loaded && setLoaded(true);
 			return true;
 		}
 		setUser(null);
+		!loaded && setLoaded(true);
 		return false;
 	};
 
 	// Fetch user on first load
 	useEffect(() => {
 		fetchUser();
-		setLoaded(true);
 	}, []);
 
 	const login = async (credentials: LoginCredentials) => {
@@ -46,6 +49,7 @@ const AuthProvider = ({ children }: any) => {
 
 	const register = async (formData: RegisterFormData) => {
 		const response = await api.post('/auth/register', formData);
+		console.log(response);
 		setUser(response.data);
 		return true;
 	};
@@ -104,7 +108,7 @@ const AuthProvider = ({ children }: any) => {
 
 	return loaded ? (
 		<AuthContext.Provider
-			value={{ user, login, logout, register, refresh, updateUser, verifyUser, resendCode }}
+			value={{ user, login, logout, register, refresh, updateUser, verifyUser, resendCode, loaded }}
 		>
 			{children}
 		</AuthContext.Provider>

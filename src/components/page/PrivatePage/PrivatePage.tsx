@@ -7,30 +7,27 @@ import MainMenu from 'components/menus/MainMenu/MainMenu';
 import NavItem from 'components/core/NavItem/NavItem';
 
 const PrivatePage = (props: PageProps) => {
-	const { user } = useAuth();
+	const { user, loaded } = useAuth();
 	const { push } = useRouter();
 
-	if (!user) {
-		push('/');
-		return null;
-	}
-
-	if (!user.email_verified) {
-		push('/verify');
-		return null;
+	if (loaded) {
+		if (!user) push('/');
+		else if (!user.email_verified) push('/verify');
 	}
 
 	return (
-		<BasePage
-			navItems={
-				<>
-					<NavItem to="/today">Today</NavItem>
-					<NavItem to="/tour">Tour</NavItem>
-				</>
-			}
-			{...props}
-			headerMenu={<MainMenu />}
-		/>
+		user && (
+			<BasePage
+				navItems={
+					<>
+						<NavItem to="/today">Today</NavItem>
+						<NavItem to="/tour">Tour</NavItem>
+					</>
+				}
+				{...props}
+				headerMenu={<MainMenu />}
+			/>
+		)
 	);
 };
 

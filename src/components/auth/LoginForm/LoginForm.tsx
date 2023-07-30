@@ -13,7 +13,7 @@ const LoginForm = ({ inline = false }) => {
 	const disabled = !formData.email || !formData.password;
 
 	return user ? null : (
-		<Box component="form" width="100%" onSubmit={handleSubmit}>
+		<Box component="form" width="100%" maxWidth={700} onSubmit={handleSubmit}>
 			<Stack spacing={1} direction={inline ? 'row' : 'column'}>
 				<TextField
 					required

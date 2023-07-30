@@ -1,8 +1,9 @@
-import { AppBar, Box } from '@mui/material';
+import { AppBar, Box, Toolbar } from '@mui/material';
 import React, { forwardRef, PropsWithChildren, ReactNode, Ref } from 'react';
 import DarkModeSwitch from 'components/theme/DarkModeSwitch/DarkModeSwitch';
 import SideStack from 'components/core/SideStack/SideStack';
 import { useTheme } from 'context/themeContext';
+import BookingToggle from 'components/page/TourModeToggle/TourModeToggle';
 
 interface FooterProps extends PropsWithChildren {
 	navItems?: ReactNode;
@@ -18,13 +19,17 @@ const Footer = forwardRef(({ children, navItems }: FooterProps, ref: Ref<HTMLDiv
 			position="fixed"
 			sx={{ top: 'auto', bottom: 0, zIndex: theme.zIndex.drawer + 1 }}
 		>
-			<SideStack paddingX={2} justifyContent="space-between">
-				<Box>{children}</Box>
-				<Box>{navItems}</Box>
-				<Box>
-					<DarkModeSwitch />
-				</Box>
-			</SideStack>
+			<Toolbar>
+				<SideStack justifyContent="space-between">
+					<Box>{children}</Box>
+					<Box>
+						<BookingToggle />
+					</Box>
+					<Box>
+						<DarkModeSwitch />
+					</Box>
+				</SideStack>
+			</Toolbar>
 		</AppBar>
 	);
 });

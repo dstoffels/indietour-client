@@ -1,19 +1,18 @@
 import { createContext, useState, useContext, useEffect, PropsWithChildren } from 'react';
-import { User, useAuth } from './authContext';
 import api from 'utils/api';
-import BandProvider, { Band, useBands } from './bandContext';
 import { useTours } from './tourContext';
 import { useRouter } from 'next/router';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 
 interface DateContextValues {
 	activeDate: TourDate | null;
 	dates: TourDate[];
-	fetchTourDates: () => Promise<void>;
+	fetchTourDates: (queryParams?: string) => Promise<void>;
 	fetchDate: (date_id: string | undefined) => Promise<void>;
 	drawerOpen: boolean;
 	setDrawerOpen: (open: boolean) => void;
 	createTourdate: (tourdateData: TourDate) => Promise<void>;
+	statusOptions: string[];
 }
 
 interface DateProviderProps extends PropsWithChildren {}
@@ -24,22 +23,21 @@ const DateProvider = ({ children }: DateProviderProps) => {
 	const [dates, setDates] = useState<TourDate[]>([]);
 	const [activeDate, setActiveDate] = useState<TourDate | null>(null);
 	const [drawerOpen, setDrawerOpen] = useState(true);
+	const [statusOptions, setStatusOptions] = useState<string[]>([]);
 	const { activeTour } = useTours();
 
 	const { push } = useRouter();
 
-	const fetchTourDates = async () => {
+	const fetchTourDates = async (queryParams = '') => {
 		if (activeTour) {
-			const response = await api.get(`/bands/${activeTour?.band_id}/tours/${activeTour?.id}/dates`);
+			const response = await api.get(`/tours/${activeTour?.id}/dates?${queryParams}`);
 			setDates(response.data);
 		}
 	};
 
 	const fetchDate = async (date_id: string | undefined) => {
 		if (date_id && activeTour) {
-			const response = await api.get(
-				`/bands/${activeTour?.band_id}/tours/${activeTour?.id}/dates/${date_id}?include=all`,
-			);
+			const response = await api.get(`/dates/${date_id}?include=all`);
 			setActiveDate(response.data);
 		} else setActiveDate(null);
 	};
@@ -48,15 +46,21 @@ const DateProvider = ({ children }: DateProviderProps) => {
 		setActiveDate(null);
 	}, [activeTour]);
 
+	const fetchStatusOptions = async () => {
+		const response = await api.get('/dates/status');
+		setStatusOptions(response.data);
+	};
+
+	useEffect(() => {
+		fetchStatusOptions();
+	}, []);
+
 	const createTourdate = async (tourdataData: TourDate) => {
-		const response = await api.post(
-			`/bands/${activeTour?.band_id}/tours/${activeTour?.id}/dates`,
-			tourdataData,
-		);
+		const response = await api.post(`/tours/${activeTour?.id}/dates`, tourdataData);
 		if (response.data) {
 			await fetchTourDates();
+			setActiveDate(response.data);
 			push({ query: { date_id: response.data?.id } });
-			// setActiveDate(response.data);
 		}
 	};
 
@@ -70,6 +74,7 @@ const DateProvider = ({ children }: DateProviderProps) => {
 				drawerOpen,
 				setDrawerOpen,
 				createTourdate,
+				statusOptions,
 			}}
 		>
 			{children}
@@ -87,7 +92,15 @@ export interface TourDate {
 	place?: Place;
 	title?: string;
 	notes?: string;
-	status?: 'UNCONFIRMED' | 'HOLD' | 'INQUIRY SENT' | 'OFFER RECEIVED' | 'CONFIRMED';
+	status?:
+		| 'PROSPECT'
+		| 'INQUIRED'
+		| 'HOLD'
+		| 'CHALLENGED'
+		| 'RELEASED'
+		| 'OPTION'
+		| 'CONFIRMED'
+		| 'CANCELLED';
 	shows?: [];
 	timeslots?: [];
 	lodgings?: [];

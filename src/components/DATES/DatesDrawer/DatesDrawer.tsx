@@ -1,5 +1,5 @@
 import { Box, Drawer, List, ListSubheader, Paper, SwipeableDrawer } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { PropsWithRef, ReactNode, forwardRef, useEffect, useState } from 'react';
 import SideStack from '../../core/SideStack/SideStack';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { useDates } from 'context/dateContext';
@@ -10,17 +10,17 @@ import { useTheme } from 'context/themeContext';
 import DatePicker from 'components/core/DatePicker/DatePicker';
 import NewDateForm from '../NewDateForm/NewDateForm';
 
-interface DrawerProps {
-	width: number;
+export interface DatesDrawerProps {
+	queryParams?: string;
 }
 
-const DatesDrawer = ({ width }: DrawerProps) => {
+const DatesDrawer = forwardRef(({ queryParams }: DatesDrawerProps, ref) => {
 	const { theme, headerHeight, footerHeight } = useTheme();
 	const { activeTour } = useTours();
 	const { dates, activeDate, fetchTourDates, drawerOpen, setDrawerOpen } = useDates();
 
 	useEffect(() => {
-		fetchTourDates();
+		fetchTourDates(queryParams);
 	}, [activeTour]);
 
 	if (!activeTour) return null;
@@ -40,6 +40,7 @@ const DatesDrawer = ({ width }: DrawerProps) => {
 			hideBackdrop
 		>
 			<Box
+				ref={ref}
 				sx={{
 					marginTop: `${headerHeight}px`,
 					marginBottom: `${footerHeight}px`,
@@ -47,11 +48,19 @@ const DatesDrawer = ({ width }: DrawerProps) => {
 				}}
 			>
 				<Paper sx={{ height: '100%' }}>
-					<List subheader={<NewDateForm />}>{dateItems}</List>
+					<List
+						subheader={
+							<ListSubheader>
+								<NewDateForm />
+							</ListSubheader>
+						}
+					>
+						{dateItems}
+					</List>
 				</Paper>
 			</Box>
 		</Drawer>
 	);
-};
+});
 
 export default DatesDrawer;

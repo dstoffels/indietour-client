@@ -3,7 +3,6 @@ import Header from '../Header/Header';
 import { Box } from '@mui/material';
 import Footer from '../Footer/Footer';
 import { useTheme } from 'context/themeContext';
-import NavItem from 'components/core/NavItem/NavItem';
 
 export interface PageProps extends React.PropsWithChildren {
 	headerChildren?: React.ReactNode;
