@@ -6,11 +6,6 @@ const BookingPage = ({}) => {
 	return (
 		<MainPage queryParams="">
 			<DatePanel />
-			<DatePanel />
-			<DatePanel />
-			<DatePanel />
-			<DatePanel />
-			<DatePanel />
 		</MainPage>
 	);
 };

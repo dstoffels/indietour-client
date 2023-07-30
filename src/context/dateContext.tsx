@@ -100,6 +100,7 @@ export interface TourDate {
 	title?: string;
 	notes?: string;
 	status?: TourDateStatusOptions;
+	hold?: number;
 	shows?: [];
 	timeslots?: [];
 	lodgings?: [];

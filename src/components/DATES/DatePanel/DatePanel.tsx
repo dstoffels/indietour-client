@@ -11,7 +11,21 @@ const DatePanel = ({}) => {
 		activeDate && (
 			<Panel title="Details">
 				<StatusSelector />
-				<EditField label="Title" name="title" value={activeDate.title} onChange={updateTourdate} />
+				<EditField
+					label="Title"
+					name="title"
+					value={activeDate.title}
+					onChange={updateTourdate}
+					fullWidth
+				/>
+				<EditField
+					label="General Notes"
+					name="notes"
+					fullWidth
+					value={activeDate.notes}
+					onChange={updateTourdate}
+					multiline
+				/>
 			</Panel>
 		)
 	);
