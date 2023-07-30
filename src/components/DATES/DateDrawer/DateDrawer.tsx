@@ -11,13 +11,13 @@ export interface DateDrawerProps {
 }
 
 const DateDrawer = React.forwardRef(
-	({ fetchDatesQuery, defaultDateFields }: DateDrawerProps, ref: React.Ref<HTMLElement>) => {
+	({ defaultDateFields }: DateDrawerProps, ref: React.Ref<HTMLElement>) => {
 		const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
 
 		return (
 			<>
-				{isMobile && <MobileDrawer />}
-				{!isMobile && <PersistentDrawer ref={ref} fetchDatesQuery={fetchDatesQuery} />}
+				{isMobile && <MobileDrawer ref={ref} />}
+				{!isMobile && <PersistentDrawer ref={ref} />}
 			</>
 		);
 	},

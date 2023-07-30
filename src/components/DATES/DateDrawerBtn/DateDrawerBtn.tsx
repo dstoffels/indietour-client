@@ -19,6 +19,3 @@ const DatesDrawerBtn = ({}) => {
 };
 
 export default DatesDrawerBtn;
-
-// <IconButton onClick={() => setDrawerOpen(!drawerOpen)}>
-/* </IconButton> */

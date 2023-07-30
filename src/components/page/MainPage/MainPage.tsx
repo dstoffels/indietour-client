@@ -20,7 +20,7 @@ export interface MainPageProps extends PropsWithChildren {
 	defaultDateFields?: TourDate;
 }
 
-const MainPage = ({ fetchDatesQuery, defaultDateFields, children }: MainPageProps) => {
+const MainPage = ({ defaultDateFields, children }: MainPageProps) => {
 	const router = useRouter();
 	const { activeTour } = useTours();
 	const { drawerOpen, activeDate, fetchDate } = useDates();
@@ -69,11 +69,7 @@ const MainPage = ({ fetchDatesQuery, defaultDateFields, children }: MainPageProp
 			footerChildren={<DatesDrawerBtn />}
 		>
 			<Box display="flex">
-				<DateDrawer
-					ref={drawerRef}
-					fetchDatesQuery={fetchDatesQuery}
-					defaultDateFields={defaultDateFields}
-				/>
+				<DateDrawer ref={drawerRef} defaultDateFields={defaultDateFields} />
 				{
 					<Box
 						width="100%"
