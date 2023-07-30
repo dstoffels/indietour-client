@@ -7,11 +7,17 @@ import PlaceSelectorOption, { PlaceType } from './PlaceSelectorOption';
 interface PlaceSelectorProps {
 	value: PlaceType | null;
 	onChange: (place: PlaceType | null) => void;
+	label?: string;
+	initialInputValue?: string;
 }
 
-const PlaceSelector = ({ value, onChange }: PlaceSelectorProps) => {
-	const [loading, setLoading] = useState<boolean>(false);
-	const [inputValue, setInputValue] = useState<string>('');
+const PlaceSelector = ({
+	value,
+	onChange,
+	label = 'Location',
+	initialInputValue = '',
+}: PlaceSelectorProps) => {
+	const [inputValue, setInputValue] = useState<string>(initialInputValue);
 	const [options, setOptions] = useState<PlaceType[]>([]);
 
 	const fetchPlaceOptions = React.useMemo(
@@ -27,29 +33,34 @@ const PlaceSelector = ({ value, onChange }: PlaceSelectorProps) => {
 		[],
 	);
 
+	useEffect(() => {
+		initialInputValue && setInputValue(initialInputValue);
+	}, [initialInputValue]);
+
 	React.useEffect(() => {
 		fetchPlaceOptions(inputValue);
 	}, [inputValue]);
 
 	const handleChange = (event: any, newValue: PlaceType | null) => {
+		console.log('change');
 		onChange(newValue);
 	};
 
 	return (
 		<Autocomplete<PlaceType>
+			// @ts-expect-error
+			freeSolo
 			value={value}
 			onChange={handleChange}
 			options={options}
 			fullWidth
 			filterOptions={(o) => o}
-			loading={loading}
 			isOptionEqualToValue={(option) => option.place_id === value?.place_id}
+			inputValue={inputValue}
 			onInputChange={(e, newInputValue) => setInputValue(newInputValue)}
 			filterSelectedOptions
 			getOptionLabel={(option: PlaceType) => option.description}
-			renderInput={(params) => (
-				<TextField {...params} required variant="standard" label="Location" />
-			)}
+			renderInput={(params) => <TextField {...params} required variant="standard" label={label} />}
 			renderOption={(props, option) => (
 				<PlaceSelectorOption key={option.place_id} props={props} option={option} />
 			)}

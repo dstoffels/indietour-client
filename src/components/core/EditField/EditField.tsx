@@ -2,6 +2,7 @@ import { Close } from '@mui/icons-material';
 import {
 	Box,
 	ClickAwayListener,
+	Collapse,
 	IconButton,
 	TextField,
 	TextFieldProps,
@@ -25,10 +26,12 @@ const EditField = (props: EditFieldProps) => {
 	let { label, name, value, onChange, children, sx } = props;
 	const [open, setOpen] = useState(false);
 	const [text, setText] = useState<string>(value as string);
-	useKeyPress('Escape', handleClose);
 	const { theme } = useTheme();
 
-	const handleClick = () => {
+	useKeyPress('Escape', handleClose);
+
+	const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
+		event.stopPropagation();
 		setOpen(true);
 	};
 
@@ -52,14 +55,14 @@ const EditField = (props: EditFieldProps) => {
 		update(text, open);
 	}, [text]);
 
-	children =
-		children &&
-		React.cloneElement(children as React.ReactElement, { label, name, value, onChange });
+	// children =
+	// 	children &&
+	// 	React.cloneElement(children as React.ReactElement, { label, name, value, onChange });
 
 	return (
 		<Box>
-			{open ? (
-				<Box sx={{ transition: 'all 0.25s ease-in-out' }} padding={0.5}>
+			<Collapse in={open}>
+				<Box padding={0.5}>
 					<ClickAwayListener onClickAway={handleClose}>
 						<Box display="flex" alignItems="end">
 							{children || (
@@ -73,7 +76,7 @@ const EditField = (props: EditFieldProps) => {
 									sx={{
 										...sx,
 										'input::-webkit-outer-spin-button, input::-webkit-inner-spin-button': {
-											'-webkit-appearance': 'none',
+											WebkitAppearance: 'none',
 											margin: 0,
 										},
 									}}
@@ -85,9 +88,10 @@ const EditField = (props: EditFieldProps) => {
 						</Box>
 					</ClickAwayListener>
 				</Box>
-			) : (
+			</Collapse>
+			<Collapse in={!open}>
 				<Box
-					onClick={handleClick}
+					onClick={handleOpen}
 					padding={0.5}
 					sx={{
 						transition: 'all 0.3s',
@@ -102,7 +106,7 @@ const EditField = (props: EditFieldProps) => {
 					</Typography>
 					<Typography sx={{ whiteSpace: 'pre-wrap' }}>{value}</Typography>
 				</Box>
-			)}
+			</Collapse>
 		</Box>
 	);
 };

@@ -4,6 +4,8 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import StatusSelector from '../StatusSelector/StatusSelector';
 import EditField from 'components/core/EditField/EditField';
+import PlaceSelector from 'components/core/PlaceSelector/PlaceSelector';
+import PlaceEditField from 'components/core/PlaceEditField/PlaceEditField';
 
 const DatePanel = ({}) => {
 	const { activeDate, updateTourdate } = useDates();
@@ -11,6 +13,7 @@ const DatePanel = ({}) => {
 		activeDate && (
 			<Panel title="Details">
 				<StatusSelector />
+				<PlaceEditField />
 				<EditField
 					label="Title"
 					name="title"
