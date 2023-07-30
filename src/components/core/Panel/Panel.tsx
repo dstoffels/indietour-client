@@ -10,12 +10,12 @@ const Panel = ({ title, children }: PanelProps) => {
 	return (
 		<Grid item xs={12} lg={6} xl={4}>
 			<Paper elevation={2}>
-				<Stack padding={1} spacing={1}>
-					<Typography variant="h6" marginBottom={1}>
+				<Box padding={1}>
+					<Typography variant="h6" marginBottom={3}>
 						{title}
 					</Typography>
-					<Box>{children}</Box>
-				</Stack>
+					<Stack spacing={2}>{children}</Stack>
+				</Box>
 			</Paper>
 		</Grid>
 	);

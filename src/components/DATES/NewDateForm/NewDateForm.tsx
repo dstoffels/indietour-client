@@ -5,9 +5,8 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { Add } from '@mui/icons-material';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import PlaceSelector from 'components/core/PlaceSelector/PlaceSelector';
-import { Paper, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { PlaceType } from 'components/core/PlaceSelector/PlaceSelectorOption';
 
 interface NewDateFormProps {
