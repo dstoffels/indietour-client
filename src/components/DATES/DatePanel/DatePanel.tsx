@@ -9,6 +9,7 @@ import PlaceEditField from 'components/core/PlaceEditField/PlaceEditField';
 
 const DatePanel = ({}) => {
 	const { activeDate, updateTourdate } = useDates();
+
 	return (
 		activeDate && (
 			<Panel title="Details">

@@ -32,10 +32,8 @@ const PlaceEditField = ({ label }: PlaceEditFieldProps) => {
 		setOpen(false);
 	}
 
-	useEffect(() => {}, [activeDate]);
-
 	useEffect(() => {
-		updateTourdate({ place_id: place?.place_id });
+		place && updateTourdate({ place_id: place?.place_id });
 	}, [place]);
 
 	const initialInputValue = `${activeDate?.place?.name}, ${activeDate?.place?.political_address}`;

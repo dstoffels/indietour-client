@@ -4,7 +4,7 @@ import DatePanel from 'components/DATES/DatePanel/DatePanel';
 
 const BookingPage = ({}) => {
 	return (
-		<MainPage queryParams="">
+		<MainPage fetchDatesQuery="">
 			<DatePanel />
 		</MainPage>
 	);

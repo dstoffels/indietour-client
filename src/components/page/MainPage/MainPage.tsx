@@ -1,30 +1,36 @@
 import * as React from 'react';
-import { Box, Hidden, Typography } from '@mui/material';
+import { Box, Grid, Hidden, Typography, useMediaQuery } from '@mui/material';
 import BandSelector from 'components/bands/BandSelector/BandSelector';
-import DatesDrawer from 'components/DATES/DatesDrawer/DatesDrawer';
+import PersistentDrawer from 'components/DATES/DateDrawer/PersistentDrawer';
 import PrivatePage from 'components/page/PrivatePage/PrivatePage';
 import TourSelector from 'components/tours/TourSelector/TourSelector';
 import { useRouter } from 'next/router';
 import { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { Band } from 'context/bandContext';
 import { TourDate, useDates } from 'context/dateContext';
-import Main from 'components/core/Main/Main';
+import Main from 'components/core/MainDEP/Main';
 import dayjs from 'dayjs';
 import { useTours } from 'context/tourContext';
 import DatesDrawerBtn from 'components/DATES/DateDrawerBtn/DateDrawerBtn';
+import { useTheme } from 'context/themeContext';
+import DateDrawer from 'components/DATES/DateDrawer/DateDrawer';
 
 export interface MainPageProps extends PropsWithChildren {
-	queryParams?: string;
+	fetchDatesQuery?: string;
 	defaultDateFields?: TourDate;
 }
 
-const MainPage = ({ queryParams, defaultDateFields, children }: MainPageProps) => {
-	const { activeTour } = useTours();
-	const { activeDate, fetchDate } = useDates();
+const MainPage = ({ fetchDatesQuery, defaultDateFields, children }: MainPageProps) => {
 	const router = useRouter();
+	const { activeTour } = useTours();
+	const { drawerOpen, activeDate, fetchDate } = useDates();
+	const { theme } = useTheme();
 
 	const [drawerWidth, setDrawerWidth] = useState<number>(0);
-	const drawerRef = useRef<HTMLDivElement | null>(null);
+
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+	const drawerRef = useRef<HTMLElement | null>(null);
 
 	const date_id = router.query.date_id as string;
 
@@ -37,6 +43,19 @@ const MainPage = ({ queryParams, defaultDateFields, children }: MainPageProps) =
 			setDrawerWidth(drawerRef.current.clientWidth);
 		}
 	}, [drawerRef.current]);
+
+	const marginLeft = !isMobile && drawerOpen ? `${drawerWidth}px` : 0;
+
+	const transition = !drawerOpen
+		? theme.transitions.create('margin', {
+				easing: theme.transitions.easing.sharp,
+				duration: theme.transitions.duration.leavingScreen,
+		  })
+		: theme.transitions.create('margin', {
+				easing: theme.transitions.easing.easeOut,
+				duration: theme.transitions.duration.enteringScreen,
+		  });
+
 	return (
 		<PrivatePage
 			headerChildren={
@@ -50,21 +69,30 @@ const MainPage = ({ queryParams, defaultDateFields, children }: MainPageProps) =
 			footerChildren={<DatesDrawerBtn />}
 		>
 			<Box display="flex">
-				<DatesDrawer
+				<DateDrawer
 					ref={drawerRef}
-					queryParams={queryParams}
+					fetchDatesQuery={fetchDatesQuery}
 					defaultDateFields={defaultDateFields}
 				/>
-				<Main
-					drawerWidth={drawerWidth}
-					header={
-						<Typography padding={2} variant="h6">
-							{activeDate && dayjs(activeDate?.date).format('dddd, DD MMMM, YYYY')}
-						</Typography>
-					}
-				>
-					{children}
-				</Main>
+				{
+					<Box
+						width="100%"
+						marginLeft={marginLeft}
+						padding={1}
+						sx={{
+							transition,
+						}}
+					>
+						<Box width="100%">
+							<Typography padding={2} variant="h6">
+								{activeDate && dayjs(activeDate?.date).format('dddd, DD MMMM, YYYY')}
+							</Typography>
+						</Box>
+						<Grid container spacing={1}>
+							{children}
+						</Grid>
+					</Box>
+				}
 			</Box>
 		</PrivatePage>
 	);

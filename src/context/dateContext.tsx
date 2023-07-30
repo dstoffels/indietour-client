@@ -12,7 +12,7 @@ interface DateContextValues {
 	updateTourdate: (tourdateData: TourDate) => Promise<void>;
 	drawerOpen: boolean;
 	setDrawerOpen: (open: boolean) => void;
-	createTourdate: (tourdateData: TourDate) => Promise<void>;
+	createTourdate: (tourdateData: TourDate, callback?: Function) => Promise<void>;
 	statusOptions: string[];
 }
 
@@ -31,6 +31,7 @@ const DateProvider = ({ children }: DateProviderProps) => {
 
 	const fetchTourDates = async (queryParams = '') => {
 		if (activeTour) {
+			console.log('fetchTourDates');
 			const response = await api.get(`/tours/${activeTour?.id}/dates?${queryParams}`);
 			setDates(response.data);
 		}
@@ -38,21 +39,30 @@ const DateProvider = ({ children }: DateProviderProps) => {
 
 	const fetchDate = async (date_id: string | undefined) => {
 		if (date_id && activeTour) {
+			console.log('FetchDate');
 			const response = await api.get(`/dates/${date_id}?include=all`);
 			setActiveDate(response.data);
 		} else setActiveDate(null);
 	};
 
-	const updateTourdate = async (tourdataData: TourDate) => {
-		const response = await api.patch(`/dates/${activeDate?.id}`, tourdataData);
-		setActiveDate(response.data);
+	const updateTourdate = async (tourdataData: TourDate, callback?: Function) => {
+		if (activeDate) {
+			console.log('UpdateDate');
+			const response = await api.patch(`/dates/${activeDate.id}`, tourdataData);
+			setActiveDate(response.data);
+			callback && callback();
+		}
 	};
 
 	useEffect(() => {
-		setActiveDate(null);
+		if (activeTour) {
+			setActiveDate(null);
+			console.log('null active date');
+		}
 	}, [activeTour]);
 
 	const fetchStatusOptions = async () => {
+		console.log('fetchoptions');
 		const response = await api.get('/dates/status');
 		setStatusOptions(response.data);
 	};
