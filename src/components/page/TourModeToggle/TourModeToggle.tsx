@@ -9,8 +9,7 @@ const BookingToggle = ({}) => {
 	const { user } = useAuth();
 
 	const handleChange = (e: React.MouseEvent<HTMLElement>, value: '/tour' | '/book') => {
-		const query = value === '/tour' ? { status: 'confirmed,cancelled' } : {};
-		pathname !== value && push({ pathname: value, query });
+		pathname !== value && push(value);
 	};
 
 	return (

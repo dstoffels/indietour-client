@@ -6,13 +6,23 @@ import StatusSelector from '../../StatusSelector/StatusSelector';
 import EditField from 'components/core/EditField/EditField';
 import PlaceSelector from 'components/core/PlaceSelector/PlaceSelector';
 import PlaceEditField from 'components/core/PlaceEditField/PlaceEditField';
+import DangerZone from 'components/core/DangerZone/DangerZone';
 
 const DatePanel = ({}) => {
-	const { activeDate, updateTourdate, isTourAdmin } = useDates();
+	const { activeDate, updateTourdate, deleteTourdate, isTourAdmin } = useDates();
 
 	return (
 		activeDate && (
-			<Panel title="Details">
+			<Panel
+				title="Details"
+				footer={
+					<DangerZone
+						onDelete={deleteTourdate}
+						deleteBtnText="Delete Tour Date"
+						popoverText={`Are you sure you want to delete this date?`}
+					></DangerZone>
+				}
+			>
 				<StatusSelector />
 				<PlaceEditField
 					canEdit={isTourAdmin}

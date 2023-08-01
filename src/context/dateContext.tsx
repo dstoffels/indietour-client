@@ -11,6 +11,7 @@ interface DateContextValues {
 	fetchTourDates: () => Promise<void>;
 	fetchDate: (date_id: string | undefined) => Promise<void>;
 	updateTourdate: (tourdateData: TourDate) => Promise<void>;
+	deleteTourdate: () => Promise<void>;
 	drawerOpen: boolean;
 	setDrawerOpen: (open: boolean) => void;
 	createTourdate: (tourdateData: TourDate) => Promise<void>;
@@ -30,14 +31,15 @@ const DateProvider = ({ children }: DateProviderProps) => {
 	const { activeTour, isTourAdmin } = useTours();
 	const { user } = useAuth();
 
-	const { push, query } = useRouter();
+	const { push, pathname } = useRouter();
 
 	const fetchTourDates = async () => {
 		if (activeTour) {
-			const statusQuery: string | undefined = query.status && `status=${query.status}`;
-			console.log('fetchTourDates', statusQuery);
+			const statusQuery: string = pathname === '/tour' ? 'status=confirmed,cancelled' : '';
 			const response = await api.get(
-				`/tours/${activeTour?.id}/dates?${statusQuery}&past_dates=${user?.show_past_dates}`,
+				`/tours/${activeTour?.id}/dates?${statusQuery}&past_dates=${
+					user?.show_past_dates
+				}&timestamp=${new Date().toISOString()}`,
 			);
 			setDates(response.data);
 		}
@@ -45,20 +47,23 @@ const DateProvider = ({ children }: DateProviderProps) => {
 
 	const fetchDate = async (date_id: string | undefined) => {
 		if (date_id && activeTour) {
-			console.log('FetchDate');
 			const response = await api.get(`/dates/${date_id}?include=all`);
 			setActiveDate(response.data);
 		} else setActiveDate(null);
 	};
 
-	const updateTourdate = async (tourdataData: TourDate) => {
+	const updateTourdate = async (tourdateData: TourDate) => {
 		if (activeDate) {
-			console.log('UpdateDate');
-
-			const response = await api.patch(`/dates/${activeDate.id}`, tourdataData);
+			const response = await api.patch(`/dates/${activeDate.id}`, tourdateData);
 			setActiveDate(response.data);
 			await fetchTourDates();
 		}
+	};
+
+	const deleteTourdate = async () => {
+		const responsee = await api.delete(`/dates/${activeDate?.id}`);
+		push({ query: {} });
+		await fetchTourDates();
 	};
 
 	useEffect(() => {
@@ -68,7 +73,6 @@ const DateProvider = ({ children }: DateProviderProps) => {
 	}, [activeTour]);
 
 	const fetchStatusOptions = async () => {
-		console.log('fetchoptions');
 		const response = await api.get('/dates/status');
 		setStatusOptions(response.data);
 	};
@@ -98,6 +102,7 @@ const DateProvider = ({ children }: DateProviderProps) => {
 				createTourdate,
 				statusOptions,
 				updateTourdate,
+				deleteTourdate,
 				isTourAdmin,
 			}}
 		>

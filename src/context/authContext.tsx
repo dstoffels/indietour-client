@@ -10,6 +10,7 @@ export class AuthContextValues {
 	updateUser = async (data: User) => false;
 	verifyUser = async (verification_code: string) => false;
 	resendCode = async () => '';
+	changePassword = async (passwordData: object) => {};
 
 	loaded = false;
 }
@@ -108,9 +109,24 @@ const AuthProvider = ({ children }: any) => {
 		return response.data.detail;
 	};
 
+	const changePassword = async (passwordData: object) => {
+		const response = await api.post('/auth/password', passwordData);
+	};
+
 	return loaded ? (
 		<AuthContext.Provider
-			value={{ user, login, logout, register, refresh, updateUser, verifyUser, resendCode, loaded }}
+			value={{
+				user,
+				login,
+				logout,
+				register,
+				refresh,
+				updateUser,
+				verifyUser,
+				resendCode,
+				changePassword,
+				loaded,
+			}}
 		>
 			{children}
 		</AuthContext.Provider>

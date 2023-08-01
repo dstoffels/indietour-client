@@ -18,7 +18,7 @@ const TourPanel = ({}: TourPanelProps) => {
 		await updateTour({ is_archived: !activeTour?.is_archived });
 	};
 
-	const title = `${activeTour?.name}${activeTour?.is_archived ? ' (Archived)' : ''}`;
+	const title = `Tour ${activeTour?.is_archived ? ' (Archived)' : ''}`;
 
 	return (
 		!activeDate &&

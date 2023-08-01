@@ -16,7 +16,7 @@ import { useState, useEffect } from 'react';
 import useKeyPress from 'utils/useKeyPress';
 
 interface ExtendedProps {
-	onChange: (value: object) => Promise<void>;
+	onChange: (value: object) => Promise<any>;
 	name: string | number | symbol;
 	value?: string | number;
 	canEdit?: boolean;

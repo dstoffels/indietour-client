@@ -9,7 +9,7 @@ const PublicOnlyPage = (props: PageProps) => {
 	const { user } = useAuth();
 
 	if (user) {
-		user.email_verified ? push('/tour?status=confirmed,cancelled') : push('/verify');
+		user.email_verified ? push('/tour') : push('/verify');
 		return null;
 	}
 

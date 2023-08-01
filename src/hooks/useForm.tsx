@@ -7,22 +7,21 @@ import { useTheme } from 'context/themeContext';
 const useForm = <T extends object>(initialData: T, onSubmit: (formData: T) => Promise<any>) => {
 	const [formData, setformData] = useState(initialData);
 	const [loading, setLoading] = useState(false);
-	const { theme } = useTheme();
+
+	const reset = () => {
+		setformData(initialData);
+	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
-		await onSubmit(formData);
+		const success = await onSubmit(formData);
 		setLoading(false);
-		setformData(initialData);
+		success && reset();
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setformData({ ...formData, [e.target.name]: e.target.value });
-	};
-
-	const reset = () => {
-		setformData(initialData);
 	};
 
 	const LoadingAnimation = () =>
