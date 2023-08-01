@@ -3,10 +3,10 @@ import { Box, Button, Collapse, Divider } from '@mui/material';
 import NewBandForm from 'components/bands/NewBandForm/NewBandForm';
 import Selector from 'components/core/selector/Selector/Selector';
 import SelectorItem from 'components/core/selector/SelectorItem/SelectorItem';
-import { useBands } from 'context/bandContext';
+import { useBands } from 'context/BandContext';
 import { useEffect, useState } from 'react';
 import ArchivedBandsSwitch from '../ArchivedBandsSwitch/ArchivedBandsSwitch';
-import { useAuth } from 'context/authContext';
+import { useAuth } from 'context/AuthContext';
 
 const BandSelector = ({}) => {
 	const { user } = useAuth();

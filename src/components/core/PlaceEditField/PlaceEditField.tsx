@@ -2,12 +2,12 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import EditField from '../EditField/EditField';
 import PlaceSelector from '../PlaceSelector/PlaceSelector';
-import { Place, useDates } from 'context/dateContext';
+import { Place, useDates } from 'context/DateContext';
 import { PlaceType } from '../PlaceSelector/PlaceSelectorOption';
 import api from 'utils/api';
 import { Box, ClickAwayListener, Collapse, IconButton, Tooltip, Typography } from '@mui/material';
 import { Close } from '@mui/icons-material';
-import { useTheme } from 'context/themeContext';
+import { useTheme } from 'context/ThemeContext';
 import SideStack from '../SideStack/SideStack';
 import useKeyPress from 'utils/useKeyPress';
 
@@ -19,9 +19,6 @@ export interface PlaceEditFieldProps {
 	canEdit: boolean;
 }
 
-/**
- * Dynamic edit field for
- */
 const PlaceEditField = ({
 	label,
 	name = 'place_id',
@@ -32,7 +29,6 @@ const PlaceEditField = ({
 	useKeyPress('Escape', handleClose);
 
 	const { theme } = useTheme();
-	const { activeDate, updateTourdate } = useDates();
 	const [place, setPlace] = useState<PlaceType | null>(null);
 	const [open, setOpen] = useState(false);
 

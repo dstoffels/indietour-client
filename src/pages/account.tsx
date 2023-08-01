@@ -4,10 +4,11 @@ import DangerZone from 'components/core/DangerZone/DangerZone';
 import EditField from 'components/core/EditField/EditField';
 import Panel from 'components/core/Panel/Panel';
 import PrivatePage from 'components/page/PrivatePage/PrivatePage';
-import { useAuth } from 'context/authContext';
+import { useAuth } from 'context/AuthContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 
+// TODO delete/deactivate acct
 const AccountPage = () => {
 	const { user, updateUser } = useAuth();
 
@@ -18,6 +19,7 @@ const AccountPage = () => {
 					title="My Account"
 					footer={
 						<DangerZone
+							onDelete={() => console.log('test')}
 							deleteBtnText="DELETE ACCOUNT"
 							confirmationText={`delete ${user?.email}`}
 							popoverText="Your account and any bands and tours that you own will be permanently deleted!"

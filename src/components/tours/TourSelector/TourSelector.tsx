@@ -1,13 +1,13 @@
 import { Box, Button, Collapse, Divider } from '@mui/material';
 import Selector from 'components/core/selector/Selector/Selector';
 import SelectorItem from 'components/core/selector/SelectorItem/SelectorItem';
-import { useTours } from 'context/tourContext';
+import { useTours } from 'context/TourContext';
 import { useEffect, useState } from 'react';
 import NewTourForm from '../NewTourForm/NewTourForm';
 import { Add } from '@mui/icons-material';
-import { useBands } from 'context/bandContext';
+import { useBands } from 'context/BandContext';
 import ArchivedToursSwitch from '../ArchivedToursSwitch/ArchivedToursSwitch';
-import { useAuth } from 'context/authContext';
+import { useAuth } from 'context/AuthContext';
 
 const TourSelector = ({}) => {
 	const { user } = useAuth();

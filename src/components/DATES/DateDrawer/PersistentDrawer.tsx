@@ -1,7 +1,7 @@
 import { Drawer } from '@mui/material';
 import { Ref, forwardRef } from 'react';
-import { useDates } from 'context/dateContext';
-import { useTheme } from 'context/themeContext';
+import { useDates } from 'context/DateContext';
+import { useTheme } from 'context/ThemeContext';
 import DrawerContent from './DrawerContents';
 import { NewDateFormProps } from '../NewDateForm/NewDateForm';
 

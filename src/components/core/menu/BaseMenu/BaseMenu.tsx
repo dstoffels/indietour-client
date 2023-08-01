@@ -1,6 +1,6 @@
 import { Close, Menu } from '@mui/icons-material';
 import { Hidden, IconButton, List, Paper, Popover, SwipeableDrawer } from '@mui/material';
-import { useTheme } from 'context/themeContext';
+import { useTheme } from 'context/ThemeContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 

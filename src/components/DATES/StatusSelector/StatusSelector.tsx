@@ -10,13 +10,13 @@ import {
 } from '@mui/material';
 import EditField from 'components/core/EditField/EditField';
 import SideStack from 'components/core/SideStack/SideStack';
-import { TourDate, TourDateStatusOptions, useDates } from 'context/dateContext';
-import { useTheme } from 'context/themeContext';
+import { TourDate, TourDateStatusOptions, useDates } from 'context/DateContext';
+import { useTheme } from 'context/ThemeContext';
 import * as React from 'react';
 import { useState } from 'react';
 
 const StatusSelector = () => {
-	const { activeDate, statusOptions, updateTourdate } = useDates();
+	const { activeDate, statusOptions, updateTourdate, isTourAdmin } = useDates();
 
 	const optionItems = statusOptions.map((option) => (
 		<MenuItem key={`status-${option}`} value={option}>
@@ -58,6 +58,7 @@ const StatusSelector = () => {
 						onChange={updateTourdate}
 						name="hold"
 						type="number"
+						canEdit={isTourAdmin}
 					/>
 				</Box>
 			)}

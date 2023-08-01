@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material';
 import ButtonForm from 'components/core/ButtonForm/ButtonForm';
-import { RegisterFormData, useAuth } from 'context/authContext';
+import { RegisterFormData, useAuth } from 'context/AuthContext';
 import useForm from 'hooks/useForm';
 import * as React from 'react';
 

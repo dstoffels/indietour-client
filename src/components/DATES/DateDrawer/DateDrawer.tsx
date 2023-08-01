@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import MobileDrawer from './MobileDrawer';
 import PersistentDrawer from './PersistentDrawer';
-import { TourDate } from 'context/dateContext';
+import { TourDate } from 'context/DateContext';
 import { NewDatePropsWithChildren } from '../NewDateForm/NewDateForm';
 
 const DateDrawer = React.forwardRef(

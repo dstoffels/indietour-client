@@ -1,9 +1,9 @@
 import { createContext, useState, useContext, useEffect, PropsWithChildren } from 'react';
 import api from 'utils/api';
-import { useTours } from './tourContext';
+import { useTours } from './TourContext';
 import { useRouter } from 'next/router';
 import { Dayjs } from 'dayjs';
-import { useAuth } from './authContext';
+import { useAuth } from './AuthContext';
 
 interface DateContextValues {
 	activeDate: TourDate | null;

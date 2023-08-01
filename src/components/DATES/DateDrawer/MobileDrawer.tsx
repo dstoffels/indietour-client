@@ -2,7 +2,7 @@ import { SwipeableDrawer } from '@mui/material';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import DrawerContent from './DrawerContents';
-import { useDates } from 'context/dateContext';
+import { useDates } from 'context/DateContext';
 import { NewDateFormProps } from '../NewDateForm/NewDateForm';
 
 const MobileDrawer = React.forwardRef((props: NewDateFormProps, ref: React.Ref<HTMLElement>) => {

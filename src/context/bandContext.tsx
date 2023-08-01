@@ -1,7 +1,7 @@
 import { createContext, useState, useContext, useEffect, PropsWithChildren } from 'react';
-import { User, useAuth } from './authContext';
+import { User, useAuth } from './AuthContext';
 import api from 'utils/api';
-import { Tour } from './tourContext';
+import { Tour } from './TourContext';
 
 interface BandContextValues {
 	activeBand: Band | undefined;

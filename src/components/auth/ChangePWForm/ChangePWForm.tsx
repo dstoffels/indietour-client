@@ -1,5 +1,5 @@
 import { Box, Button, Stack, TextField } from '@mui/material';
-import { useAuth } from 'context/authContext';
+import { useAuth } from 'context/AuthContext';
 import useForm from 'hooks/useForm';
 import * as React from 'react';
 import { useState, useEffect } from 'react';

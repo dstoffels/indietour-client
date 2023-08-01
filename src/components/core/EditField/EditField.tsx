@@ -1,4 +1,4 @@
-import { Close } from '@mui/icons-material';
+import { Check, Close } from '@mui/icons-material';
 import {
 	Box,
 	ClickAwayListener,
@@ -10,7 +10,8 @@ import {
 	Typography,
 	debounce,
 } from '@mui/material';
-import { useTheme } from 'context/themeContext';
+import { useGlobals } from 'context/GlobalContext';
+import { useTheme } from 'context/ThemeContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import useKeyPress from 'utils/useKeyPress';
@@ -24,9 +25,15 @@ interface ExtendedProps {
 
 export type EditFieldProps = ExtendedProps & TextFieldProps;
 
+export interface EditFieldOpenEvent extends Event {
+	detail: { name: string };
+}
+
 const EditField = (props: EditFieldProps) => {
 	let { label, name, value, onChange, children, sx, canEdit, ...otherProps } = props;
-	const [open, setOpen] = useState(false);
+	const { activeEditField, setActiveEditField } = useGlobals();
+	const open = activeEditField === name;
+
 	const [text, setText] = useState<string>(value as string);
 	const { theme } = useTheme();
 
@@ -34,24 +41,20 @@ const EditField = (props: EditFieldProps) => {
 
 	const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
 		event.stopPropagation();
-		canEdit && setOpen(true);
+		canEdit && setActiveEditField(name);
 	};
 
 	function handleClose() {
-		setOpen(false);
+		setActiveEditField(null);
 	}
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setText(e.target.value);
 	};
 
-	const update = React.useMemo(
-		() =>
-			debounce((inputValue: string, open: boolean) => {
-				open && onChange({ [name]: inputValue });
-			}, 400),
-		[],
-	);
+	const update = debounce((inputValue: string, open: boolean) => {
+		open && onChange({ [name]: inputValue });
+	}, 400);
 
 	useEffect(() => {
 		update(text, open);
@@ -70,7 +73,7 @@ const EditField = (props: EditFieldProps) => {
 							{children || (
 								<TextField
 									{...otherProps}
-									autoFocus
+									autoFocus={true}
 									variant="standard"
 									label={label}
 									value={text}
@@ -85,8 +88,8 @@ const EditField = (props: EditFieldProps) => {
 								/>
 							)}
 							<Tooltip title="Close">
-								<IconButton color="error" onClick={handleClose}>
-									<Close fontSize="small" />
+								<IconButton color="info" size="large" onClick={handleClose}>
+									<Check fontSize="small" />
 								</IconButton>
 							</Tooltip>
 						</Box>

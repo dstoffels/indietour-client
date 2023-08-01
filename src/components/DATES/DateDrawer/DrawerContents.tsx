@@ -1,9 +1,9 @@
 import { Box, List, ListSubheader, Paper } from '@mui/material';
 import { Ref, forwardRef, useEffect } from 'react';
-import { useDates } from 'context/dateContext';
-import { useTours } from 'context/tourContext';
+import { useDates } from 'context/DateContext';
+import { useTours } from 'context/TourContext';
 import DateItem from 'components/DATES/DateItem/DateItem';
-import { useTheme } from 'context/themeContext';
+import { useTheme } from 'context/ThemeContext';
 import NewDateForm, { NewDateFormProps } from '../NewDateForm/NewDateForm';
 import PastDatesSwitch from '../PastDatesSwitch/PastDatesSwitch';
 

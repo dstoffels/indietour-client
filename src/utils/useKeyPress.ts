@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 
-function useKeyPress(targetKey: string, callback: () => void) {
+function useKeyPress(targetKey: string, callback: Function) {
 	const [keyPressed, setKeyPressed] = useState(false);
 
 	const keyDownHandler = useCallback(

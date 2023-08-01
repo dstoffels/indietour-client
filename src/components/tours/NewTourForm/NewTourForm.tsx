@@ -1,6 +1,6 @@
 import { Check, Close } from '@mui/icons-material';
 import { Box, IconButton, TextField } from '@mui/material';
-import { useTours } from 'context/tourContext';
+import { useTours } from 'context/TourContext';
 import useForm from 'hooks/useForm';
 import { useEffect, useRef } from 'react';
 

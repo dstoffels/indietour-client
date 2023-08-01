@@ -1,9 +1,9 @@
 import { Box, ListItem, ListItemButton, Stack, Theme, Typography } from '@mui/material';
 import SideStack from 'components/core/SideStack/SideStack';
-import { TourDate, TourDateStatusOptions, useDates } from 'context/dateContext';
+import { TourDate, TourDateStatusOptions, useDates } from 'context/DateContext';
 import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
-import { useTheme } from 'context/themeContext';
+import { useTheme } from 'context/ThemeContext';
 import { getStatusColor } from '../StatusSelector/StatusSelector';
 
 interface DateItemProps {

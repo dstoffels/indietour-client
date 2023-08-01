@@ -2,9 +2,9 @@ import { Button } from '@mui/material';
 import EditField from 'components/core/EditField/EditField';
 import DangerZone from 'components/core/DangerZone/DangerZone';
 import Panel from 'components/core/Panel/Panel';
-import { useAuth } from 'context/authContext';
-import { useDates } from 'context/dateContext';
-import { useTours } from 'context/tourContext';
+import { useAuth } from 'context/AuthContext';
+import { useDates } from 'context/DateContext';
+import { useTours } from 'context/TourContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 
