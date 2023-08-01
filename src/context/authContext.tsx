@@ -22,7 +22,7 @@ const AuthProvider = ({ children }: any) => {
 	const [loaded, setLoaded] = useState<boolean>(false);
 	const [user, setUser] = useState<User | null>(null);
 
-	console.log(user);
+	// console.log(user);
 
 	const fetchUser = async () => {
 		const response = await api.get('/auth/user');

@@ -10,10 +10,12 @@ const PrivatePage = (props: PageProps) => {
 	const { user, loaded } = useAuth();
 	const { push } = useRouter();
 
-	if (loaded) {
-		if (!user) push('/');
-		else if (!user.email_verified) push('/verify');
-	}
+	useEffect(() => {
+		if (loaded) {
+			if (!user) push('/');
+			else if (!user.email_verified) push('/verify');
+		}
+	}, [user]);
 
 	return (
 		user && (
