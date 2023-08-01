@@ -13,9 +13,22 @@ import useKeyPress from 'utils/useKeyPress';
 
 export interface PlaceEditFieldProps {
 	label?: string;
+	name?: string;
+	onChange: (obj: object) => any;
+	initialInputValue: string;
+	canEdit: boolean;
 }
 
-const PlaceEditField = ({ label }: PlaceEditFieldProps) => {
+/**
+ * Dynamic edit field for
+ */
+const PlaceEditField = ({
+	label,
+	name = 'place_id',
+	onChange,
+	initialInputValue,
+	canEdit,
+}: PlaceEditFieldProps) => {
 	useKeyPress('Escape', handleClose);
 
 	const { theme } = useTheme();
@@ -25,7 +38,7 @@ const PlaceEditField = ({ label }: PlaceEditFieldProps) => {
 
 	const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
 		event.stopPropagation();
-		setOpen(true);
+		canEdit && setOpen(true);
 	};
 
 	function handleClose() {
@@ -33,10 +46,8 @@ const PlaceEditField = ({ label }: PlaceEditFieldProps) => {
 	}
 
 	useEffect(() => {
-		place && updateTourdate({ place_id: place?.place_id });
+		place && onChange({ [name]: place?.place_id });
 	}, [place]);
-
-	const initialInputValue = `${activeDate?.place?.name}, ${activeDate?.place?.political_address}`;
 
 	return (
 		<Box>
@@ -62,16 +73,20 @@ const PlaceEditField = ({ label }: PlaceEditFieldProps) => {
 				<Box
 					onClick={handleOpen}
 					padding={0.5}
-					sx={{
-						transition: 'all 0.3s',
-						':hover': {
-							cursor: 'pointer',
-							background: 'rgba(255,255,255,0.05)',
-						},
-					}}
+					sx={
+						canEdit
+							? {
+									transition: 'all 0.3s',
+									':hover': {
+										cursor: 'pointer',
+										background: 'rgba(255,255,255,0.05)',
+									},
+							  }
+							: {}
+					}
 				>
-					<Typography variant="caption" color={theme.palette.info.main}>
-						Location
+					<Typography variant="overline" color={theme.palette.info.main}>
+						{label || 'Location'}
 					</Typography>
 					<Typography>{initialInputValue}</Typography>
 				</Box>

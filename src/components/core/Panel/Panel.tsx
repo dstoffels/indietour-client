@@ -6,11 +6,12 @@ import { TypographyProps } from '@mui/material';
 export interface PanelProps extends React.PropsWithChildren {
 	title?: string;
 	titleColor?: TypographyProps['color'] | BoxProps['color'];
+	fullwidth?: boolean;
 }
 
-const Panel = ({ title, titleColor = 'primary', children }: PanelProps) => {
+const Panel = ({ title, titleColor = 'primary', fullwidth, children }: PanelProps) => {
 	return (
-		<Grid item xs={12} md={6} lg={4} xl={3}>
+		<Grid item xs={12} md={!fullwidth && 6} lg={!fullwidth && 4} xl={!fullwidth && 3}>
 			<Paper elevation={2}>
 				<Box paddingX={2} paddingY={1}>
 					<Typography align="center" variant="h5" color={titleColor}>

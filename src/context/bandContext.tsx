@@ -9,6 +9,7 @@ interface BandContextValues {
 	fetchBands: () => Promise<void>;
 	setActiveBand: (band_id: string) => Promise<void>;
 	createBand: (bandData: object) => Promise<void>;
+	isBandAdmin: boolean;
 }
 
 interface BandProviderProps extends PropsWithChildren {}
@@ -28,7 +29,9 @@ const BandProvider = ({ children }: BandProviderProps) => {
 	if (!user) return children;
 
 	const fetchBands = async () => {
-		const response = await api.get('/bands?include=tours');
+		const response = await api.get(
+			`/bands?include=tours&archived_bands=${user.show_archived_bands}&archived_tours=${user.show_archived_tours}`,
+		);
 		setBands(response.data);
 	};
 
@@ -45,8 +48,12 @@ const BandProvider = ({ children }: BandProviderProps) => {
 
 	const activeBand = bands.find((band) => user?.active_band_id === band.id);
 
+	const isBandAdmin = user.is_band_admin as boolean;
+
 	return (
-		<BandContext.Provider value={{ activeBand, bands, fetchBands, setActiveBand, createBand }}>
+		<BandContext.Provider
+			value={{ activeBand, bands, fetchBands, setActiveBand, createBand, isBandAdmin }}
+		>
 			{children}
 		</BandContext.Provider>
 	);

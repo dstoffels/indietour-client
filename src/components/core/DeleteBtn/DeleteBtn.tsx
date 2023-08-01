@@ -26,7 +26,7 @@ export interface DeleteBtnProps extends React.PropsWithChildren {
 const DeleteBtn = ({
 	variant = 'contained',
 	onDelete,
-	popoverText = 'Confirm',
+	popoverText,
 	confirmationText,
 	children,
 }: DeleteBtnProps) => {

@@ -8,14 +8,19 @@ import PlaceSelector from 'components/core/PlaceSelector/PlaceSelector';
 import PlaceEditField from 'components/core/PlaceEditField/PlaceEditField';
 
 const DatePanel = ({}) => {
-	const { activeDate, updateTourdate } = useDates();
+	const { activeDate, updateTourdate, isTourAdmin } = useDates();
 
 	return (
 		activeDate && (
 			<Panel title="Details">
 				<StatusSelector />
-				<PlaceEditField />
+				<PlaceEditField
+					canEdit={isTourAdmin}
+					onChange={updateTourdate}
+					initialInputValue={`${activeDate?.place?.name}, ${activeDate?.place?.political_address}`}
+				/>
 				<EditField
+					canEdit={isTourAdmin}
 					label="Title"
 					name="title"
 					value={activeDate.title}
@@ -23,6 +28,7 @@ const DatePanel = ({}) => {
 					fullWidth
 				/>
 				<EditField
+					canEdit={isTourAdmin}
 					label="General Notes"
 					name="notes"
 					fullWidth

@@ -5,11 +5,12 @@ import Selector from 'components/core/selector/Selector/Selector';
 import SelectorItem from 'components/core/selector/SelectorItem/SelectorItem';
 import { useBands } from 'context/bandContext';
 import { useEffect, useState } from 'react';
+import ArchivedBandsSwitch from '../ArchivedBandsSwitch/ArchivedBandsSwitch';
+import { useAuth } from 'context/authContext';
 
 const BandSelector = ({}) => {
+	const { user } = useAuth();
 	const { activeBand, bands, setActiveBand, fetchBands } = useBands();
-
-	if (!bands) return null;
 
 	const [formOpen, setFormOpen] = useState(false);
 	const toggleForm = () => setFormOpen(!formOpen);
@@ -26,7 +27,7 @@ const BandSelector = ({}) => {
 
 	useEffect(() => {
 		fetchBands();
-	}, []);
+	}, [user?.show_archived_bands]);
 
 	return (
 		<Box>
@@ -37,6 +38,7 @@ const BandSelector = ({}) => {
 				<Selector selected={activeBand?.name || 'Select a band'}>
 					{selectorItems}
 					<Divider />
+					<ArchivedBandsSwitch />
 					<SelectorItem disableBtn>
 						<Button onClick={toggleForm} fullWidth startIcon={<Add />}>
 							Add Band

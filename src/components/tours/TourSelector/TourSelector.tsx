@@ -6,16 +6,19 @@ import { useEffect, useState } from 'react';
 import NewTourForm from '../NewTourForm/NewTourForm';
 import { Add } from '@mui/icons-material';
 import { useBands } from 'context/bandContext';
+import ArchivedToursSwitch from '../ArchivedToursSwitch/ArchivedToursSwitch';
+import { useAuth } from 'context/authContext';
 
 const TourSelector = ({}) => {
+	const { user } = useAuth();
 	const { tours, activeTour, setActiveTour } = useTours();
-	const { activeBand } = useBands();
+	const { activeBand, fetchBands } = useBands();
 
 	const [formOpen, setFormOpen] = useState(false);
 
-	useEffect(() => {
-		setFormOpen(!tours?.length);
-	}, [activeTour, activeBand]);
+	// useEffect(() => {
+	// 	setFormOpen(!tours?.length);
+	// }, [activeTour, activeBand]);
 
 	if (!activeBand) return null;
 
@@ -36,6 +39,7 @@ const TourSelector = ({}) => {
 				<Selector selected={activeTour?.name || 'Select A Tour'}>
 					{selectorItems}
 					<Divider />
+					<ArchivedToursSwitch />
 					<SelectorItem disableBtn>
 						<Button onClick={toggleForm} fullWidth startIcon={<Add />}>
 							Add Tour

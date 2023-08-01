@@ -19,12 +19,13 @@ interface ExtendedProps {
 	onChange: (value: object) => Promise<void>;
 	name: string | number | symbol;
 	value?: string | number;
+	canEdit?: boolean;
 }
 
 export type EditFieldProps = ExtendedProps & TextFieldProps;
 
 const EditField = (props: EditFieldProps) => {
-	let { label, name, value, onChange, children, sx } = props;
+	let { label, name, value, onChange, children, sx, canEdit, ...otherProps } = props;
 	const [open, setOpen] = useState(false);
 	const [text, setText] = useState<string>(value as string);
 	const { theme } = useTheme();
@@ -33,7 +34,7 @@ const EditField = (props: EditFieldProps) => {
 
 	const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
 		event.stopPropagation();
-		setOpen(true);
+		canEdit && setOpen(true);
 	};
 
 	function handleClose() {
@@ -48,7 +49,7 @@ const EditField = (props: EditFieldProps) => {
 		() =>
 			debounce((inputValue: string, open: boolean) => {
 				open && onChange({ [name]: inputValue });
-			}, 250),
+			}, 400),
 		[],
 	);
 
@@ -68,7 +69,7 @@ const EditField = (props: EditFieldProps) => {
 						<Box display="flex" alignItems="end">
 							{children || (
 								<TextField
-									{...props}
+									{...otherProps}
 									autoFocus
 									variant="standard"
 									label={label}
@@ -96,16 +97,20 @@ const EditField = (props: EditFieldProps) => {
 				<Box
 					onClick={handleOpen}
 					padding={0.5}
-					sx={{
-						transition: 'all 0.3s',
-						':hover': {
-							cursor: 'pointer',
-							background: 'rgba(255,255,255,0.05)',
-						},
-					}}
+					sx={
+						canEdit
+							? {
+									transition: 'all 0.3s',
+									':hover': {
+										cursor: 'pointer',
+										background: 'rgba(255,255,255,0.05)',
+									},
+							  }
+							: {}
+					}
 				>
-					<Typography color={theme.palette.info.main} variant="caption">
-						{label}
+					<Typography color={theme.palette.info.main} variant="overline">
+						{label ? label : name}
 					</Typography>
 					<Typography sx={{ whiteSpace: 'pre-wrap' }}>{value}</Typography>
 				</Box>

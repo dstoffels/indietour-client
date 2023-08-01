@@ -9,6 +9,9 @@ interface TourContextValues {
 	tours: Tour[] | undefined;
 	setActiveTour: (tour_id: string) => Promise<void>;
 	createTour: (tourData: object) => Promise<void>;
+	updateTour: (tourData: object) => Promise<void>;
+	isTourAdmin: boolean;
+	isBandAdmin: boolean;
 }
 
 interface TourProviderProps extends PropsWithChildren {}
@@ -21,7 +24,7 @@ const TourProvider = ({ children }: TourProviderProps) => {
 
 	if (!user) return children;
 
-	const { activeBand, fetchBands } = useBands();
+	const { activeBand, fetchBands, isBandAdmin } = useBands();
 	const tours = activeBand?.tours;
 
 	const setActiveTour = async (tour_id: string) => {
@@ -38,8 +41,17 @@ const TourProvider = ({ children }: TourProviderProps) => {
 
 	const activeTour = tours?.find((tour) => user?.active_tour_id === tour.id);
 
+	const updateTour = async (tourData: object) => {
+		const response = await api.patch(`/tours/${activeTour?.id}`, tourData);
+		await fetchBands();
+	};
+
+	const isTourAdmin = user.is_tour_admin;
+
 	return (
-		<TourContext.Provider value={{ activeTour, tours, setActiveTour, createTour }}>
+		<TourContext.Provider
+			value={{ activeTour, tours, setActiveTour, createTour, updateTour, isTourAdmin, isBandAdmin }}
+		>
 			{children}
 		</TourContext.Provider>
 	);

@@ -7,7 +7,7 @@ export class AuthContextValues {
 	logout = async () => false;
 	register = async (formData: RegisterFormData) => false;
 	refresh = async () => false;
-	updateUser = async (data: object) => false;
+	updateUser = async (data: User) => false;
 	verifyUser = async (verification_code: string) => false;
 	resendCode = async () => '';
 
@@ -21,6 +21,8 @@ const AuthContext = createContext<AuthContextValues>(defaultContext);
 const AuthProvider = ({ children }: any) => {
 	const [loaded, setLoaded] = useState<boolean>(false);
 	const [user, setUser] = useState<User | null>(null);
+
+	console.log(user);
 
 	const fetchUser = async () => {
 		const response = await api.get('/auth/user');
@@ -132,10 +134,14 @@ export interface RegisterFormData {
 }
 
 export interface User {
-	email: string;
-	username: string;
-	is_active: boolean;
-	email_verified: boolean;
-	active_band_id: string;
-	active_tour_id: string;
+	email?: string;
+	username?: string;
+	is_active?: boolean;
+	email_verified?: boolean;
+	active_band_id?: string;
+	active_tour_id?: string;
+	is_band_admin?: boolean;
+	is_tour_admin?: boolean;
+	show_archived_bands?: boolean;
+	show_archived_tours?: boolean;
 }

@@ -6,12 +6,13 @@ import DeleteBtn, { DeleteBtnProps } from '../DeleteBtn/DeleteBtn';
 
 export interface DangerZonePanelProps extends DeleteBtnProps {
 	deleteBtnText: string;
+	fullwidth?: boolean;
 }
 
 const DangerZonePanel = (props: DangerZonePanelProps) => {
-	const { deleteBtnText, children } = props;
+	const { deleteBtnText, children, fullwidth } = props;
 	return (
-		<Panel title="Danger Zone" titleColor="error">
+		<Panel title="Danger Zone" titleColor="error" fullwidth={fullwidth}>
 			{children}
 			<DeleteBtn {...props}>{deleteBtnText}</DeleteBtn>
 		</Panel>

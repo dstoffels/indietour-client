@@ -14,6 +14,7 @@ interface DateContextValues {
 	setDrawerOpen: (open: boolean) => void;
 	createTourdate: (tourdateData: TourDate) => Promise<void>;
 	statusOptions: string[];
+	isTourAdmin: boolean;
 }
 
 interface DateProviderProps extends PropsWithChildren {}
@@ -25,7 +26,7 @@ const DateProvider = ({ children }: DateProviderProps) => {
 	const [activeDate, setActiveDate] = useState<TourDate | null>(null);
 	const [drawerOpen, setDrawerOpen] = useState(true);
 	const [statusOptions, setStatusOptions] = useState<string[]>([]);
-	const { activeTour } = useTours();
+	const { activeTour, isTourAdmin } = useTours();
 
 	const { push, query } = useRouter();
 
@@ -93,6 +94,7 @@ const DateProvider = ({ children }: DateProviderProps) => {
 				createTourdate,
 				statusOptions,
 				updateTourdate,
+				isTourAdmin,
 			}}
 		>
 			{children}
