@@ -2,7 +2,7 @@ import Panel from 'components/core/Panel/Panel';
 import { useDates } from 'context/dateContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import StatusSelector from '../StatusSelector/StatusSelector';
+import StatusSelector from '../../StatusSelector/StatusSelector';
 import EditField from 'components/core/EditField/EditField';
 import PlaceSelector from 'components/core/PlaceSelector/PlaceSelector';
 import PlaceEditField from 'components/core/PlaceEditField/PlaceEditField';

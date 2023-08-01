@@ -4,13 +4,23 @@ import { Band, useBands } from 'context/bandContext';
 import useForm from 'hooks/useForm';
 import { useEffect, useRef } from 'react';
 
+interface BandFormProps {
+	onClose?: () => void;
+	autoFocus: boolean;
+}
+
 const NewBandForm = ({ onClose, autoFocus }: BandFormProps) => {
 	const { bands, createBand } = useBands();
-	const { formData, handleChange, handleSubmit } = useForm({ name: '' }, createBand);
+	const { formData, handleChange, handleSubmit, reset } = useForm({ name: '' }, createBand);
 
 	const inputRef = useRef<HTMLInputElement | null>(null);
 
 	const disabled = !formData.name;
+
+	const handleClose = () => {
+		reset();
+		onClose && onClose();
+	};
 
 	useEffect(() => {
 		autoFocus && inputRef.current?.focus();
@@ -30,7 +40,7 @@ const NewBandForm = ({ onClose, autoFocus }: BandFormProps) => {
 			<IconButton disabled={disabled} type="submit" color="info">
 				<Check />
 			</IconButton>
-			<IconButton disabled={!bands.length} color="error" onClick={onClose}>
+			<IconButton disabled={!bands.length} color="error" onClick={handleClose}>
 				<Close />
 			</IconButton>
 		</Box>
@@ -38,8 +48,3 @@ const NewBandForm = ({ onClose, autoFocus }: BandFormProps) => {
 };
 
 export default NewBandForm;
-
-interface BandFormProps {
-	onClose?: () => void;
-	autoFocus: boolean;
-}

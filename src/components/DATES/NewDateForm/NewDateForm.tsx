@@ -9,16 +9,19 @@ import PlaceSelector from 'components/core/PlaceSelector/PlaceSelector';
 import { Typography } from '@mui/material';
 import { PlaceType } from 'components/core/PlaceSelector/PlaceSelectorOption';
 
-interface NewDateFormProps {
+export interface NewDateFormProps {
 	defaultDateFields?: TourDate;
+	disableDuplicateDates?: boolean;
 }
 
-const NewDateForm = ({ defaultDateFields }: NewDateFormProps) => {
+export type NewDatePropsWithChildren = NewDateFormProps & React.PropsWithChildren;
+
+const NewDateForm = ({ defaultDateFields, disableDuplicateDates }: NewDateFormProps) => {
 	const { dates, createTourdate } = useDates();
-	const existingDates = dates.map(({ date }) => date as string);
+	const existingDates = disableDuplicateDates ? dates.map(({ date }) => date as string) : [];
 
 	const [date, setDate] = useState<Dayjs>(dayjs());
-	const [place, setPlaceId] = useState<PlaceType | null>(null);
+	const [place, setPlace] = useState<PlaceType | null>(null);
 
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
@@ -29,6 +32,11 @@ const NewDateForm = ({ defaultDateFields }: NewDateFormProps) => {
 		});
 	};
 
+	const reset = () => {
+		setDate(dayjs());
+		setPlace(null);
+	};
+
 	return (
 		<ButtonForm
 			btnIcon={<Add />}
@@ -37,6 +45,7 @@ const NewDateForm = ({ defaultDateFields }: NewDateFormProps) => {
 			submitBtnTxt="Add Date"
 			onSubmit={handleSubmit}
 			iconBtns
+			onClose={reset}
 		>
 			<Typography variant="h6">Add Tour Date</Typography>
 			<DatePicker
@@ -44,7 +53,7 @@ const NewDateForm = ({ defaultDateFields }: NewDateFormProps) => {
 				onChange={(newValue) => setDate(newValue as Dayjs)}
 				existingDates={existingDates}
 			/>
-			<PlaceSelector value={place} onChange={setPlaceId} />
+			<PlaceSelector value={place} onChange={setPlace} />
 		</ButtonForm>
 	);
 };

@@ -13,14 +13,14 @@ import dayjs from 'dayjs';
 import { useTours } from 'context/tourContext';
 import DatesDrawerBtn from 'components/DATES/DateDrawerBtn/DateDrawerBtn';
 import { useTheme } from 'context/themeContext';
+import { NewDatePropsWithChildren } from 'components/DATES/NewDateForm/NewDateForm';
 import DateDrawer from 'components/DATES/DateDrawer/DateDrawer';
 
-export interface MainPageProps extends PropsWithChildren {
-	fetchDatesQuery?: string;
-	defaultDateFields?: TourDate;
-}
+export interface MainPageProps extends NewDatePropsWithChildren {}
 
-const MainPage = ({ defaultDateFields, children }: MainPageProps) => {
+const MainPage = (props: MainPageProps) => {
+	const { children } = props;
+
 	const router = useRouter();
 	const { activeTour } = useTours();
 	const { drawerOpen, activeDate, fetchDate } = useDates();
@@ -69,7 +69,7 @@ const MainPage = ({ defaultDateFields, children }: MainPageProps) => {
 			footerChildren={<DatesDrawerBtn />}
 		>
 			<Box display="flex">
-				<DateDrawer ref={drawerRef} defaultDateFields={defaultDateFields} />
+				<DateDrawer ref={drawerRef} {...props} />
 				{
 					<Box
 						width="100%"

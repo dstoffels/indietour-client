@@ -1,21 +1,26 @@
-import { Box, Grid, Paper, Stack, Typography } from '@mui/material';
+import { Box, BoxProps, Divider, Grid, Paper, Stack, Typography } from '@mui/material';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { TypographyProps } from '@mui/material';
 
 export interface PanelProps extends React.PropsWithChildren {
-	title: string;
+	title?: string;
+	titleColor?: TypographyProps['color'] | BoxProps['color'];
 }
 
-const Panel = ({ title, children }: PanelProps) => {
+const Panel = ({ title, titleColor = 'primary', children }: PanelProps) => {
 	return (
 		<Grid item xs={12} md={6} lg={4} xl={3}>
 			<Paper elevation={2}>
-				<Box padding={2}>
-					<Typography variant="h6" marginBottom={3}>
+				<Box paddingX={2} paddingY={1}>
+					<Typography align="center" variant="h5" color={titleColor}>
 						{title}
 					</Typography>
-					<Stack spacing={2}>{children}</Stack>
 				</Box>
+				<Divider />
+				<Stack padding={2} spacing={2}>
+					{children}
+				</Stack>
 			</Paper>
 		</Grid>
 	);

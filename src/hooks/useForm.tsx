@@ -21,6 +21,10 @@ const useForm = <T extends object>(initialData: T, onSubmit: (formData: T) => Pr
 		setformData({ ...formData, [e.target.name]: e.target.value });
 	};
 
+	const reset = () => {
+		setformData(initialData);
+	};
+
 	const LoadingAnimation = () =>
 		loading && (
 			<CircularProgress
@@ -41,6 +45,7 @@ const useForm = <T extends object>(initialData: T, onSubmit: (formData: T) => Pr
 		handleSubmit,
 		loading,
 		LoadingAnimation,
+		reset,
 	};
 };
 

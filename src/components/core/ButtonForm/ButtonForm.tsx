@@ -19,6 +19,7 @@ interface ButtonFormProps {
 	spacing?: number;
 	submitBtnTxt: string;
 	iconBtns?: boolean;
+	onClose?: () => any;
 }
 
 const ButtonForm = React.forwardRef(
@@ -38,6 +39,7 @@ const ButtonForm = React.forwardRef(
 			disabled,
 			spacing,
 			iconBtns = false,
+			onClose,
 		}: ButtonFormProps,
 		ref,
 	) => {
@@ -49,8 +51,13 @@ const ButtonForm = React.forwardRef(
 			autoclose && setShowForm(false);
 		};
 
-		const handleShowForm = () => {
-			setShowForm(!showForm);
+		const handleOpen = () => {
+			setShowForm(true);
+		};
+
+		const handleClose = () => {
+			setShowForm(false);
+			onClose && onClose();
 		};
 
 		return (
@@ -61,7 +68,7 @@ const ButtonForm = React.forwardRef(
 						color={btnColor}
 						size="large"
 						startIcon={btnIcon}
-						onClick={handleShowForm}
+						onClick={handleOpen}
 					>
 						{btnText}
 					</Button>
@@ -85,14 +92,14 @@ const ButtonForm = React.forwardRef(
 											</span>
 										</Tooltip>
 										<Tooltip title="Cancel">
-											<IconButton color="error" onClick={handleShowForm}>
+											<IconButton color="error" onClick={handleClose}>
 												<Close />
 											</IconButton>
 										</Tooltip>
 									</>
 								) : (
 									<>
-										<Button variant="contained" color="error" onClick={handleShowForm}>
+										<Button variant="contained" color="error" onClick={handleClose}>
 											Cancel
 										</Button>
 										<Button variant="contained" color="info" type="submit" disabled={disabled}>

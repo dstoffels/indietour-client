@@ -4,20 +4,16 @@ import { useState, useEffect } from 'react';
 import MobileDrawer from './MobileDrawer';
 import PersistentDrawer from './PersistentDrawer';
 import { TourDate } from 'context/dateContext';
-
-export interface DateDrawerProps {
-	fetchDatesQuery?: string;
-	defaultDateFields?: TourDate;
-}
+import { NewDatePropsWithChildren } from '../NewDateForm/NewDateForm';
 
 const DateDrawer = React.forwardRef(
-	({ defaultDateFields }: DateDrawerProps, ref: React.Ref<HTMLElement>) => {
+	(props: NewDatePropsWithChildren, ref: React.Ref<HTMLElement>) => {
 		const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
 
 		return (
 			<>
-				{isMobile && <MobileDrawer ref={ref} />}
-				{!isMobile && <PersistentDrawer ref={ref} />}
+				{isMobile && <MobileDrawer {...props} ref={ref} />}
+				{!isMobile && <PersistentDrawer {...props} ref={ref} />}
 			</>
 		);
 	},

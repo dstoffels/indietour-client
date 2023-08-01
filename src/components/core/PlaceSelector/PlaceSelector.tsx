@@ -37,9 +37,14 @@ const PlaceSelector = ({
 		initialInputValue && setInputValue(initialInputValue);
 	}, [initialInputValue]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		fetchPlaceOptions(inputValue);
 	}, [inputValue]);
+
+	// WATCH ME FOR UNEXPECTED BEHAVIOR
+	useEffect(() => {
+		!value && setInputValue('');
+	}, [value]);
 
 	const handleChange = (event: any, newValue: PlaceType | null) => {
 		console.log('change');
