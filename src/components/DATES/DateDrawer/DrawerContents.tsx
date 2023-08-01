@@ -5,6 +5,7 @@ import { useTours } from 'context/tourContext';
 import DateItem from 'components/DATES/DateItem/DateItem';
 import { useTheme } from 'context/themeContext';
 import NewDateForm, { NewDateFormProps } from '../NewDateForm/NewDateForm';
+import PastDatesSwitch from '../PastDatesSwitch/PastDatesSwitch';
 
 const DrawerContent = forwardRef((props: NewDateFormProps, ref: Ref<HTMLElement>) => {
 	const { theme, headerHeight, footerHeight } = useTheme();
@@ -23,6 +24,7 @@ const DrawerContent = forwardRef((props: NewDateFormProps, ref: Ref<HTMLElement>
 
 	return (
 		<Box
+			position="relative"
 			ref={ref}
 			sx={{
 				marginTop: `${headerHeight}px`,
@@ -40,6 +42,13 @@ const DrawerContent = forwardRef((props: NewDateFormProps, ref: Ref<HTMLElement>
 				>
 					{dateItems}
 				</List>
+				<Box position="absolute" bottom={0} left={0} width="100%">
+					<ListSubheader>
+						<Box padding={1}>
+							<PastDatesSwitch />
+						</Box>
+					</ListSubheader>
+				</Box>
 			</Paper>
 		</Box>
 	);

@@ -10,6 +10,7 @@ interface TourContextValues {
 	setActiveTour: (tour_id: string) => Promise<void>;
 	createTour: (tourData: object) => Promise<void>;
 	updateTour: (tourData: object) => Promise<void>;
+	deleteTour: () => Promise<void>;
 	isTourAdmin: boolean;
 	isBandAdmin: boolean;
 }
@@ -46,11 +47,25 @@ const TourProvider = ({ children }: TourProviderProps) => {
 		await fetchBands();
 	};
 
-	const isTourAdmin = user.is_tour_admin;
+	const deleteTour = async () => {
+		const response = await api.delete(`/tours/${activeTour?.id}`);
+		await fetchBands();
+	};
+
+	const isTourAdmin = user.is_tour_admin as boolean;
 
 	return (
 		<TourContext.Provider
-			value={{ activeTour, tours, setActiveTour, createTour, updateTour, isTourAdmin, isBandAdmin }}
+			value={{
+				activeTour,
+				tours,
+				setActiveTour,
+				createTour,
+				updateTour,
+				deleteTour,
+				isTourAdmin,
+				isBandAdmin,
+			}}
 		>
 			{children}
 		</TourContext.Provider>

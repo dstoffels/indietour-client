@@ -20,9 +20,11 @@ const Footer = forwardRef(({ children, navItems }: FooterProps, ref: Ref<HTMLDiv
 			sx={{ top: 'auto', bottom: 0, zIndex: theme.zIndex.drawer + 1 }}
 		>
 			<Toolbar>
-				<SideStack justifyContent="space-between">
-					<Box>{children}</Box>
-					<Box>
+				<SideStack flexBasis="100%" justifyContent="space-between">
+					<Box display="flex" gap={2}>
+						{children}
+					</Box>
+					<Box textAlign="center">
 						<BookingToggle />
 					</Box>
 					<Box>

@@ -15,6 +15,7 @@ import DatesDrawerBtn from 'components/DATES/DateDrawerBtn/DateDrawerBtn';
 import { useTheme } from 'context/themeContext';
 import { NewDatePropsWithChildren } from 'components/DATES/NewDateForm/NewDateForm';
 import DateDrawer from 'components/DATES/DateDrawer/DateDrawer';
+import PastDatesSwitch from 'components/DATES/PastDatesSwitch/PastDatesSwitch';
 
 export interface MainPageProps extends NewDatePropsWithChildren {}
 
@@ -66,7 +67,11 @@ const MainPage = (props: MainPageProps) => {
 					<TourSelector />
 				</>
 			}
-			footerChildren={<DatesDrawerBtn />}
+			footerChildren={
+				<>
+					<DatesDrawerBtn />
+				</>
+			}
 		>
 			<Box display="flex">
 				<DateDrawer ref={drawerRef} {...props} />

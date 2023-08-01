@@ -7,9 +7,10 @@ export interface PanelProps extends React.PropsWithChildren {
 	title?: string;
 	titleColor?: TypographyProps['color'] | BoxProps['color'];
 	fullwidth?: boolean;
+	footer?: any;
 }
 
-const Panel = ({ title, titleColor = 'primary', fullwidth, children }: PanelProps) => {
+const Panel = ({ title, titleColor = 'primary', fullwidth, children, footer }: PanelProps) => {
 	return (
 		<Grid item xs={12} md={!fullwidth && 6} lg={!fullwidth && 4} xl={!fullwidth && 3}>
 			<Paper elevation={2}>
@@ -22,6 +23,8 @@ const Panel = ({ title, titleColor = 'primary', fullwidth, children }: PanelProp
 				<Stack padding={2} spacing={2}>
 					{children}
 				</Stack>
+				{footer && <Divider />}
+				<Box>{footer}</Box>
 			</Paper>
 		</Grid>
 	);

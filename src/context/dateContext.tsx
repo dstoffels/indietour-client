@@ -3,6 +3,7 @@ import api from 'utils/api';
 import { useTours } from './tourContext';
 import { useRouter } from 'next/router';
 import { Dayjs } from 'dayjs';
+import { useAuth } from './authContext';
 
 interface DateContextValues {
 	activeDate: TourDate | null;
@@ -27,6 +28,7 @@ const DateProvider = ({ children }: DateProviderProps) => {
 	const [drawerOpen, setDrawerOpen] = useState(true);
 	const [statusOptions, setStatusOptions] = useState<string[]>([]);
 	const { activeTour, isTourAdmin } = useTours();
+	const { user } = useAuth();
 
 	const { push, query } = useRouter();
 
@@ -34,7 +36,9 @@ const DateProvider = ({ children }: DateProviderProps) => {
 		if (activeTour) {
 			const statusQuery: string | undefined = query.status && `status=${query.status}`;
 			console.log('fetchTourDates', statusQuery);
-			const response = await api.get(`/tours/${activeTour?.id}/dates?${statusQuery}`);
+			const response = await api.get(
+				`/tours/${activeTour?.id}/dates?${statusQuery}&past_dates=${user?.show_past_dates}`,
+			);
 			setDates(response.data);
 		}
 	};

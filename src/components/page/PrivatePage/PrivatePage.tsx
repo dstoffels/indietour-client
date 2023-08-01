@@ -17,20 +17,7 @@ const PrivatePage = (props: PageProps) => {
 		}
 	}, [user]);
 
-	return (
-		user && (
-			<BasePage
-				navItems={
-					<>
-						<NavItem to="/today">Today</NavItem>
-						<NavItem to="/tour">Tour</NavItem>
-					</>
-				}
-				{...props}
-				headerMenu={<MainMenu />}
-			/>
-		)
-	);
+	return user && <BasePage {...props} headerMenu={<MainMenu />} />;
 };
 
 export default PrivatePage;

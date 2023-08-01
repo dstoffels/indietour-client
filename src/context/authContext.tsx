@@ -144,4 +144,5 @@ export interface User {
 	is_tour_admin?: boolean;
 	show_archived_bands?: boolean;
 	show_archived_tours?: boolean;
+	show_past_dates?: boolean;
 }
