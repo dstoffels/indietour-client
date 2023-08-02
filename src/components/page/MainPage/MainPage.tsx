@@ -36,7 +36,7 @@ const MainPage = (props: MainPageProps) => {
 	const date_id = router.query.date_id as string;
 
 	useEffect(() => {
-		fetchDate(date_id);
+		fetchDate();
 	}, [date_id, activeTour]);
 
 	useEffect(() => {
@@ -89,7 +89,7 @@ const MainPage = (props: MainPageProps) => {
 								{activeDate && dayjs(activeDate?.date).format('dddd, DD MMMM, YYYY')}
 							</Typography>
 						</Box>
-						<Grid container spacing={1}>
+						<Grid container columnSpacing={1} rowSpacing={2}>
 							{children}
 						</Grid>
 					</Box>

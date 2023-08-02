@@ -4,12 +4,13 @@ import { useTours } from './TourContext';
 import { useRouter } from 'next/router';
 import dayjs, { Dayjs } from 'dayjs';
 import { useAuth } from './AuthContext';
+import { Timeslot } from 'hooks/useSchedule';
 
 interface DateContextValues {
 	activeDate: TourDate | null;
 	dates: TourDate[];
 	fetchTourDates: () => Promise<void>;
-	fetchDate: (date_id: string | undefined) => Promise<void>;
+	fetchDate: () => Promise<void>;
 	updateTourdate: (tourdateData: TourDate) => Promise<void>;
 	deleteTourdate: () => Promise<void>;
 	drawerOpen: boolean;
@@ -31,7 +32,9 @@ const DateProvider = ({ children }: DateProviderProps) => {
 	const { activeTour, isTourAdmin } = useTours();
 	const { user } = useAuth();
 
-	const { push, pathname } = useRouter();
+	const { push, pathname, query } = useRouter();
+
+	const date_id = query.date_id as string;
 
 	const fetchTourDates = async () => {
 		if (activeTour) {
@@ -45,8 +48,8 @@ const DateProvider = ({ children }: DateProviderProps) => {
 		}
 	};
 
-	const fetchDate = async (date_id: string | undefined) => {
-		if (date_id && activeTour) {
+	const fetchDate = async () => {
+		if (activeTour) {
 			const response = await api.get(`/dates/${date_id}?include=all`);
 			setActiveDate(response.data);
 		} else setActiveDate(null);
@@ -61,7 +64,7 @@ const DateProvider = ({ children }: DateProviderProps) => {
 	};
 
 	const deleteTourdate = async () => {
-		const responsee = await api.delete(`/dates/${activeDate?.id}`);
+		const response = await api.delete(`/dates/${activeDate?.id}`);
 		push({ query: {} });
 		await fetchTourDates();
 	};
@@ -124,7 +127,7 @@ export interface TourDate {
 	status?: TourDateStatusOptions;
 	hold?: number;
 	shows?: [];
-	timeslots?: [];
+	timeslots?: Timeslot[];
 	lodgings?: [];
 	contacts?: [];
 	tour_id?: string;

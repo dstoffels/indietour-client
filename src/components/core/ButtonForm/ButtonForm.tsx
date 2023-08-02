@@ -5,7 +5,7 @@ import SideStack from '../SideStack/SideStack';
 import { Add, Check, Close } from '@mui/icons-material';
 import useKeyPress from 'utils/useKeyPress';
 
-interface ButtonFormProps {
+export interface ButtonFormProps extends React.PropsWithChildren {
 	title?: string;
 	btnText: string;
 	btnIcon?: React.ReactNode;
@@ -20,7 +20,8 @@ interface ButtonFormProps {
 	spacing?: number;
 	submitBtnTxt: string;
 	iconBtns?: boolean;
-	onClose?: () => any;
+	onOpen?: (open: boolean) => any;
+	onClose?: (open: boolean) => any;
 }
 
 const ButtonForm = React.forwardRef(
@@ -28,9 +29,9 @@ const ButtonForm = React.forwardRef(
 		{
 			title,
 			btnText,
-			btnIcon,
+			btnIcon = <Add />,
 			btnVariant = 'text',
-			btnColor = 'inherit',
+			btnColor = 'primary',
 			submitBtnTxt,
 			onSubmit,
 			children,
@@ -41,6 +42,7 @@ const ButtonForm = React.forwardRef(
 			spacing,
 			iconBtns = false,
 			onClose,
+			onOpen,
 		}: ButtonFormProps,
 		ref,
 	) => {
@@ -54,11 +56,12 @@ const ButtonForm = React.forwardRef(
 
 		const handleOpen = () => {
 			setShowForm(true);
+			onOpen && onOpen(true);
 		};
 
 		const handleClose = () => {
 			setShowForm(false);
-			onClose && onClose();
+			onClose && onClose(false);
 		};
 
 		useKeyPress('Escape', handleClose);

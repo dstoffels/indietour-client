@@ -1,6 +1,13 @@
 import { Box, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import { ComponentType, PropsWithChildren, ReactElement } from 'react';
 
+export interface SelectorItemProps extends PropsWithChildren {
+	onClick?: () => void;
+	onClose?: () => void;
+	disableBtn?: boolean;
+	selected?: boolean;
+}
+
 const SelectorItem = ({ onClick, onClose, selected, children }: SelectorItemProps) => {
 	const handleClick = () => {
 		onClick && onClick();
@@ -19,10 +26,3 @@ const SelectorItem = ({ onClick, onClose, selected, children }: SelectorItemProp
 };
 
 export default SelectorItem;
-
-export interface SelectorItemProps extends PropsWithChildren {
-	onClick?: () => void;
-	onClose?: () => void;
-	disableBtn?: boolean;
-	selected?: boolean;
-}
