@@ -12,7 +12,6 @@ export type PlaceEditFieldProps = EditFieldProps & ExtendedProps;
 
 const PlaceEditField = (props: PlaceEditFieldProps) => {
 	const { onChange, name, initialInputValue, ...otherProps } = props;
-	console.log(name);
 
 	const [place, setPlace] = useState<PlaceType | null>(null);
 
@@ -26,8 +25,12 @@ const PlaceEditField = (props: PlaceEditFieldProps) => {
 	}, [place]);
 
 	return (
-		<EditField {...props} value={initialInputValue}>
-			<PlaceSelector value={place} onChange={handleChange} initialInputValue={initialInputValue} />
+		<EditField {...props} value={initialInputValue || ''}>
+			<PlaceSelector
+				value={place}
+				onChange={handleChange}
+				initialInputValue={initialInputValue || ''}
+			/>
 		</EditField>
 	);
 };

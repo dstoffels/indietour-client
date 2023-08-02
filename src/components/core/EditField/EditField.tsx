@@ -53,9 +53,14 @@ const EditField = (props: EditFieldProps) => {
 		setText(e.target.value);
 	};
 
-	const update = debounce((inputValue: string, open: boolean) => {
-		open && onChange({ [name]: inputValue });
-	}, 400);
+	const update = React.useMemo(
+		() =>
+			debounce((inputValue: string, open: boolean) => {
+				open && onChange({ [name]: inputValue });
+			}, 300),
+
+		[],
+	);
 
 	useEffect(() => {
 		update(text, open);
