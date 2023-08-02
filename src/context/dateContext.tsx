@@ -2,7 +2,7 @@ import { createContext, useState, useContext, useEffect, PropsWithChildren } fro
 import api from 'utils/api';
 import { useTours } from './TourContext';
 import { useRouter } from 'next/router';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { useAuth } from './AuthContext';
 
 interface DateContextValues {
@@ -39,7 +39,7 @@ const DateProvider = ({ children }: DateProviderProps) => {
 			const response = await api.get(
 				`/tours/${activeTour?.id}/dates?${statusQuery}&past_dates=${
 					user?.show_past_dates
-				}&timestamp=${new Date().toISOString()}`,
+				}&request_date=${dayjs().format('YYYY-MM-DD')}`,
 			);
 			setDates(response.data);
 		}
