@@ -18,6 +18,7 @@ export type NewDatePropsWithChildren = NewDateFormProps & React.PropsWithChildre
 
 const NewDateForm = ({ defaultDateFields, disableDuplicateDates }: NewDateFormProps) => {
 	const { dates, createTourdate } = useDates();
+
 	const existingDates = disableDuplicateDates ? dates.map(({ date }) => date as string) : [];
 
 	const [date, setDate] = useState<Dayjs>(dayjs());
@@ -30,12 +31,23 @@ const NewDateForm = ({ defaultDateFields, disableDuplicateDates }: NewDateFormPr
 			date: date.format('YYYY-MM-DD'),
 			place_id: place?.place_id,
 		});
+
+		reset();
 	};
 
 	const reset = () => {
-		setDate(dayjs());
+		getNextDate();
 		setPlace(null);
 	};
+
+	function getNextDate() {
+		const nextDate = dayjs(existingDates[existingDates.length - 1]).add(1, 'day');
+		nextDate && setDate(nextDate);
+	}
+
+	useEffect(() => {
+		reset();
+	}, [dates]);
 
 	return (
 		<ButtonForm

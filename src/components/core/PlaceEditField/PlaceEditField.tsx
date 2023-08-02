@@ -20,7 +20,6 @@ const PlaceEditField = (props: PlaceEditFieldProps) => {
 	};
 
 	useEffect(() => {
-		console.log(place?.place_id);
 		place && onChange({ [name]: place?.place_id });
 	}, [place]);
 

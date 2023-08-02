@@ -43,10 +43,10 @@ const PlaceSelector = ({
 		fetchPlaceOptions(inputValue);
 	}, [inputValue]);
 
-	// WATCH ME FOR UNEXPECTED BEHAVIOR
-	useEffect(() => {
-		// !value && setInputValue('');
-	}, [value]);
+	// // WATCH ME FOR UNEXPECTED BEHAVIOR
+	// useEffect(() => {
+	// 	!value && !inputValue && setInputValue('');
+	// }, [value]);
 
 	const handleChange = (event: any, newValue: PlaceType | null) => {
 		onChange(newValue);

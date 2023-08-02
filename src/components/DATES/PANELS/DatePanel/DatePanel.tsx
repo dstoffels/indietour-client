@@ -14,7 +14,7 @@ const DatePanel = ({}) => {
 	return (
 		activeDate && (
 			<Panel
-				title="Details"
+				title="Tour Date"
 				footer={
 					<DangerZone
 						onDelete={deleteTourdate}

@@ -3,6 +3,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import SideStack from '../SideStack/SideStack';
 import { Add, Check, Close } from '@mui/icons-material';
+import useKeyPress from 'utils/useKeyPress';
 
 interface ButtonFormProps {
 	title?: string;
@@ -59,6 +60,8 @@ const ButtonForm = React.forwardRef(
 			setShowForm(false);
 			onClose && onClose();
 		};
+
+		useKeyPress('Escape', handleClose);
 
 		return (
 			<Box ref={ref}>

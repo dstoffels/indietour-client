@@ -2,7 +2,7 @@ import * as React from 'react';
 import 'themes/global.css';
 import AuthProvider from 'context/AuthContext';
 import ThemeContextProvider from 'context/ThemeContext';
-import ErrorProvider from 'context/errorContext';
+import ErrorProvider from 'context/ErrorContext';
 import BandProvider from 'context/BandContext';
 import TourProvider from 'context/TourContext';
 import DateProvider from 'context/DateContext';
@@ -20,17 +20,17 @@ const App = ({ Component, pageProps }: any) => {
 			<ErrorProvider>
 				<ThemeContextProvider>
 					<AuthProvider>
-						<GlobalProvider>
-							<BandProvider>
-								<TourProvider>
-									<DateProvider>
+						<BandProvider>
+							<TourProvider>
+								<DateProvider>
+									<GlobalProvider>
 										<LocalizationProvider dateAdapter={AdapterDayjs}>
 											<Component {...pageProps} />
 										</LocalizationProvider>
-									</DateProvider>
-								</TourProvider>
-							</BandProvider>
-						</GlobalProvider>
+									</GlobalProvider>
+								</DateProvider>
+							</TourProvider>
+						</BandProvider>
 					</AuthProvider>
 				</ThemeContextProvider>
 			</ErrorProvider>

@@ -59,7 +59,7 @@ const EditField = (props: EditFieldProps) => {
 				open && onChange({ [name]: inputValue });
 			}, 300),
 
-		[],
+		[name, onChange],
 	);
 
 	useEffect(() => {
