@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 
-function useKeyPress(targetKey: string, callback: Function) {
+function useKeyPress(targetKey: string, callback: Function, disabled = false) {
 	const [keyPressed, setKeyPressed] = useState(false);
 
 	const keyDownHandler = useCallback(
@@ -22,12 +22,14 @@ function useKeyPress(targetKey: string, callback: Function) {
 	);
 
 	useEffect(() => {
-		window.addEventListener('keydown', keyDownHandler);
-		window.addEventListener('keyup', keyUpHandler);
-		return () => {
-			window.removeEventListener('keydown', keyDownHandler);
-			window.removeEventListener('keyup', keyUpHandler);
-		};
+		if (!disabled) {
+			window.addEventListener('keydown', keyDownHandler);
+			window.addEventListener('keyup', keyUpHandler);
+			return () => {
+				window.removeEventListener('keydown', keyDownHandler);
+				window.removeEventListener('keyup', keyUpHandler);
+			};
+		}
 	}, [keyDownHandler, keyUpHandler]);
 
 	useEffect(() => {

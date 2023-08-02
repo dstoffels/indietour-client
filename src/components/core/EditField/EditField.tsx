@@ -38,6 +38,7 @@ const EditField = (props: EditFieldProps) => {
 	const { theme } = useTheme();
 
 	useKeyPress('Escape', handleClose);
+	useKeyPress('Enter', handleClose, props.multiline);
 
 	const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
 		event.stopPropagation();
@@ -45,7 +46,7 @@ const EditField = (props: EditFieldProps) => {
 	};
 
 	function handleClose() {
-		setActiveEditField(null);
+		activeEditField === name && setActiveEditField(null);
 	}
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,40 +61,34 @@ const EditField = (props: EditFieldProps) => {
 		update(text, open);
 	}, [text]);
 
-	// children =
-	// 	children &&
-	// 	React.cloneElement(children as React.ReactElement, { label, name, value, onChange });
-
 	return (
 		<Box>
 			<Collapse in={open}>
 				<Box padding={0.5}>
-					<ClickAwayListener onClickAway={handleClose}>
-						<Box display="flex" alignItems="end">
-							{children || (
-								<TextField
-									{...otherProps}
-									autoFocus={true}
-									variant="standard"
-									label={label}
-									value={text}
-									onChange={handleChange}
-									sx={{
-										...sx,
-										'input::-webkit-outer-spin-button, input::-webkit-inner-spin-button': {
-											WebkitAppearance: 'none',
-											margin: 0,
-										},
-									}}
-								/>
-							)}
-							<Tooltip title="Close">
-								<IconButton color="info" size="large" onClick={handleClose}>
-									<Check fontSize="small" />
-								</IconButton>
-							</Tooltip>
-						</Box>
-					</ClickAwayListener>
+					<Box display="flex" alignItems="end">
+						{children || (
+							<TextField
+								{...otherProps}
+								autoFocus={open}
+								variant="standard"
+								label={label ? label : name}
+								value={text}
+								onChange={handleChange}
+								sx={{
+									...sx,
+									'input::-webkit-outer-spin-button, input::-webkit-inner-spin-button': {
+										WebkitAppearance: 'none',
+										margin: 0,
+									},
+								}}
+							/>
+						)}
+						<Tooltip title="Close">
+							<IconButton color="info" size="large" onClick={handleClose}>
+								<Check fontSize="small" />
+							</IconButton>
+						</Tooltip>
+					</Box>
 				</Box>
 			</Collapse>
 			<Collapse in={!open}>

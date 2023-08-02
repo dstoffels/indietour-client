@@ -9,6 +9,7 @@ interface PlaceSelectorProps {
 	onChange: (place: PlaceType | null) => void;
 	label?: string;
 	initialInputValue?: string;
+	required?: boolean;
 }
 
 const PlaceSelector = ({
@@ -16,6 +17,7 @@ const PlaceSelector = ({
 	onChange,
 	label = 'Location',
 	initialInputValue = '',
+	required,
 }: PlaceSelectorProps) => {
 	const [inputValue, setInputValue] = useState<string>(initialInputValue);
 	const [options, setOptions] = useState<PlaceType[]>([]);
@@ -43,11 +45,10 @@ const PlaceSelector = ({
 
 	// WATCH ME FOR UNEXPECTED BEHAVIOR
 	useEffect(() => {
-		!value && setInputValue('');
+		// !value && setInputValue('');
 	}, [value]);
 
 	const handleChange = (event: any, newValue: PlaceType | null) => {
-		console.log('change');
 		onChange(newValue);
 	};
 
@@ -65,7 +66,9 @@ const PlaceSelector = ({
 			onInputChange={(e, newInputValue) => setInputValue(newInputValue)}
 			filterSelectedOptions
 			getOptionLabel={(option: PlaceType) => option.description}
-			renderInput={(params) => <TextField {...params} required variant="standard" label={label} />}
+			renderInput={(params) => (
+				<TextField {...params} required={required} variant="standard" label={label} />
+			)}
 			renderOption={(props, option) => (
 				<PlaceSelectorOption key={option.place_id} props={props} option={option} />
 			)}

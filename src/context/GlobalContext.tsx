@@ -9,6 +9,7 @@ const GlobalContext = createContext<GlobalContextValues>({} as GlobalContextValu
 
 const GlobalProvider = ({ children }: PropsWithChildren) => {
 	const [activeEditField, setActiveEditField] = useState<string | null>(null);
+	console.log(activeEditField);
 
 	return (
 		<GlobalContext.Provider value={{ activeEditField, setActiveEditField }}>

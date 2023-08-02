@@ -53,7 +53,7 @@ const NewDateForm = ({ defaultDateFields, disableDuplicateDates }: NewDateFormPr
 				onChange={(newValue) => setDate(newValue as Dayjs)}
 				existingDates={existingDates}
 			/>
-			<PlaceSelector value={place} onChange={setPlace} />
+			<PlaceSelector value={place} onChange={setPlace} required />
 		</ButtonForm>
 	);
 };

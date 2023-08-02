@@ -25,6 +25,8 @@ const DatePanel = ({}) => {
 			>
 				<StatusSelector />
 				<PlaceEditField
+					name="place_id"
+					label="Location"
 					canEdit={isTourAdmin}
 					onChange={updateTourdate}
 					initialInputValue={`${activeDate?.place?.name}, ${activeDate?.place?.political_address}`}
