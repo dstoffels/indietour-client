@@ -53,13 +53,11 @@ const NewDateForm = ({ defaultDateFields, disableDuplicateDates }: NewDateFormPr
 		<ButtonForm
 			btnIcon={<Add />}
 			btnColor="primary"
-			btnText="Add tour Date"
-			submitBtnTxt="Add Date"
+			btnText="Add Tour Date"
+			submitBtnTxt="Add TourDate"
 			onSubmit={handleSubmit}
-			iconBtns
 			onClose={reset}
 		>
-			<Typography variant="h6">Add Tour Date</Typography>
 			<DatePicker
 				value={date}
 				onChange={(newValue) => setDate(newValue as Dayjs)}

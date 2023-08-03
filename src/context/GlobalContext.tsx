@@ -41,7 +41,7 @@ const GlobalProvider = ({ children }: PropsWithChildren) => {
 	const dateDrawerRef = useRef<HTMLElement | null>(null);
 	const marginLeft = !isMobile && dateDrawerOpen ? `${dateDrawerWidth}px` : 0;
 
-	const [scheduleDrawerOpen, setScheduleDrawerOpen] = useState(false);
+	const [scheduleDrawerOpen, setScheduleDrawerOpen] = useState(true);
 	const [scheduleDrawerWidth, setScheduleDrawerWidth] = useState(0);
 	const marginRight = !isMobile && scheduleDrawerOpen ? `${scheduleDrawerWidth}px` : 0;
 	const scheduleDrawerRef = useRef<HTMLElement | null>(null);

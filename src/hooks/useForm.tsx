@@ -9,6 +9,7 @@ const useForm = <T extends object>(initialData: T, onSubmit: (formData: T) => Pr
 	const [loading, setLoading] = useState(false);
 
 	const reset = () => {
+		console.log('reset');
 		setformData(initialData);
 	};
 
@@ -21,7 +22,9 @@ const useForm = <T extends object>(initialData: T, onSubmit: (formData: T) => Pr
 	};
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setformData({ ...formData, [e.target.name]: e.target.value });
+		e.target.type === 'checkbox'
+			? setformData({ ...formData, [e.target.name]: e.target.checked })
+			: setformData({ ...formData, [e.target.name]: e.target.value });
 	};
 
 	const LoadingAnimation = () =>

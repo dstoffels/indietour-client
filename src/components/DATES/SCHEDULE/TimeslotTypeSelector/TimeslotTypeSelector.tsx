@@ -17,12 +17,16 @@ export interface TimeslotTypeSelectorProps {
 }
 
 const TimeslotTypeSelector = ({ name, value, onChange }: TimeslotTypeSelectorProps) => {
-	const { types } = useSchedule();
+	const { types, fetchTimeslotTypes } = useSchedule();
 
 	const handleChange = (event: SelectChangeEvent) => {
 		onChange && onChange(event as React.ChangeEvent<HTMLInputElement>);
 		!onChange && console.warn('TimeslotTypeSelector requires an onChange handler.');
 	};
+
+	useEffect(() => {
+		fetchTimeslotTypes();
+	}, []);
 
 	const typeItems = types.map((type: TimeslotType) => (
 		<MenuItem key={`ts-type-${type}`} value={type}>
@@ -31,19 +35,21 @@ const TimeslotTypeSelector = ({ name, value, onChange }: TimeslotTypeSelectorPro
 	));
 
 	return (
-		<FormControl variant="outlined" fullWidth>
-			<InputLabel>Type</InputLabel>
-			<Select
-				fullWidth
-				label="Type"
-				variant="outlined"
-				value={value}
-				name={name}
-				onChange={handleChange}
-			>
-				{typeItems}
-			</Select>
-		</FormControl>
+		types.length && (
+			<FormControl variant="outlined" fullWidth>
+				<InputLabel>Type</InputLabel>
+				<Select
+					fullWidth
+					label="Type"
+					variant="outlined"
+					value={value}
+					name={name}
+					onChange={handleChange}
+				>
+					{typeItems}
+				</Select>
+			</FormControl>
+		)
 	);
 };
 

@@ -11,7 +11,7 @@ const useSchedule = () => {
 	const [types, setTypes] = useState<TimeslotType[]>([]);
 
 	const createTimeslot = async (timeslotData: Timeslot) => {
-		const response = await api.post(`/dates/${activeDate?.id}/timeslots`);
+		const response = await api.post(`/dates/${activeDate?.id}/timeslots`, timeslotData);
 		fetchDate();
 	};
 
@@ -32,10 +32,6 @@ const useSchedule = () => {
 		setTypes(response.data);
 	};
 
-	useEffect(() => {
-		fetchTimeslotTypes();
-	}, []);
-
 	return {
 		timeslots,
 		activeTimeslot,
@@ -43,6 +39,7 @@ const useSchedule = () => {
 		createTimeslot,
 		updateTimeslot,
 		deleteTimeslot,
+		fetchTimeslotTypes,
 		types,
 	};
 };

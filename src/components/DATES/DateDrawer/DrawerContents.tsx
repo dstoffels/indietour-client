@@ -35,13 +35,7 @@ const DrawerContent = (props: NewDateFormProps) => {
 			}}
 		>
 			<Paper sx={{ height: '100%' }}>
-				<List
-					subheader={
-						<ListSubheader>
-							<NewDateForm {...props} />
-						</ListSubheader>
-					}
-				>
+				<List subheader={<ListSubheader>{<NewDateForm {...props} />}</ListSubheader>}>
 					{dateItems}
 				</List>
 				<Box position="absolute" bottom={0} left={0} width="100%">

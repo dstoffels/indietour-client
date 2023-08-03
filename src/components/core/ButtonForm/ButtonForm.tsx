@@ -104,14 +104,14 @@ const ButtonForm = React.forwardRef(
 										</Tooltip>
 									</>
 								) : (
-									<>
-										<Button variant="contained" color="error" onClick={handleClose}>
+									<SideStack>
+										<Button variant={btnVariant} color="error" onClick={handleClose}>
 											Cancel
 										</Button>
-										<Button variant="contained" color="info" type="submit" disabled={disabled}>
+										<Button variant={btnVariant} color="info" type="submit" disabled={disabled}>
 											{submitBtnTxt}
 										</Button>
-									</>
+									</SideStack>
 								)}
 							</SideStack>
 						</Stack>

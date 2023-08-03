@@ -7,11 +7,10 @@ import { useGlobals } from 'context/GlobalContext';
 export interface PanelProps extends React.PropsWithChildren {
 	title?: string;
 	titleColor?: TypographyProps['color'] | BoxProps['color'];
-	fullwidth?: boolean;
 	footer?: any;
 }
 
-const Panel = ({ title, titleColor = 'inherit', fullwidth, children, footer }: PanelProps) => {
+const Panel = ({ title, titleColor = 'inherit', children, footer }: PanelProps) => {
 	const { mainWidth } = useGlobals();
 	const [loaded, setLoaded] = useState(false);
 
