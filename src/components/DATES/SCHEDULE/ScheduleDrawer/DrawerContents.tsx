@@ -13,13 +13,13 @@ const DrawerContents = () => {
 			ref={scheduleDrawerRef}
 			position="relative"
 			sx={{
-				marginTop: headerHeight,
-				marginBottom: footerHeight,
+				marginTop: `${headerHeight}px`,
+				marginBottom: `${footerHeight}px`,
 				height: '100%',
 			}}
 		>
 			<Paper sx={{ height: '100%' }}>
-				<List subheader={<ListSubheader>{/* <NewTimeslotForm /> */}</ListSubheader>}>Schedule</List>
+				<List subheader={<ListSubheader>{<NewTimeslotForm />}</ListSubheader>}>Schedule</List>
 			</Paper>
 		</Box>
 	);

@@ -23,10 +23,11 @@ const Panel = ({ title, titleColor = 'inherit', fullwidth, children, footer }: P
 	else cols = 3;
 
 	useEffect(() => {
+		loaded && setLoaded(false);
 		setTimeout(() => {
 			setLoaded(true);
 		}, 1);
-	}, []);
+	}, [children]);
 
 	return (
 		<Grid item xs={cols}>

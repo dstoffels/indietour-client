@@ -1,8 +1,9 @@
 import { SwipeableDrawer } from '@mui/material';
 import { useGlobals } from 'context/GlobalContext';
 import { PropsWithChildren } from 'react';
+import DrawerContents from './DrawerContents';
 
-const MobileDrawer = ({ children }: PropsWithChildren) => {
+const MobileDrawer = () => {
 	const { scheduleDrawerOpen, setScheduleDrawerOpen } = useGlobals();
 
 	const handleOpen = () => {
@@ -19,8 +20,9 @@ const MobileDrawer = ({ children }: PropsWithChildren) => {
 			open={scheduleDrawerOpen}
 			onOpen={handleOpen}
 			onClose={handleClose}
+			disableSwipeToOpen={false}
 		>
-			{children}
+			<DrawerContents />
 		</SwipeableDrawer>
 	);
 };

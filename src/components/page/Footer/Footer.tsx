@@ -1,9 +1,7 @@
 import { AppBar, Box, Toolbar } from '@mui/material';
 import React, { forwardRef, PropsWithChildren, ReactNode, Ref } from 'react';
-import DarkModeSwitch from 'components/theme/DarkModeSwitch/DarkModeSwitch';
 import SideStack from 'components/core/SideStack/SideStack';
 import { useTheme } from 'context/ThemeContext';
-import BookingToggle from 'components/page/TourModeToggle/TourModeToggle';
 
 interface FooterProps extends PropsWithChildren {
 	leftComponent?: ReactNode;
@@ -23,11 +21,11 @@ const Footer = forwardRef(
 			>
 				<Toolbar>
 					<SideStack flexBasis="100%" justifyContent="space-between">
-						<Box display="flex" gap={2}>
-							{leftComponent}
-						</Box>
+						<Box flexGrow={1}>{leftComponent}</Box>
 						<Box textAlign="center">{children}</Box>
-						<Box>{rightComponent}</Box>
+						<Box flexGrow={1} display="flex" justifyContent="end">
+							{rightComponent}
+						</Box>
 					</SideStack>
 				</Toolbar>
 			</AppBar>

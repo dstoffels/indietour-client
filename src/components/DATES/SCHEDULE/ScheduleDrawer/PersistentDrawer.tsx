@@ -3,8 +3,9 @@ import { useGlobals } from 'context/GlobalContext';
 import { useTheme } from 'context/ThemeContext';
 import NewTimeslotForm from '../NewTimeslotForm/NewTimeslotForm';
 import { PropsWithChildren } from 'react';
+import DrawerContents from './DrawerContents';
 
-const PersistentDrawer = ({ children }: PropsWithChildren) => {
+const PersistentDrawer = () => {
 	const { theme } = useTheme();
 	const { scheduleDrawerOpen, setScheduleDrawerOpen } = useGlobals();
 
@@ -21,7 +22,7 @@ const PersistentDrawer = ({ children }: PropsWithChildren) => {
 			hideBackdrop
 			variant="persistent"
 		>
-			{children}
+			<DrawerContents />
 		</Drawer>
 	);
 };
