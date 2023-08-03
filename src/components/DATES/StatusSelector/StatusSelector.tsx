@@ -1,6 +1,8 @@
+import { Add, Remove } from '@mui/icons-material';
 import {
 	Box,
 	FormControl,
+	IconButton,
 	InputLabel,
 	MenuItem,
 	Select,
@@ -30,6 +32,16 @@ const StatusSelector = () => {
 		});
 	};
 
+	const handleHoldInc = () => {
+		// @ts-expect-error
+		updateTourdate({ hold: activeDate?.hold + 1 });
+	};
+
+	const handleHoldDec = () => {
+		// @ts-expect-error
+		updateTourdate({ hold: activeDate?.hold - 1 });
+	};
+
 	const color = getStatusColor(activeDate?.status as TourDateStatusOptions);
 
 	return (
@@ -51,15 +63,14 @@ const StatusSelector = () => {
 				</FormControl>
 			</Stack>
 			{activeDate?.status === 'HOLD' && (
-				<Box maxWidth={90}>
-					<EditField
-						label="Hold"
-						value={activeDate.hold || 0}
-						onChange={updateTourdate}
-						name="hold"
-						type="number"
-						canEdit={isTourAdmin}
-					/>
+				<Box display="flex" alignItems="center" gap={0.5}>
+					<IconButton size="large" color="primary" onClick={handleHoldDec}>
+						<Remove />
+					</IconButton>
+					<Typography>{activeDate.hold}</Typography>
+					<IconButton size="large" color="primary" onClick={handleHoldInc}>
+						<Add />
+					</IconButton>
 				</Box>
 			)}
 		</SideStack>
