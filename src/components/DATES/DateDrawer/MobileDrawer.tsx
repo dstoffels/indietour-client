@@ -4,16 +4,18 @@ import { useState, useEffect } from 'react';
 import DrawerContent from './DrawerContents';
 import { useDates } from 'context/DateContext';
 import { NewDateFormProps } from '../NewDateForm/NewDateForm';
+import { useGlobals } from 'context/GlobalContext';
 
-const MobileDrawer = React.forwardRef((props: NewDateFormProps, ref: React.Ref<HTMLElement>) => {
-	const { activeDate, drawerOpen, setDrawerOpen } = useDates();
+const MobileDrawer = (props: NewDateFormProps) => {
+	const { activeDate } = useDates();
+	const { dateDrawerOpen, setDateDrawerOpen } = useGlobals();
 
 	const handleOpen = () => {
-		!drawerOpen && setDrawerOpen(true);
+		!dateDrawerOpen && setDateDrawerOpen(true);
 	};
 
 	const handleClose = () => {
-		drawerOpen && setDrawerOpen(false);
+		dateDrawerOpen && setDateDrawerOpen(false);
 	};
 
 	useEffect(() => {
@@ -24,7 +26,7 @@ const MobileDrawer = React.forwardRef((props: NewDateFormProps, ref: React.Ref<H
 		<SwipeableDrawer
 			swipeAreaWidth={50}
 			anchor="left"
-			open={drawerOpen}
+			open={dateDrawerOpen}
 			onOpen={handleOpen}
 			onClose={handleClose}
 			disableSwipeToOpen={false}
@@ -32,6 +34,6 @@ const MobileDrawer = React.forwardRef((props: NewDateFormProps, ref: React.Ref<H
 			<DrawerContent {...props} />
 		</SwipeableDrawer>
 	);
-});
+};
 
 export default MobileDrawer;

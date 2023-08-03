@@ -7,15 +7,17 @@ import { useTheme } from 'context/ThemeContext';
 export interface PageProps extends React.PropsWithChildren {
 	headerChildren?: React.ReactNode;
 	headerMenu?: React.ReactNode;
-	footerChildren?: React.ReactNode;
-	navItems?: React.ReactNode;
+	footerLeft?: React.ReactNode;
+	footerCenter?: React.ReactNode;
+	footerRight?: React.ReactNode;
 }
 const BasePage = ({
 	headerChildren,
 	headerMenu,
-	footerChildren,
-	navItems,
+	footerCenter,
 	children,
+	footerLeft,
+	footerRight,
 }: PageProps) => {
 	const { headerRef, headerHeight, footerRef, footerHeight } = useTheme();
 
@@ -32,8 +34,8 @@ const BasePage = ({
 			>
 				{children}
 			</Box>
-			<Footer ref={footerRef} navItems={navItems}>
-				{footerChildren}
+			<Footer ref={footerRef} leftComponent={footerLeft} rightComponent={footerRight}>
+				{footerCenter}
 			</Footer>
 		</Box>
 	);

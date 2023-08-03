@@ -1,28 +1,29 @@
 import { Drawer } from '@mui/material';
-import { Ref, forwardRef } from 'react';
-import { useDates } from 'context/DateContext';
 import { useTheme } from 'context/ThemeContext';
 import DrawerContent from './DrawerContents';
 import { NewDateFormProps } from '../NewDateForm/NewDateForm';
+import { useGlobals } from 'context/GlobalContext';
 
-const PersistentDrawer = forwardRef((props: NewDateFormProps, ref: Ref<HTMLElement>) => {
+const PersistentDrawer = (props: NewDateFormProps) => {
 	const { theme } = useTheme();
-	const { drawerOpen, setDrawerOpen } = useDates();
+	const { dateDrawerOpen, setDateDrawerOpen } = useGlobals();
 
-	const toggleDrawer = () => setDrawerOpen(!drawerOpen);
+	const toggleDrawer = () => {
+		setDateDrawerOpen(!dateDrawerOpen);
+	};
 
 	return (
 		<Drawer
 			sx={{ zIndex: theme.zIndex.drawer - 1 }}
 			anchor="left"
-			open={drawerOpen}
+			open={dateDrawerOpen}
 			onClose={toggleDrawer}
 			hideBackdrop
 			variant="persistent"
 		>
-			<DrawerContent ref={ref} {...props} />
+			<DrawerContent {...props} />
 		</Drawer>
 	);
-});
+};
 
 export default PersistentDrawer;

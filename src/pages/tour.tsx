@@ -1,6 +1,6 @@
 import ContactsPanel from 'components/DATES/PANELS/ContactsPanel/ContactsPanel';
 import DatePanel from 'components/DATES/PANELS/DatePanel/DatePanel';
-import LodgingsPanel from 'components/DATES/PANELS/LodgingsPanel/LodgingsPanel';
+import LodgingPanel from 'components/DATES/PANELS/LodgingPanel/LodgingPanel';
 import SchedulePanel from 'components/DATES/PANELS/SchedulePanel/SchedulePanel';
 import DangerZone from 'components/core/DangerZone/DangerZone';
 import MainPage from 'components/page/MainPage/MainPage';
@@ -11,9 +11,9 @@ const TourPage = ({}) => {
 		<MainPage defaultDateFields={{ status: 'CONFIRMED' }} disableDuplicateDates>
 			<TourPanel />
 			<DatePanel />
-			<SchedulePanel />
+			{/* <SchedulePanel /> */}
 			<ContactsPanel />
-			<LodgingsPanel />
+			<LodgingPanel />
 		</MainPage>
 	);
 };

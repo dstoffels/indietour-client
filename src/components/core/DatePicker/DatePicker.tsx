@@ -1,4 +1,4 @@
-import { Button, Paper, Popover, Stack, Typography } from '@mui/material';
+import { Box, Button, Paper, Popover, Stack, Typography } from '@mui/material';
 import { TourDate } from 'context/DateContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
@@ -20,6 +20,7 @@ const DatePicker = ({ value, onChange, existingDates = [] }: DatePickerProps) =>
 			onChange={onChange}
 			showDaysOutsideCurrentMonth
 			shouldDisableDate={handleDisableDates}
+			sx={{ marginX: -4, marginBottom: -4 }}
 		/>
 	);
 };

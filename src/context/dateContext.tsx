@@ -1,10 +1,12 @@
-import { createContext, useState, useContext, useEffect, PropsWithChildren } from 'react';
+import { createContext, useState, useContext, useEffect, PropsWithChildren, useRef } from 'react';
 import api from 'utils/api';
 import { useTours } from './TourContext';
 import { useRouter } from 'next/router';
 import dayjs, { Dayjs } from 'dayjs';
 import { useAuth } from './AuthContext';
 import { Timeslot } from 'hooks/useSchedule';
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from './ThemeContext';
 
 interface DateContextValues {
 	activeDate: TourDate | null;
@@ -13,8 +15,6 @@ interface DateContextValues {
 	fetchDate: () => Promise<void>;
 	updateTourdate: (tourdateData: TourDate) => Promise<void>;
 	deleteTourdate: () => Promise<void>;
-	drawerOpen: boolean;
-	setDrawerOpen: (open: boolean) => void;
 	createTourdate: (tourdateData: TourDate) => Promise<void>;
 	statusOptions: string[];
 	isTourAdmin: boolean;
@@ -25,15 +25,14 @@ interface DateProviderProps extends PropsWithChildren {}
 const DateContext = createContext<DateContextValues>({} as DateContextValues);
 
 const DateProvider = ({ children }: DateProviderProps) => {
-	const [dates, setDates] = useState<TourDate[]>([]);
-	const [activeDate, setActiveDate] = useState<TourDate | null>(null);
-	const [drawerOpen, setDrawerOpen] = useState(true);
-	const [statusOptions, setStatusOptions] = useState<string[]>([]);
-	const { activeTour, isTourAdmin } = useTours();
 	const { user } = useAuth();
 
-	const { push, pathname, query } = useRouter();
+	const [dates, setDates] = useState<TourDate[]>([]);
+	const [activeDate, setActiveDate] = useState<TourDate | null>(null);
+	const [statusOptions, setStatusOptions] = useState<string[]>([]);
+	const { activeTour, isTourAdmin } = useTours();
 
+	const { push, pathname, query } = useRouter();
 	const date_id = query.date_id as string;
 
 	const fetchTourDates = async () => {
@@ -49,7 +48,7 @@ const DateProvider = ({ children }: DateProviderProps) => {
 	};
 
 	const fetchDate = async () => {
-		if (activeTour) {
+		if (activeTour && date_id) {
 			const response = await api.get(`/dates/${date_id}?include=all`);
 			setActiveDate(response.data);
 		} else setActiveDate(null);
@@ -100,8 +99,6 @@ const DateProvider = ({ children }: DateProviderProps) => {
 				dates,
 				fetchTourDates,
 				fetchDate,
-				drawerOpen,
-				setDrawerOpen,
 				createTourdate,
 				statusOptions,
 				updateTourdate,

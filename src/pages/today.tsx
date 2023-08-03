@@ -1,4 +1,4 @@
-import DatesDrawerBtn from 'components/DATES/DateDrawerBtn/DateDrawerBtn';
+import DatesDrawerBtn from 'components/DATES/DateDrawer/DateDrawerBtn';
 import PrivatePage from 'components/page/PrivatePage/PrivatePage';
 import * as React from 'react';
 import { useState, useEffect } from 'react';

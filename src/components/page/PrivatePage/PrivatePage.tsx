@@ -4,7 +4,7 @@ import { useAuth } from 'context/AuthContext';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import MainMenu from 'components/menus/MainMenu/MainMenu';
-import NavItem from 'components/core/NavItem/NavItem';
+import BookingToggle from '../TourModeToggle/TourModeToggle';
 
 const PrivatePage = (props: PageProps) => {
 	const { user, loaded } = useAuth();
@@ -17,7 +17,7 @@ const PrivatePage = (props: PageProps) => {
 		}
 	}, [user]);
 
-	return user && <BasePage {...props} headerMenu={<MainMenu />} />;
+	return user && <BasePage {...props} headerMenu={<MainMenu />} footerCenter={<BookingToggle />} />;
 };
 
 export default PrivatePage;

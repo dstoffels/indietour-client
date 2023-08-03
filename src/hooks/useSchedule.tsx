@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 const useSchedule = () => {
 	const { activeDate, fetchDate } = useDates();
-	const { timeslots } = activeDate as TourDate;
+	const timeslots = activeDate?.timeslots || [];
 
 	const [activeTimeslot, setActiveTimeslot] = useState<Timeslot | null>(null);
 	const [types, setTypes] = useState<TimeslotType[]>([]);
