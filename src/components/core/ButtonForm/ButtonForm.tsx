@@ -104,7 +104,7 @@ const ButtonForm = React.forwardRef(
 										</Tooltip>
 									</>
 								) : (
-									<SideStack>
+									<SideStack marginTop={2}>
 										<Button variant={btnVariant} color="error" onClick={handleClose}>
 											Cancel
 										</Button>
