@@ -41,10 +41,11 @@ const BaseMenu = ({ children, icon = <Menu />, drawerAnchor = 'top' }: BaseMenuP
 			</Hidden>
 			<Hidden mdUp>
 				<SwipeableDrawer
-					anchor={drawerAnchor}
+					anchor="top"
 					open={open}
 					onClose={handleClose}
 					onOpen={handleOpen}
+					disableSwipeToOpen={true}
 				>
 					<List sx={{ paddingTop: `${headerHeight + 5}px` }}>{children}</List>
 				</SwipeableDrawer>
