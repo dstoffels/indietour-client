@@ -15,7 +15,7 @@ const VenueAutocomplete = ({}) => {
 		() =>
 			debounce((inputValue: string) => {
 				fetchVenues(new VenueParams(inputValue));
-			}, 300),
+			}, 250),
 		[],
 	);
 
