@@ -17,7 +17,7 @@ const MobileDrawer = (props: NewDateFormProps) => {
 
 	return (
 		<SwipeableDrawer
-			swipeAreaWidth={50}
+			swipeAreaWidth={30}
 			anchor="left"
 			open={dateDrawerOpen}
 			onOpen={handleOpen}

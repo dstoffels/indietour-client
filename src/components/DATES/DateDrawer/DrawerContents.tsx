@@ -24,10 +24,6 @@ const DrawerContent = (props: NewDateFormProps) => {
 		<DateItem key={`date-${tourdate.id}`} tourdate={tourdate} activeDate={activeDate} />
 	));
 
-	const footerRef = useRef<HTMLDivElement | null>(null);
-
-	console.log(marginLeft);
-
 	return (
 		<Box
 			ref={dateDrawerRef}
@@ -41,18 +37,12 @@ const DrawerContent = (props: NewDateFormProps) => {
 			<Paper sx={{ height: '100%' }}>
 				<List
 					subheader={<ListSubheader>{<NewDateForm {...props} />}</ListSubheader>}
-					sx={{ marginBottom: footerRef.current?.clientHeight }}
+					sx={{ paddingBottom: `${footerHeight}px` }}
 				>
 					{dateItems}
 				</List>
 
-				<Box
-					position="fixed"
-					bottom={footerHeight}
-					left={0}
-					width={marginLeft || '100%'}
-					ref={footerRef}
-				>
+				<Box position="fixed" bottom={footerHeight} left={0} width={marginLeft || '100%'}>
 					<ListSubheader>
 						<Box padding={1}>
 							<PastDatesSwitch />

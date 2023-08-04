@@ -11,20 +11,20 @@ const useSchedule = () => {
 	const [types, setTypes] = useState<TimeslotType[]>([]);
 
 	const createTimeslot = async (timeslotData: Timeslot) => {
-		const response = await api.post(`/dates/${activeDate?.id}/timeslots`, timeslotData);
-		fetchDate();
+		await api.post(`/dates/${activeDate?.id}/timeslots`, timeslotData);
+		await fetchDate();
 	};
 
 	const updateTimeslot = async (timeslotData: Timeslot) => {
 		if (activeTimeslot) {
-			const response = await api.patch(`/timeslots/${activeTimeslot.id}`, timeslotData);
-			fetchDate();
+			await api.patch(`/timeslots/${activeTimeslot.id}`, timeslotData);
+			await fetchDate();
 		}
 	};
 
 	const deleteTimeslot = async () => {
-		const response = await api.delete(`/timeslots/${activeTimeslot?.id}`);
-		fetchDate();
+		await api.delete(`/timeslots/${activeTimeslot?.id}`);
+		await fetchDate();
 	};
 
 	const fetchTimeslotTypes = async () => {

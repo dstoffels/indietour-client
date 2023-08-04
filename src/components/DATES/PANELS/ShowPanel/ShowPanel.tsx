@@ -1,9 +1,25 @@
+import { Autocomplete, TextField } from '@mui/material';
+import VenueAutocomplete from 'components/VENUES/VenueAutocomplete/VenueAutocomplete';
 import Panel from 'components/core/Panel/Panel';
+import { useDates } from 'context/DateContext';
+import { VenueParams } from 'hooks/useVenues';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 
 const ShowPanel = () => {
-	return <Panel title="Shows"></Panel>;
+	const { activeDate } = useDates();
+
+	const q = new VenueParams();
+	q.name = 'abc';
+	q.capacity = 'x';
+
+	return (
+		activeDate && (
+			<Panel title="Shows">
+				<VenueAutocomplete />
+			</Panel>
+		)
+	);
 };
 
 export default ShowPanel;

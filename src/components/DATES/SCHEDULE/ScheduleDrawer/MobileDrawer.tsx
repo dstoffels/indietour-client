@@ -15,7 +15,7 @@ const MobileDrawer = () => {
 
 	return (
 		<SwipeableDrawer
-			swipeAreaWidth={50}
+			swipeAreaWidth={30}
 			anchor="right"
 			open={scheduleDrawerOpen}
 			onOpen={handleOpen}
