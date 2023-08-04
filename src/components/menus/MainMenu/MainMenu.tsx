@@ -5,12 +5,12 @@ import LogoutBtn from 'components/auth/LogoutBtn/LogoutBtn';
 import BaseMenuItem from 'components/core/menu/BaseMenuItem/BaseMenuItem';
 import BandSelector from 'components/bands/BandSelector/BandSelector';
 import { Box, Divider, Hidden } from '@mui/material';
-import { AccountCircle } from '@mui/icons-material';
+import { AccountCircle, Groups2 } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
 const MainMenu = ({}) => {
 	const { user } = useAuth();
-	const { push, pathname } = useRouter();
+	const { push } = useRouter();
 
 	return (
 		user && (

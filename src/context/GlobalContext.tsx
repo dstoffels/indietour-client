@@ -12,8 +12,8 @@ import { useDates } from './DateContext';
 import { useTheme } from './ThemeContext';
 
 interface GlobalContextValues {
-	activeEditField: string | null;
-	setActiveEditField: (editField: string | null) => any;
+	activeEditField: number;
+	setActiveEditField: (editField: number) => any;
 	dateDrawerRef: MutableRefObject<HTMLElement | null>;
 	dateDrawerOpen: boolean;
 	setDateDrawerOpen: (open: boolean) => any;
@@ -34,14 +34,14 @@ const GlobalProvider = ({ children }: PropsWithChildren) => {
 	const { activeTour } = useTours();
 	const { activeDate } = useDates();
 
-	const [activeEditField, setActiveEditField] = useState<string | null>(null);
+	const [activeEditField, setActiveEditField] = useState<number>(0);
 
-	const [dateDrawerOpen, setDateDrawerOpen] = useState<boolean>(true);
+	const [dateDrawerOpen, setDateDrawerOpen] = useState<boolean>(false);
 	const [dateDrawerWidth, setDateDrawerWidth] = useState(0);
 	const dateDrawerRef = useRef<HTMLElement | null>(null);
 	const marginLeft = !isMobile && dateDrawerOpen ? `${dateDrawerWidth}px` : 0;
 
-	const [scheduleDrawerOpen, setScheduleDrawerOpen] = useState(true);
+	const [scheduleDrawerOpen, setScheduleDrawerOpen] = useState(false);
 	const [scheduleDrawerWidth, setScheduleDrawerWidth] = useState(0);
 	const marginRight = !isMobile && scheduleDrawerOpen ? `${scheduleDrawerWidth}px` : 0;
 	const scheduleDrawerRef = useRef<HTMLElement | null>(null);
@@ -62,12 +62,11 @@ const GlobalProvider = ({ children }: PropsWithChildren) => {
 			});
 
 			observer.observe(mainRef.current);
-			return () => observer.unobserve(mainRef.current as Element);
 		}
 	}, [mainRef.current]);
 
 	useEffect(() => {
-		activeEditField && setActiveEditField(null);
+		activeEditField && setActiveEditField(0);
 	}, [activeDate, activeTour]);
 
 	const drawerTransition = !dateDrawerOpen

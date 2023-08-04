@@ -7,6 +7,7 @@ import { NewDateFormProps } from '../NewDateForm/NewDateForm';
 import { useGlobals } from 'context/GlobalContext';
 
 const MobileDrawer = (props: NewDateFormProps) => {
+	const [initialized, setInitialized] = useState(false);
 	const { activeDate } = useDates();
 	const { dateDrawerOpen, setDateDrawerOpen } = useGlobals();
 
@@ -19,6 +20,7 @@ const MobileDrawer = (props: NewDateFormProps) => {
 	};
 
 	useEffect(() => {
+		!initialized && setInitialized(true);
 		activeDate ? handleClose() : handleOpen();
 	}, [activeDate]);
 
@@ -26,7 +28,7 @@ const MobileDrawer = (props: NewDateFormProps) => {
 		<SwipeableDrawer
 			swipeAreaWidth={50}
 			anchor="left"
-			open={dateDrawerOpen}
+			open={initialized && dateDrawerOpen}
 			onOpen={handleOpen}
 			onClose={handleClose}
 			disableSwipeToOpen={false}

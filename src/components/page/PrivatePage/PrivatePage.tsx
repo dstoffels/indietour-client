@@ -17,7 +17,7 @@ const PrivatePage = (props: PageProps) => {
 		}
 	}, [user]);
 
-	return user && <BasePage {...props} headerMenu={<MainMenu />} footerCenter={<BookingToggle />} />;
+	return user && <BasePage {...props} headerMenu={<MainMenu />} />;
 };
 
 export default PrivatePage;

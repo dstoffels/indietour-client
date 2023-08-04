@@ -16,6 +16,7 @@ import DateDrawer from 'components/DATES/DateDrawer/DateDrawer';
 import { useGlobals } from 'context/GlobalContext';
 import ScheduleDrawerBtn from 'components/DATES/SCHEDULE/ScheduleDrawer/ScheduleDrawerBtn';
 import ScheduleDrawer from 'components/DATES/SCHEDULE/ScheduleDrawer/ScheduleDrawer';
+import BookingToggle from '../TourModeToggle/TourModeToggle';
 
 export interface MainPageProps extends NewDatePropsWithChildren {}
 
@@ -44,7 +45,8 @@ const MainPage = (props: MainPageProps) => {
 				</>
 			}
 			footerLeft={<DatesDrawerBtn />}
-			footerRight={<ScheduleDrawerBtn></ScheduleDrawerBtn>}
+			footerCenter={<BookingToggle />}
+			footerRight={<ScheduleDrawerBtn />}
 		>
 			<Box display="flex">
 				<DateDrawer {...props} />
@@ -59,12 +61,14 @@ const MainPage = (props: MainPageProps) => {
 							transition: drawerTransition,
 						}}
 					>
-						<Box width="100%">
-							<Typography padding={2} variant="h6">
-								{activeDate && dayjs(activeDate?.date).format('dddd, DD MMMM, YYYY')}
-							</Typography>
-						</Box>
-						<Grid container columnSpacing={1} rowSpacing={2}>
+						{activeDate && (
+							<Box width="100%">
+								<Typography padding={2} variant="h6">
+									{dayjs(activeDate?.date).format('dddd, DD MMMM, YYYY')}
+								</Typography>
+							</Box>
+						)}
+						<Grid container columnSpacing={1} rowSpacing={2} justifyContent="center">
 							{children}
 						</Grid>
 					</Box>

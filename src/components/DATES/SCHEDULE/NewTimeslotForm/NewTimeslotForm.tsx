@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel, Stack, TextField, Typography } from '@mui/material';
+import { Box, Checkbox, FormControlLabel, Stack, TextField, Typography } from '@mui/material';
 import useForm from 'hooks/useForm';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
@@ -86,7 +86,7 @@ const NewTimeslotForm = ({}) => {
 
 				{/* START */}
 
-				<SideStack alignItems="end">
+				<Box>
 					<TimeField<Dayjs>
 						required
 						variant="standard"
@@ -109,12 +109,12 @@ const NewTimeslotForm = ({}) => {
 							/>
 						}
 					/>
-				</SideStack>
+				</Box>
 				<PlaceSelector label="Origin" value={origin} onChange={setOrigin} />
 
 				{/* END */}
 
-				<SideStack alignItems="end">
+				<Box>
 					<TimeField<Dayjs>
 						variant="standard"
 						label="End Time"
@@ -136,7 +136,7 @@ const NewTimeslotForm = ({}) => {
 							/>
 						}
 					/>
-				</SideStack>
+				</Box>
 				<PlaceSelector label="Destination" value={destination} onChange={setDestination} />
 			</Stack>
 		</ButtonForm>

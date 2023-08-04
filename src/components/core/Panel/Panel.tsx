@@ -5,7 +5,7 @@ import { TypographyProps } from '@mui/material';
 import { useGlobals } from 'context/GlobalContext';
 
 export interface PanelProps extends React.PropsWithChildren {
-	title?: string;
+	title: string;
 	titleColor?: TypographyProps['color'] | BoxProps['color'];
 	footer?: any;
 }
@@ -18,8 +18,7 @@ const Panel = ({ title, titleColor = 'inherit', children, footer }: PanelProps) 
 
 	if (mainWidth < 650) cols = 12;
 	else if (mainWidth < 960) cols = 6;
-	else if (mainWidth < 1280) cols = 4;
-	else cols = 3;
+	else cols = 4;
 
 	useEffect(() => {
 		loaded && setLoaded(false);

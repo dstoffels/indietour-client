@@ -19,7 +19,7 @@ import useKeyPress from 'utils/useKeyPress';
 interface ExtendedProps {
 	onChange: (value: object) => Promise<any>;
 	name: string | number | symbol;
-	value?: string | number;
+	value: string | number | undefined | null;
 	canEdit?: boolean;
 }
 
@@ -29,10 +29,14 @@ export interface EditFieldOpenEvent extends Event {
 	detail: { name: string };
 }
 
+let nextKey = 0;
+
 const EditField = (props: EditFieldProps) => {
 	let { label, name, value, onChange, children, sx, canEdit, ...otherProps } = props;
 	const { activeEditField, setActiveEditField } = useGlobals();
-	const open = activeEditField === name;
+
+	const key = React.useRef(++nextKey).current;
+	const open = activeEditField === key;
 
 	const [text, setText] = useState<string>(value as string);
 	const { theme } = useTheme();
@@ -42,11 +46,11 @@ const EditField = (props: EditFieldProps) => {
 
 	const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
 		event.stopPropagation();
-		canEdit && setActiveEditField(name);
+		canEdit && setActiveEditField(key);
 	};
 
 	function handleClose() {
-		activeEditField === name && setActiveEditField(null);
+		activeEditField === key && setActiveEditField(0);
 	}
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

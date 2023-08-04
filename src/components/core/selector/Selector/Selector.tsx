@@ -1,4 +1,4 @@
-import { KeyboardArrowDown } from '@mui/icons-material';
+import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import { Button, List, Paper, Popover } from '@mui/material';
 import {
 	Children,
@@ -10,11 +10,13 @@ import {
 	useState,
 } from 'react';
 import { SelectorItemProps } from '../SelectorItem/SelectorItem';
+import { useTheme } from 'context/ThemeContext';
 
 interface iSelectorItem extends ReactElement<SelectorItemProps> {}
 
 const Selector = ({ selected, children }: SelectorProps) => {
 	const [anchor, setAnchor] = useState<HTMLButtonElement | null>(null);
+	const { theme } = useTheme();
 
 	const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
 		setAnchor(event.currentTarget);
@@ -38,7 +40,11 @@ const Selector = ({ selected, children }: SelectorProps) => {
 
 	return (
 		<>
-			<Button onClick={handleClick} endIcon={<KeyboardArrowDown />}>
+			<Button
+				color="info"
+				onClick={handleClick}
+				endIcon={open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+			>
 				{selected}
 			</Button>
 			<Popover

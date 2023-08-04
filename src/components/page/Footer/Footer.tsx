@@ -13,22 +13,24 @@ const Footer = forwardRef(
 		const { theme } = useTheme();
 
 		return (
-			<AppBar
-				ref={ref}
-				color="inherit"
-				position="fixed"
-				sx={{ top: 'auto', bottom: 0, zIndex: theme.zIndex.drawer + 1 }}
-			>
-				<Toolbar>
-					<SideStack flexBasis="100%" justifyContent="space-between">
-						<Box flexGrow={1}>{leftComponent}</Box>
-						<Box textAlign="center">{children}</Box>
-						<Box flexGrow={1} display="flex" justifyContent="end">
-							{rightComponent}
-						</Box>
-					</SideStack>
-				</Toolbar>
-			</AppBar>
+			(children || leftComponent || rightComponent) && (
+				<AppBar
+					ref={ref}
+					color="inherit"
+					position="fixed"
+					sx={{ top: 'auto', bottom: 0, zIndex: theme.zIndex.drawer + 1 }}
+				>
+					<Toolbar>
+						<SideStack flexBasis="100%" justifyContent="space-between">
+							<Box flexGrow={1}>{leftComponent}</Box>
+							<Box textAlign="center">{children}</Box>
+							<Box flexGrow={1} display="flex" justifyContent="end">
+								{rightComponent}
+							</Box>
+						</SideStack>
+					</Toolbar>
+				</AppBar>
+			)
 		);
 	},
 );

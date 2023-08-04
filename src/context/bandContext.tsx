@@ -5,10 +5,11 @@ import { Tour } from './TourContext';
 
 interface BandContextValues {
 	activeBand: Band | undefined;
-	bands: Array<Band>;
+	bands: Band[];
 	fetchBands: () => Promise<void>;
 	setActiveBand: (band_id: string) => Promise<void>;
-	createBand: (bandData: object) => Promise<void>;
+	createBand: (bandData: Band) => Promise<void>;
+	updateBand: (bandData: Band) => Promise<void>;
 	isBandAdmin: boolean;
 }
 
@@ -35,15 +36,20 @@ const BandProvider = ({ children }: BandProviderProps) => {
 		setBands(response.data);
 	};
 
-	const setActiveBand = async (band_id: string) => {
+	const setActiveBand = async (band_id: Band['id']) => {
 		await updateUser({ active_band_id: band_id });
 	};
 
-	const createBand = async (bandData: object) => {
+	const createBand = async (bandData: Band) => {
 		const response = await api.post('/bands', bandData);
 		const band: Band = response.data;
-		setActiveBand(band.id);
+		setActiveBand(band?.id);
 		await fetchBands();
+	};
+
+	const updateBand = async (bandData: Band) => {
+		const response = await api.patch(`/bands/${activeBand?.id}`, bandData);
+		fetchBands();
 	};
 
 	const activeBand = bands.find((band) => user?.active_band_id === band.id);
@@ -52,7 +58,7 @@ const BandProvider = ({ children }: BandProviderProps) => {
 
 	return (
 		<BandContext.Provider
-			value={{ activeBand, bands, fetchBands, setActiveBand, createBand, isBandAdmin }}
+			value={{ activeBand, bands, fetchBands, setActiveBand, createBand, updateBand, isBandAdmin }}
 		>
 			{children}
 		</BandContext.Provider>
@@ -63,18 +69,18 @@ export default BandProvider;
 
 export const useBands = () => useContext<BandContextValues>(BandContext);
 
-export class Band {
-	id = '';
-	name = '';
-	is_archived = false;
-	owner: User | null = null;
-	bandusers: Array<Banduser> = [];
-	tours: Array<Tour> = [];
+export interface Band {
+	id?: string;
+	name?: string;
+	is_archived?: boolean;
+	owner?: User | null;
+	bandusers?: Banduser[];
+	tours?: Tour[];
 }
 
-export class Banduser {
-	id = '';
-	email = '';
-	is_admin = false;
-	username = '';
+export interface Banduser {
+	id?: string;
+	email?: string;
+	is_admin?: boolean;
+	username?: string;
 }

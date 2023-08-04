@@ -15,6 +15,7 @@ const ScheduleDrawerBtn = () => {
 
 	return (
 		<Button
+			color="info"
 			disabled={!activeDate}
 			onClick={handleDrawerOpen}
 			startIcon={scheduleDrawerOpen ? <ChevronRight /> : <ChevronLeft />}
