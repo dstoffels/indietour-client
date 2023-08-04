@@ -65,9 +65,10 @@ const GlobalProvider = ({ children }: PropsWithChildren) => {
 		}
 	}, [mainRef.current]);
 
-	useEffect(() => {
-		activeEditField && setActiveEditField(0);
-	}, [activeDate, activeTour]);
+	// useEffect(() => {
+
+	// 	activeEditField && setActiveEditField(0);
+	// }, [activeDate, activeTour]);
 
 	const drawerTransition = !dateDrawerOpen
 		? theme.transitions.create('margin', {

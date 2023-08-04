@@ -44,8 +44,11 @@ const EditField = (props: EditFieldProps) => {
 	useKeyPress('Escape', handleClose);
 	useKeyPress('Enter', handleClose, props.multiline);
 
+	const inputRef = React.useRef<HTMLInputElement | null>(null);
+	const timeout = 150;
+
 	const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
-		event.stopPropagation();
+		// event.stopPropagation();
 		canEdit && setActiveEditField(key);
 	};
 
@@ -70,19 +73,23 @@ const EditField = (props: EditFieldProps) => {
 		update(text, open);
 	}, [text]);
 
+	useEffect(() => {
+		open && inputRef.current?.focus();
+	}, [open]);
+
 	return (
 		<Box>
-			<Collapse in={open}>
+			<Collapse in={open} timeout={timeout}>
 				<Box padding={0.5}>
 					<Box display="flex" alignItems="end">
 						{children || (
 							<TextField
 								{...otherProps}
-								autoFocus={open}
 								variant="standard"
 								label={label ? label : name}
 								value={text}
 								onChange={handleChange}
+								inputRef={inputRef}
 								sx={{
 									...sx,
 									'input::-webkit-outer-spin-button, input::-webkit-inner-spin-button': {
@@ -100,7 +107,7 @@ const EditField = (props: EditFieldProps) => {
 					</Box>
 				</Box>
 			</Collapse>
-			<Collapse in={!open}>
+			<Collapse in={!open} timeout={timeout}>
 				<Box
 					onClick={handleOpen}
 					padding={0.5}
