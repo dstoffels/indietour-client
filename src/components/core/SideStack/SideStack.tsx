@@ -19,7 +19,6 @@ const SideStack = (props: StackProps) => {
 		children,
 		alignItems = 'center',
 		justifyContent = 'space-between',
-		width = '100%',
 		...otherProps
 	} = props;
 
@@ -29,7 +28,6 @@ const SideStack = (props: StackProps) => {
 			direction={direction}
 			alignItems={alignItems}
 			justifyContent={justifyContent}
-			width={width}
 			{...otherProps}
 		>
 			{children}

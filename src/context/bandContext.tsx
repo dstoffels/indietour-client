@@ -7,9 +7,13 @@ interface BandContextValues {
 	activeBand: Band | undefined;
 	bands: Band[];
 	fetchBands: () => Promise<void>;
-	setActiveBand: (band_id: string) => Promise<void>;
+	setActiveBand: (band_id: string | undefined) => Promise<void>;
 	createBand: (bandData: Band) => Promise<void>;
 	updateBand: (bandData: Band) => Promise<void>;
+	deleteBand: () => Promise<void>;
+	createBanduser: (banduserData: Banduser) => Promise<void>;
+	updateBanduser: (banduserData: Banduser) => Promise<void>;
+	deleteBanduser: (id: string | undefined) => Promise<void>;
 	isBandAdmin: boolean;
 }
 
@@ -17,11 +21,6 @@ interface BandProviderProps extends PropsWithChildren {}
 
 const BandContext = createContext<BandContextValues>({} as BandContextValues);
 
-/**
- *
- * @param initBands must be populated with getServerSideProps via pageProps, for any page that require this Provider.
- * @returns
- */
 const BandProvider = ({ children }: BandProviderProps) => {
 	const [bands, setBands] = useState<Band[]>([]);
 
@@ -48,8 +47,28 @@ const BandProvider = ({ children }: BandProviderProps) => {
 	};
 
 	const updateBand = async (bandData: Band) => {
-		const response = await api.patch(`/bands/${activeBand?.id}`, bandData);
-		fetchBands();
+		await api.patch(`/bands/${activeBand?.id}`, bandData);
+		await fetchBands();
+	};
+
+	const deleteBand = async () => {
+		await api.delete(`/bands/${activeBand?.id}`);
+		await fetchBands();
+	};
+
+	const createBanduser = async (banduserData: Banduser) => {
+		await api.post(`/bands/${activeBand?.id}/users`, banduserData);
+		await fetchBands();
+	};
+
+	const updateBanduser = async (banduserData: Banduser) => {
+		await api.patch(`/bands/${activeBand?.id}/users/${banduserData.id}`, banduserData);
+		await fetchBands();
+	};
+
+	const deleteBanduser = async (id: string | undefined) => {
+		await api.delete(`/bands/${activeBand?.id}/users/${id}`);
+		await fetchBands();
 	};
 
 	const activeBand = bands.find((band) => user?.active_band_id === band.id);
@@ -58,7 +77,19 @@ const BandProvider = ({ children }: BandProviderProps) => {
 
 	return (
 		<BandContext.Provider
-			value={{ activeBand, bands, fetchBands, setActiveBand, createBand, updateBand, isBandAdmin }}
+			value={{
+				activeBand,
+				bands,
+				fetchBands,
+				setActiveBand,
+				createBand,
+				updateBand,
+				deleteBand,
+				createBanduser,
+				updateBanduser,
+				deleteBanduser,
+				isBandAdmin,
+			}}
 		>
 			{children}
 		</BandContext.Provider>

@@ -18,7 +18,7 @@ const Panel = ({ title, titleColor = 'inherit', children, footer }: PanelProps) 
 
 	if (mainWidth < 650) cols = 12;
 	else if (mainWidth < 960) cols = 6;
-	else cols = 4;
+	else cols = 6;
 
 	useEffect(() => {
 		loaded && setLoaded(false);

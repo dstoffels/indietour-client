@@ -7,11 +7,11 @@ export class AuthContextValues {
 	logout = async () => false;
 	register = async (formData: RegisterFormData) => false;
 	refresh = async () => false;
+	fetchUser = async () => false;
 	updateUser = async (data: User) => false;
 	verifyUser = async (verification_code: string) => false;
 	resendCode = async () => '';
 	changePassword = async (passwordData: object) => {};
-
 	loaded = false;
 }
 
@@ -121,6 +121,7 @@ const AuthProvider = ({ children }: any) => {
 				logout,
 				register,
 				refresh,
+				fetchUser,
 				updateUser,
 				verifyUser,
 				resendCode,

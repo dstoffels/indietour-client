@@ -16,10 +16,6 @@ const TourSelector = ({}) => {
 
 	const [formOpen, setFormOpen] = useState(false);
 
-	// useEffect(() => {
-	// 	setFormOpen(!tours?.length);
-	// }, [activeTour, activeBand]);
-
 	if (!activeBand) return null;
 
 	const toggleForm = () => setFormOpen(!formOpen);
@@ -36,7 +32,7 @@ const TourSelector = ({}) => {
 				{formOpen && <NewTourForm onClose={toggleForm} autoFocus={formOpen} />}
 			</Collapse>
 			<Collapse in={!formOpen}>
-				<Selector selected={activeTour?.name || 'Select A Tour'}>
+				<Selector selected={activeTour?.name || 'Select a Tour'}>
 					{selectorItems}
 					<Divider />
 					<ArchivedToursSwitch />

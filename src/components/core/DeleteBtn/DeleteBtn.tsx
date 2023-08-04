@@ -7,6 +7,7 @@ import {
 	Popover,
 	Stack,
 	TextField,
+	Tooltip,
 	Typography,
 } from '@mui/material';
 import * as React from 'react';
@@ -21,6 +22,8 @@ export interface DeleteBtnProps extends React.PropsWithChildren {
 	 * Define text the user must input to confirm deletion. If undefined, only a confirm delete button will be displayed.
 	 */
 	confirmationText?: string;
+	tooltip?: string;
+	size?: 'large' | 'medium' | 'small';
 }
 
 const DeleteBtn = ({
@@ -29,6 +32,8 @@ const DeleteBtn = ({
 	popoverText,
 	confirmationText,
 	children,
+	tooltip,
+	size,
 }: DeleteBtnProps) => {
 	const [confirmation, setConfirmation] = useState<string>('');
 	const confirmed = confirmation === confirmationText;
@@ -54,65 +59,57 @@ const DeleteBtn = ({
 	};
 
 	return (
-		<Box>
-			{variant === 'icon' ? (
-				<IconButton
-					onClick={handleOpen}
-					color="error"
-					// disabled={!onDelete}
+		<Tooltip title={tooltip}>
+			<>
+				{variant === 'icon' ? (
+					<IconButton size={size} onClick={handleOpen} color="error">
+						{children || <DeleteForever />}
+					</IconButton>
+				) : (
+					<Button size={size} variant={variant} onClick={handleOpen} color="error" fullWidth>
+						{children}
+					</Button>
+				)}
+				<Popover
+					open={open}
+					anchorEl={anchorEl}
+					anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
+					transformOrigin={{ horizontal: 'center', vertical: 'center' }}
 				>
-					{children || <DeleteForever />}
-				</IconButton>
-			) : (
-				<Button
-					variant={variant}
-					onClick={handleOpen}
-					color="error"
-					// disabled={!onDelete}
-					fullWidth
-				>
-					{children}
-				</Button>
-			)}
-			<Popover
-				open={open}
-				anchorEl={anchorEl}
-				anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
-				transformOrigin={{ horizontal: 'center', vertical: 'center' }}
-			>
-				<Stack padding={2} spacing={2}>
-					{popoverText && (
-						<Typography variant="overline" textAlign="center">
-							{popoverText}
-						</Typography>
-					)}
-					{confirmationText && (
-						<>
-							<Typography>
-								Please type{' '}
-								<Typography component="span" color="primary">
-									{confirmationText}
-								</Typography>{' '}
-								to confirm
+					<Stack padding={2} spacing={2}>
+						{popoverText && (
+							<Typography variant="overline" textAlign="center">
+								{popoverText}
 							</Typography>
-							<TextField variant="standard" value={confirmation} onChange={handleConfirmation} />
-						</>
-					)}
-					<SideStack justifyContent="center">
-						<Button
-							disabled={confirmationText ? !confirmed : false}
-							color="error"
-							onClick={handleDelete}
-						>
-							DELETE
-						</Button>
-						<Button color="warning" onClick={handleClose}>
-							CANCEL
-						</Button>
-					</SideStack>
-				</Stack>
-			</Popover>
-		</Box>
+						)}
+						{confirmationText && (
+							<>
+								<Typography>
+									Please type{' '}
+									<Typography component="span" color="primary">
+										{confirmationText}
+									</Typography>{' '}
+									to confirm
+								</Typography>
+								<TextField variant="standard" value={confirmation} onChange={handleConfirmation} />
+							</>
+						)}
+						<SideStack justifyContent="center">
+							<Button
+								disabled={confirmationText ? !confirmed : false}
+								color="error"
+								onClick={handleDelete}
+							>
+								DELETE
+							</Button>
+							<Button color="warning" onClick={handleClose}>
+								CANCEL
+							</Button>
+						</SideStack>
+					</Stack>
+				</Popover>
+			</>
+		</Tooltip>
 	);
 };
 

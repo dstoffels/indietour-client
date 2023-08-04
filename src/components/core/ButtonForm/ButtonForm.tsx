@@ -1,4 +1,13 @@
-import { Box, Button, Collapse, IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import {
+	Box,
+	Button,
+	Collapse,
+	IconButton,
+	ListSubheader,
+	Stack,
+	Tooltip,
+	Typography,
+} from '@mui/material';
 import * as React from 'react';
 import { useState } from 'react';
 import SideStack from '../SideStack/SideStack';
@@ -22,6 +31,7 @@ export interface ButtonFormProps extends React.PropsWithChildren {
 	iconBtns?: boolean;
 	onOpen?: (open: boolean) => any;
 	onClose?: (open: boolean) => any;
+	fullWidth?: boolean;
 }
 
 const ButtonForm = React.forwardRef(
@@ -43,6 +53,7 @@ const ButtonForm = React.forwardRef(
 			iconBtns = false,
 			onClose,
 			onOpen,
+			fullWidth,
 		}: ButtonFormProps,
 		ref,
 	) => {
@@ -70,6 +81,7 @@ const ButtonForm = React.forwardRef(
 			<Box ref={ref}>
 				<Collapse in={!showForm} timeout={timeout}>
 					<Button
+						fullWidth={fullWidth}
 						variant={btnVariant}
 						color={btnColor}
 						size="large"

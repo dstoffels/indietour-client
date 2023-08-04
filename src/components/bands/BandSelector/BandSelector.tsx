@@ -22,10 +22,6 @@ const BandSelector = ({}) => {
 	));
 
 	useEffect(() => {
-		setFormOpen(!activeBand);
-	}, [activeBand]);
-
-	useEffect(() => {
 		fetchBands();
 	}, [user?.show_archived_bands]);
 

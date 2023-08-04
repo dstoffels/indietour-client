@@ -11,6 +11,9 @@ interface TourContextValues {
 	createTour: (tourData: object) => Promise<void>;
 	updateTour: (tourData: object) => Promise<void>;
 	deleteTour: () => Promise<void>;
+	createTouruser: (touruserData: Touruser) => Promise<void>;
+	updateTouruser: (touruserData: Touruser) => Promise<void>;
+	deleteTouruser: (id: string | undefined) => Promise<void>;
 	isTourAdmin: boolean;
 	isBandAdmin: boolean;
 }
@@ -28,7 +31,7 @@ const TourProvider = ({ children }: TourProviderProps) => {
 	const { activeBand, fetchBands, isBandAdmin } = useBands();
 	const tours = activeBand?.tours;
 
-	const setActiveTour = async (tour_id: string) => {
+	const setActiveTour = async (tour_id: string | undefined) => {
 		await updateUser({ active_tour_id: tour_id });
 		router.push({ query: {} });
 	};
@@ -52,6 +55,21 @@ const TourProvider = ({ children }: TourProviderProps) => {
 		await fetchBands();
 	};
 
+	const createTouruser = async (touruserData: Touruser) => {
+		await api.post(`/tours/${activeTour?.id}/users`, touruserData);
+		await fetchBands();
+	};
+
+	const updateTouruser = async (touruserData: Touruser) => {
+		await api.patch(`/tours/${activeTour?.id}/users/${touruserData.id}`, touruserData);
+		await fetchBands();
+	};
+
+	const deleteTouruser = async (id: string | undefined) => {
+		await api.delete(`/tours/${activeTour?.id}/users/${id}`);
+		await fetchBands();
+	};
+
 	const isTourAdmin = user.is_tour_admin as boolean;
 
 	return (
@@ -63,6 +81,9 @@ const TourProvider = ({ children }: TourProviderProps) => {
 				createTour,
 				updateTour,
 				deleteTour,
+				createTouruser,
+				updateTouruser,
+				deleteTouruser,
 				isTourAdmin,
 				isBandAdmin,
 			}}
@@ -76,18 +97,18 @@ export default TourProvider;
 
 export const useTours = () => useContext<TourContextValues>(TourContext);
 
-export class Tour {
-	id = '';
-	name = '';
-	is_archived = false;
-	band_id = '';
-	tourusers: Touruser[] = [];
+export interface Tour {
+	id?: string;
+	name?: string;
+	is_archived?: boolean;
+	band_id?: string;
+	tourusers?: Touruser[];
 }
 
-export class Touruser {
-	id = '';
-	banduser_id = '';
-	email = '';
-	username = '';
-	is_admin = false;
+export interface Touruser {
+	id?: string;
+	banduser_id?: string;
+	email?: string;
+	username?: string;
+	is_admin?: boolean;
 }

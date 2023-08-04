@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import EditField from 'components/core/EditField/EditField';
 import DangerZone from 'components/core/DangerZone/DangerZone';
 import Panel from 'components/core/Panel/Panel';
@@ -7,6 +7,9 @@ import { useDates } from 'context/DateContext';
 import { useTours } from 'context/TourContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import FieldTitle from 'components/core/FieldTitle/FieldTitle';
+import CreateTouruserForm from '../CreateTouruserForm/CreateTouruserForm';
+import TouruserItem from '../TouruserItem/TouruserItem';
 
 export interface TourPanelProps {}
 
@@ -19,6 +22,10 @@ const TourPanel = ({}: TourPanelProps) => {
 	};
 
 	const title = `Tour ${activeTour?.is_archived ? ' (Archived)' : ''}`;
+
+	const touruserItems = activeTour?.tourusers?.map((touruser) => (
+		<TouruserItem key={touruser.id} touruser={touruser} />
+	));
 
 	return (
 		!activeDate &&
@@ -44,6 +51,11 @@ const TourPanel = ({}: TourPanelProps) => {
 					name="name"
 					canEdit={isTourAdmin}
 				/>
+				<Box>
+					<FieldTitle>Users</FieldTitle>
+					<CreateTouruserForm />
+					{touruserItems}
+				</Box>
 			</Panel>
 		)
 	);
