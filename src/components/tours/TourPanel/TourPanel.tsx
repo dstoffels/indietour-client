@@ -54,7 +54,7 @@ const TourPanel = ({}: TourPanelProps) => {
 				<Box>
 					<FieldTitle>Users</FieldTitle>
 					<CreateTouruserForm />
-					{touruserItems}
+					<Box sx={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}>{touruserItems}</Box>
 				</Box>
 			</Panel>
 		)

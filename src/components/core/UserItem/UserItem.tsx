@@ -16,6 +16,7 @@ import { Banduser } from 'context/BandContext';
 import { Touruser } from 'context/TourContext';
 import * as React from 'react';
 import { useState } from 'react';
+import useKeyPress from 'utils/useKeyPress';
 
 export interface BandUserItemProps {
 	user: Banduser | Touruser;
@@ -35,10 +36,18 @@ const UserItem = ({ user, canEdit, onAdminChange, onDelete }: BandUserItemProps)
 		canEdit && setOpen(!open);
 	};
 
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	useKeyPress('Escape', handleClose);
+
 	const sx = canEdit ? {} : { pointerEvents: 'none' };
 
+	const selected = open ? { backgroundColor: 'rgba(255,255,255,0.06)' } : {};
+
 	return (
-		<ListItem disablePadding>
+		<ListItem disablePadding sx={selected}>
 			<Stack width="100%">
 				<ListItemButton onClick={toggleOpen} sx={sx}>
 					<Stack width="100%">
@@ -59,7 +68,7 @@ const UserItem = ({ user, canEdit, onAdminChange, onDelete }: BandUserItemProps)
 							labelPlacement="start"
 							control={<Switch />}
 						/>
-						<SideStack justifyContent="end" spacing={0}>
+						<SideStack justifyContent="end" spacing={1}>
 							<DeleteBtn
 								size="large"
 								tooltip="Remove User"

@@ -61,7 +61,7 @@ const BandPanel = () => {
 				<Box>
 					<FieldTitle>Users</FieldTitle>
 					<CreateBanduserForm />
-					{banduserItems}
+					<Box sx={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}>{banduserItems}</Box>
 				</Box>
 			</Panel>
 		)
