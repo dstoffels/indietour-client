@@ -19,7 +19,7 @@ import useKeyPress from 'utils/useKeyPress';
 interface ExtendedProps {
 	onChange: (value: object) => Promise<any>;
 	name: string | number | symbol;
-	value: string | number | undefined | null;
+	value?: string | number | undefined | null;
 	canEdit?: boolean;
 }
 
@@ -45,7 +45,7 @@ const EditField = (props: EditFieldProps) => {
 	useKeyPress('Enter', handleClose, props.multiline);
 
 	const inputRef = React.useRef<HTMLInputElement | null>(null);
-	const timeout = 150;
+	const timeout = 250;
 
 	const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
 		// event.stopPropagation();

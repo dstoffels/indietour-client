@@ -1,10 +1,8 @@
 import Panel from 'components/core/Panel/Panel';
 import { useDates } from 'context/DateContext';
 import * as React from 'react';
-import { useState, useEffect } from 'react';
 import StatusSelector from '../../StatusSelector/StatusSelector';
 import EditField from 'components/core/EditField/EditField';
-import PlaceSelector from 'components/core/PlaceSelector/PlaceSelector';
 import PlaceEditField from 'components/core/PlaceEditField/PlaceEditField';
 import DangerZone from 'components/core/DangerZone/DangerZone';
 

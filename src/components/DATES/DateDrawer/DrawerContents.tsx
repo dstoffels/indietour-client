@@ -1,5 +1,5 @@
-import { Box, List, ListSubheader, Paper } from '@mui/material';
-import { Ref, forwardRef, useEffect } from 'react';
+import { Box, Collapse, List, ListSubheader, Paper } from '@mui/material';
+import { Ref, forwardRef, useEffect, useRef } from 'react';
 import { useDates } from 'context/DateContext';
 import { useTours } from 'context/TourContext';
 import DateItem from 'components/DATES/DateItem/DateItem';
@@ -10,7 +10,7 @@ import { useGlobals } from 'context/GlobalContext';
 
 const DrawerContent = (props: NewDateFormProps) => {
 	const { headerHeight, footerHeight } = useTheme();
-	const { dateDrawerRef } = useGlobals();
+	const { dateDrawerRef, marginLeft } = useGlobals();
 	const { activeTour } = useTours();
 	const { dates, activeDate, fetchTourDates } = useDates();
 
@@ -24,6 +24,10 @@ const DrawerContent = (props: NewDateFormProps) => {
 		<DateItem key={`date-${tourdate.id}`} tourdate={tourdate} activeDate={activeDate} />
 	));
 
+	const footerRef = useRef<HTMLDivElement | null>(null);
+
+	console.log(marginLeft);
+
 	return (
 		<Box
 			ref={dateDrawerRef}
@@ -35,10 +39,20 @@ const DrawerContent = (props: NewDateFormProps) => {
 			}}
 		>
 			<Paper sx={{ height: '100%' }}>
-				<List subheader={<ListSubheader>{<NewDateForm {...props} />}</ListSubheader>}>
+				<List
+					subheader={<ListSubheader>{<NewDateForm {...props} />}</ListSubheader>}
+					sx={{ marginBottom: footerRef.current?.clientHeight }}
+				>
 					{dateItems}
 				</List>
-				<Box position="absolute" bottom={0} left={0} width="100%">
+
+				<Box
+					position="fixed"
+					bottom={footerHeight}
+					left={0}
+					width={marginLeft || '100%'}
+					ref={footerRef}
+				>
 					<ListSubheader>
 						<Box padding={1}>
 							<PastDatesSwitch />

@@ -12,7 +12,9 @@ const Header = forwardRef(({ children, menu }: HeaderProps, ref: React.Ref<HTMLD
 	return (
 		<AppBar ref={ref} color="inherit" position="fixed" sx={{ zIndex: theme.zIndex.drawer + 1 }}>
 			<Toolbar>
-				<SideStack justifyContent="start">{children}</SideStack>
+				<SideStack justifyContent="start" width="100%">
+					{children}
+				</SideStack>
 				{menu}
 			</Toolbar>
 		</AppBar>

@@ -30,20 +30,18 @@ interface GlobalContextValues {
 const GlobalContext = createContext<GlobalContextValues>({} as GlobalContextValues);
 
 const GlobalProvider = ({ children }: PropsWithChildren) => {
-	const { isMobile, theme } = useTheme();
-	const { activeTour } = useTours();
-	const { activeDate } = useDates();
+	const { theme } = useTheme();
 
 	const [activeEditField, setActiveEditField] = useState<number>(0);
 
 	const [dateDrawerOpen, setDateDrawerOpen] = useState<boolean>(false);
 	const [dateDrawerWidth, setDateDrawerWidth] = useState(0);
 	const dateDrawerRef = useRef<HTMLElement | null>(null);
-	const marginLeft = !isMobile && dateDrawerOpen ? `${dateDrawerWidth}px` : 0;
+	const marginLeft = dateDrawerOpen ? `${dateDrawerWidth}px` : 0;
 
 	const [scheduleDrawerOpen, setScheduleDrawerOpen] = useState(false);
 	const [scheduleDrawerWidth, setScheduleDrawerWidth] = useState(0);
-	const marginRight = !isMobile && scheduleDrawerOpen ? `${scheduleDrawerWidth}px` : 0;
+	const marginRight = scheduleDrawerOpen ? `${scheduleDrawerWidth}px` : 0;
 	const scheduleDrawerRef = useRef<HTMLElement | null>(null);
 
 	const [mainWidth, setMainWidth] = useState(0);
@@ -64,11 +62,6 @@ const GlobalProvider = ({ children }: PropsWithChildren) => {
 			observer.observe(mainRef.current);
 		}
 	}, [mainRef.current]);
-
-	// useEffect(() => {
-
-	// 	activeEditField && setActiveEditField(0);
-	// }, [activeDate, activeTour]);
 
 	const drawerTransition = !dateDrawerOpen
 		? theme.transitions.create('margin', {

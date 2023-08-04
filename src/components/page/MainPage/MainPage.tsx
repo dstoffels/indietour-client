@@ -24,6 +24,7 @@ const MainPage = (props: MainPageProps) => {
 	const { children } = props;
 
 	const router = useRouter();
+	const { isMobile } = useTheme();
 	const { activeTour } = useTours();
 	const { activeDate, fetchDate } = useDates();
 	const { marginLeft, marginRight, drawerTransition, mainRef } = useGlobals();
@@ -54,8 +55,8 @@ const MainPage = (props: MainPageProps) => {
 					<Box
 						ref={mainRef}
 						width="100%"
-						marginLeft={marginLeft}
-						marginRight={marginRight}
+						marginLeft={!isMobile ? marginLeft : 0}
+						marginRight={!isMobile ? marginRight : 0}
 						padding={1}
 						sx={{
 							transition: drawerTransition,
