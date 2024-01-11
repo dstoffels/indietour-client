@@ -94,7 +94,7 @@ pipeline {
                         sudo certbot certonly --webroot -w ./certbot/www -d indietour.org --non-interactive --agree-tos --email indietour.app@gmail.com
                         sudo cp -R /etc/letsencrypt/* ./certbot/certs/
 
-                        sudo curl -o ./nginx/conf/default.conf https://raw.githubusercontent.com/dstoffels/indietour-client/dev/nginx/nginx.conf
+                        sudo curl -o ./nginx/conf/default.conf https://raw.githubusercontent.com/dstoffels/indietour-client/main/nginx/nginx.conf
 
                         docker-compose restart
                     '''
