@@ -25,7 +25,7 @@ pipeline {
                             sudo apt-get update
                             sudo apt-get install certbot python3-certbot-nginx docker docker-compose -y
                             sudo curl -o docker-compose.yaml https://raw.githubusercontent.com/dstoffels/indietour-client/main/docker-compose.yaml
-                            // sudo curl -o /etc/nginx/default. https://raw.githubusercontent.com/dstoffels/indietour-client/dev/nginx/init.conf
+                            // sudo curl -o /etc/nginx/nginx.conf https://raw.githubusercontent.com/dstoffels/indietour-client/dev/nginx/init.conf
                             if [ ! -d ./certbot/www/ ]; 
                                 then sudo mkdir ./certbot/www; 
                             fi
