@@ -26,7 +26,10 @@ pipeline {
                             sudo apt-get install certbot docker docker-compose
                             sudo curl -o docker-compose.yaml https://raw.githubusercontent.com/dstoffels/indietour-client/main/docker-compose.yaml
                             sudo curl -o ./nginx/conf/default.conf https://raw.githubusercontent.com/dstoffels/indietour-client/dev/nginx/init.conf
-                            sudo mkdir ./certbot/www
+                            if [ ! -d ./certbot/www/ ]; 
+                                then sudo mkdir ./certbot/www; 
+                            fi
+                            
                         ''' 
                 }
             }
