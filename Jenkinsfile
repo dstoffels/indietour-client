@@ -75,6 +75,8 @@ pipeline {
                         sudo docker image prune -af
 
                         sudo curl -o docker-compose.yaml https://raw.githubusercontent.com/dstoffels/indietour-client/main/docker-compose.yaml
+                        sudo curl -o ./nginx/conf/default.conf https://raw.githubusercontent.com/dstoffels/indietour-client/dev/nginx/init.conf
+                        sudo mkdir ./certbot/www
 
                         sudo docker-compose up -d                   
                         ''' 
@@ -87,9 +89,6 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY')]) {
                     sh '''
                         ssh -o StrictHostKeyChecking=no -i $SSH_KEY dan_stoffels@104.155.142.30 <<'EOF'
-
-                        sudo curl -o ./nginx/conf/default.conf https://raw.githubusercontent.com/dstoffels/indietour-client/dev/nginx/init.conf
-                        sudo mkdir ./certbot/www
                         
                         sudo certbot certonly --webroot -w ./certbot/www -d indietour.org --non-interactive --agree-tos --email indietour.app@gmail.com
                         sudo cp -R /etc/letsencrypt/* ./certbot/certs/
