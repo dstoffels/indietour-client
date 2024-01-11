@@ -91,8 +91,8 @@ pipeline {
                     sh '''
                         ssh -o StrictHostKeyChecking=no -i $SSH_KEY dan_stoffels@104.155.142.30 <<'EOF'
 
-                        sudo cp /etc/letsencrypt/live/indietour.org/fullchain.pem ./certbot/certs/
-                        sudo cp /etc/letsencrypt/live/indietour.org/privkey.pem ./certbot/certs/
+                        sudo cp /etc/letsencrypt/live/indietour.org/fullchain.pem ./certbot/certs
+                        sudo cp /etc/letsencrypt/live/indietour.org/privkey.pem ./certbot/certs
                         sudo curl -o /etc/nginx/nginx.conf https://raw.githubusercontent.com/dstoffels/indietour-client/main/nginx/nginx.conf
 
                         docker-compose restart
