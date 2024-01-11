@@ -23,9 +23,9 @@ pipeline {
                      sh '''
                         ssh -o StrictHostKeyChecking=no -i $SSH_KEY dan_stoffels@104.155.142.30 <<'EOF'
                             sudo apt-get update
-                            sudo apt-get install certbot docker docker-compose
+                            sudo apt-get install certbot python3-certbot-nginx docker docker-compose -y
                             sudo curl -o docker-compose.yaml https://raw.githubusercontent.com/dstoffels/indietour-client/main/docker-compose.yaml
-                            sudo curl -o ./nginx/conf/default.conf https://raw.githubusercontent.com/dstoffels/indietour-client/dev/nginx/init.conf
+                            // sudo curl -o /etc/nginx/default. https://raw.githubusercontent.com/dstoffels/indietour-client/dev/nginx/init.conf
                             if [ ! -d ./certbot/www/ ]; 
                                 then sudo mkdir ./certbot/www; 
                             fi
@@ -91,10 +91,10 @@ pipeline {
                     sh '''
                         ssh -o StrictHostKeyChecking=no -i $SSH_KEY dan_stoffels@104.155.142.30 <<'EOF'
                         
-                        sudo certbot certonly --webroot -w ./certbot/www -d indietour.org --non-interactive --agree-tos --email indietour.app@gmail.com
-                        sudo cp -R /etc/letsencrypt/* ./certbot/certs/
+                        sudo certbot --nginx -n -d indietour.org -d www.indietour.org --email indietour.app@gmail.com --non-interactive --agree-tos --redirect 
+                        sudo cp -R /etc/letsencrypt/live/indietour.org ./certbot/certs/
 
-                        sudo curl -o ./nginx/conf/default.conf https://raw.githubusercontent.com/dstoffels/indietour-client/main/nginx/nginx.conf
+                        sudo curl -o /etc/nginx/default.conf https://raw.githubusercontent.com/dstoffels/indietour-client/main/nginx/nginx.conf
 
                         docker-compose restart
                     '''

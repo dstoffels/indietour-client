@@ -16,6 +16,6 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./nginx/conf:/etc/nginx/conf.d
+      - /etc/nginx:/etc/nginx/conf.d
       - ./certbot/www:/var/www/certbot
-      - ./certbot/certs:/etc/letsencrypt
+      - /etc/letsencrypt/live/indietour.org:/etc/nginx/certs
