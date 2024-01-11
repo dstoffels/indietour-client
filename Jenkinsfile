@@ -17,6 +17,19 @@ pipeline {
             }
         }
 
+        stage('Init VM') {
+            steps{
+                withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY'), file(credentialsId: 'indietour-api-env', variable: 'ENV')]) {
+                     sh '''
+                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY dan_stoffels@104.155.142.30 <<'EOF'
+                            sudo apt-get update
+                            sudo apt-get install certbot docker docker-compose
+                
+                        ''' 
+                }
+            }
+        }
+
         // stage('Build Docker Image') {
         //     steps {
         //         script {
@@ -74,9 +87,6 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY')]) {
                     sh '''
                         ssh -o StrictHostKeyChecking=no -i $SSH_KEY dan_stoffels@104.155.142.30 <<'EOF'
-                        
-                        sudo apt-get update
-                        sudo apt-get install certbot
 
                         sudo curl -o ./nginx/conf/default.conf https://raw.githubusercontent.com/dstoffels/indietour-client/dev/nginx/init.conf
                         sudo mkdir ./certbot/www
