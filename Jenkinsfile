@@ -24,7 +24,9 @@ pipeline {
                         ssh -o StrictHostKeyChecking=no -i $SSH_KEY dan_stoffels@104.155.142.30 <<'EOF'
                             sudo apt-get update
                             sudo apt-get install certbot docker docker-compose
-                
+                            sudo curl -o docker-compose.yaml https://raw.githubusercontent.com/dstoffels/indietour-client/main/docker-compose.yaml
+                            sudo curl -o ./nginx/conf/default.conf https://raw.githubusercontent.com/dstoffels/indietour-client/dev/nginx/init.conf
+                            sudo mkdir ./certbot/www
                         ''' 
                 }
             }
@@ -74,10 +76,6 @@ pipeline {
 
                         sudo docker image prune -af
 
-                        sudo curl -o docker-compose.yaml https://raw.githubusercontent.com/dstoffels/indietour-client/main/docker-compose.yaml
-                        sudo curl -o ./nginx/conf/default.conf https://raw.githubusercontent.com/dstoffels/indietour-client/dev/nginx/init.conf
-                        sudo mkdir ./certbot/www
-
                         sudo docker-compose up -d                   
                         ''' 
                 }
@@ -95,7 +93,7 @@ pipeline {
 
                         sudo curl -o ./nginx/conf/default.conf https://raw.githubusercontent.com/dstoffels/indietour-client/dev/nginx/nginx.conf
 
-                        docker-compose restart nginx
+                        docker-compose restart
                     '''
                 }
             }
