@@ -18,4 +18,4 @@ services:
     volumes:
       - /etc/nginx:/etc/nginx/conf.d
       - ./certbot/www:/var/www/certbot
-      - /etc/letsencrypt/live/indietour.org:/etc/nginx/certs
+      - /certbot.certs:/etc/nginx/certs
