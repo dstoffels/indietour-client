@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import MobileDrawer from './MobileDrawer';
 import PersistentDrawer from './PersistentDrawer';
 import DrawerContents from './DrawerContents';
-import { useDates } from 'context/DateContext';
+import { useDates } from 'context/ateContext';
 
 const ScheduleDrawer = ({}) => {
 	const { activeDate } = useDates();

@@ -1,6 +1,6 @@
 import { Box, Collapse, List, ListSubheader, Paper } from '@mui/material';
 import { Ref, forwardRef, useEffect, useRef } from 'react';
-import { useDates } from 'context/DateContext';
+import { useDates } from 'context/ateContext';
 import { useTours } from 'context/TourContext';
 import DateItem from 'components/DATES/DateItem/DateItem';
 import { useTheme } from 'context/ThemeContext';

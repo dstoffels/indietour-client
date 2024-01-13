@@ -1,4 +1,4 @@
-import { Place, TourDate, useDates } from 'context/DateContext';
+import { Place, TourDate, useDates } from 'context/ateContext';
 import api from 'utils/api';
 import * as React from 'react';
 import { useState, useEffect } from 'react';

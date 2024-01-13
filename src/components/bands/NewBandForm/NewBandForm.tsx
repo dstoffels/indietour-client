@@ -1,6 +1,6 @@
 import { Check, Close } from '@mui/icons-material';
 import { Box, IconButton, TextField } from '@mui/material';
-import { Band, useBands } from 'context/andContext';
+import { Band, useBands } from 'context/BandContext';
 import useForm from 'hooks/useForm';
 import { useEffect, useRef } from 'react';
 

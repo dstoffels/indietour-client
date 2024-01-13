@@ -1,6 +1,6 @@
 import UserItem from 'components/core/UserItem/UserItem';
 import { useAuth } from 'context/AuthContext';
-import { Banduser, useBands } from 'context/andContext';
+import { Banduser, useBands } from 'context/BandContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 

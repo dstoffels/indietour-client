@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import EditField from 'components/core/EditField/EditField';
 import SideStack from 'components/core/SideStack/SideStack';
-import { TourDate, TourDateStatusOptions, useDates } from 'context/DateContext';
+import { TourDate, TourDateStatusOptions, useDates } from 'context/ateContext';
 import { useTheme } from 'context/ThemeContext';
 import * as React from 'react';
 import { useState } from 'react';

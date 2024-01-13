@@ -1,6 +1,6 @@
 import ButtonForm from 'components/core/ButtonForm/ButtonForm';
 import DatePicker from 'components/core/DatePicker/DatePicker';
-import { TourDate, useDates } from 'context/DateContext';
+import { TourDate, useDates } from 'context/ateContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import dayjs, { Dayjs } from 'dayjs';

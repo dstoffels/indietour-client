@@ -3,7 +3,7 @@ import EditField from 'components/core/EditField/EditField';
 import DangerZone from 'components/core/DangerZone/DangerZone';
 import Panel from 'components/core/Panel/Panel';
 import { useAuth } from 'context/AuthContext';
-import { useDates } from 'context/DateContext';
+import { useDates } from 'context/ateContext';
 import { useTours } from 'context/TourContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';

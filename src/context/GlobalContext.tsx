@@ -8,7 +8,7 @@ import {
 	useState,
 } from 'react';
 import { useTours } from './TourContext';
-import { useDates } from './DateContext';
+import { useDates } from './ateContext';
 import { useTheme } from './ThemeContext';
 
 interface GlobalContextValues {
