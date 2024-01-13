@@ -6,7 +6,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { useAuth } from './AuthContext';
 import { Timeslot } from 'hooks/useSchedule';
 import { useMediaQuery } from '@mui/material';
-import { useTheme } from './hemeContext';
+import { useTheme } from './ThemeContext';
 
 interface DateContextValues {
 	activeDate: TourDate | null;

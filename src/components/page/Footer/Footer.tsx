@@ -1,7 +1,7 @@
 import { AppBar, Box, Toolbar } from '@mui/material';
 import React, { forwardRef, PropsWithChildren, ReactNode, Ref } from 'react';
 import SideStack from 'components/core/SideStack/SideStack';
-import { useTheme } from 'context/hemeContext';
+import { useTheme } from 'context/ThemeContext';
 
 interface FooterProps extends PropsWithChildren {
 	leftComponent?: ReactNode;

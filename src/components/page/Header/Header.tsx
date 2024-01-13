@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, forwardRef } from 'react';
 import { AppBar, Box, Hidden, Toolbar } from '@mui/material';
 import SideStack from '../../core/SideStack/SideStack';
-import { useTheme } from 'context/hemeContext';
+import { useTheme } from 'context/ThemeContext';
 
 interface HeaderProps extends PropsWithChildren {
 	menu?: React.ReactNode;

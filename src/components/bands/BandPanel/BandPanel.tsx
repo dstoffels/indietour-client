@@ -8,7 +8,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import CreateBanduserForm from '../CreateBanduserForm/CreateBanduserForm';
 import UserItem from '../../core/UserItem/UserItem';
-import { useTheme } from 'context/hemeContext';
+import { useTheme } from 'context/ThemeContext';
 import BanduserItem from '../BanduserItem/BanduserItem';
 import FieldTitle from 'components/core/FieldTitle/FieldTitle';
 

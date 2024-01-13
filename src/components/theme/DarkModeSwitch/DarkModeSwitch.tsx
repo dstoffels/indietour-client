@@ -1,7 +1,7 @@
 import { IconButton, Tooltip } from '@mui/material';
 import { DarkModeOutlined, LightModeTwoTone } from '@mui/icons-material';
 import React from 'react';
-import { useTheme } from 'context/hemeContext';
+import { useTheme } from 'context/ThemeContext';
 
 const DarkModeSwitch = ({}) => {
 	const { theme, toggleThemeMode } = useTheme();
