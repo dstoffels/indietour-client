@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 interface TourContextValues {
 	activeTour: Tour | undefined;
 	tours: Tour[] | undefined;
-	setActiveTour: (tour_id: string) => Promise<void>;
+	setActiveTour: (tour_id: string | undefined) => Promise<void>;
 	createTour: (tourData: object) => Promise<void>;
 	updateTour: (tourData: object) => Promise<void>;
 	deleteTour: () => Promise<void>;
