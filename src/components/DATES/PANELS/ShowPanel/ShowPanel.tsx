@@ -1,7 +1,7 @@
 import { Autocomplete, TextField } from '@mui/material';
 import VenueAutocomplete from 'components/VENUES/VenueAutocomplete/VenueAutocomplete';
 import Panel from 'components/core/Panel/Panel';
-import { useDates } from 'context/ateContext';
+import { useDates } from 'context/DateContext';
 import { VenueParams } from 'hooks/useVenues';
 import * as React from 'react';
 import { useState, useEffect } from 'react';

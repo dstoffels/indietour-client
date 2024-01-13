@@ -6,7 +6,7 @@ import TourSelector from 'components/tours/TourSelector/TourSelector';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import {} from 'context/BandContext';
-import { useDates } from 'context/ateContext';
+import { useDates } from 'context/DateContext';
 import dayjs from 'dayjs';
 import { useTours } from 'context/TourContext';
 import DatesDrawerBtn from 'components/DATES/DateDrawer/DateDrawerBtn';

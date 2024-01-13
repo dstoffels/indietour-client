@@ -1,5 +1,5 @@
 import { Box, Grid, useTheme } from '@mui/material';
-import { useDates } from 'context/ateContext';
+import { useDates } from 'context/DateContext';
 import { PropsWithChildren } from 'react';
 import * as React from 'react';
 import { useState, useEffect } from 'react';

@@ -1,7 +1,7 @@
 import { Box, Switch, Typography } from '@mui/material';
 import SideStack from 'components/core/SideStack/SideStack';
 import { useAuth } from 'context/AuthContext';
-import { useDates } from 'context/ateContext';
+import { useDates } from 'context/DateContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 

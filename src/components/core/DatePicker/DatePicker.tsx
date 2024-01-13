@@ -1,5 +1,5 @@
 import { Box, Button, Paper, Popover, Stack, Typography } from '@mui/material';
-import { TourDate } from 'context/ateContext';
+import { TourDate } from 'context/DateContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import dayjs, { Dayjs } from 'dayjs';

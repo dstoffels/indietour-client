@@ -1,6 +1,6 @@
 import NewTimeslotForm from 'components/DATES/SCHEDULE/NewTimeslotForm/NewTimeslotForm';
 import Panel from 'components/core/Panel/Panel';
-import { useDates } from 'context/ateContext';
+import { useDates } from 'context/DateContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 

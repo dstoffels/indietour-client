@@ -1,6 +1,6 @@
 import { Box, ListItem, ListItemButton, Stack, Theme, Typography } from '@mui/material';
 import SideStack from 'components/core/SideStack/SideStack';
-import { TourDate, TourDateStatusOptions, useDates } from 'context/ateContext';
+import { TourDate, TourDateStatusOptions, useDates } from 'context/DateContext';
 import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
 import { useTheme } from 'context/ThemeContext';

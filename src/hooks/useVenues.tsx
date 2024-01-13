@@ -1,4 +1,4 @@
-import { Place } from 'context/ateContext';
+import { Place } from 'context/DateContext';
 import api from 'utils/api';
 import * as React from 'react';
 import { useState, useEffect } from 'react';

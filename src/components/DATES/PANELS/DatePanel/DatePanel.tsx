@@ -1,5 +1,5 @@
 import Panel from 'components/core/Panel/Panel';
-import { useDates } from 'context/ateContext';
+import { useDates } from 'context/DateContext';
 import * as React from 'react';
 import StatusSelector from '../../StatusSelector/StatusSelector';
 import EditField from 'components/core/EditField/EditField';
