@@ -1,6 +1,6 @@
 import UserItem from 'components/core/UserItem/UserItem';
 import { useAuth } from 'context/AuthContext';
-import { Touruser, useTours } from 'context/TourContext';
+import { Touruser, useTours } from 'context/ourContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 

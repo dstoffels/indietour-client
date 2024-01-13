@@ -4,7 +4,7 @@ import DangerZone from 'components/core/DangerZone/DangerZone';
 import Panel from 'components/core/Panel/Panel';
 import { useAuth } from 'context/AuthContext';
 import { useDates } from 'context/DateContext';
-import { useTours } from 'context/TourContext';
+import { useTours } from 'context/ourContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import FieldTitle from 'components/core/FieldTitle/FieldTitle';

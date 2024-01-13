@@ -1,7 +1,7 @@
 import * as React from 'react';
 import MainPage from 'components/page/MainPage/MainPage';
 import DatePanel from 'components/DATES/PANELS/DatePanel/DatePanel';
-import { useTours } from 'context/TourContext';
+import { useTours } from 'context/ourContext';
 import { useRouter } from 'next/router';
 import ShowPanel from 'components/DATES/PANELS/ShowPanel/ShowPanel';
 import ContactsPanel from 'components/DATES/PANELS/ContactsPanel/ContactsPanel';

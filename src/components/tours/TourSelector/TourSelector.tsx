@@ -1,7 +1,7 @@
 import { Box, Button, Collapse, Divider } from '@mui/material';
 import Selector from 'components/core/selector/Selector/Selector';
 import SelectorItem from 'components/core/selector/SelectorItem/SelectorItem';
-import { useTours } from 'context/TourContext';
+import { useTours } from 'context/ourContext';
 import { useEffect, useState } from 'react';
 import NewTourForm from '../NewTourForm/NewTourForm';
 import { Add } from '@mui/icons-material';
