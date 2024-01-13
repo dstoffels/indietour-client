@@ -3,7 +3,7 @@ import SideStack from 'components/core/SideStack/SideStack';
 import { TourDate, TourDateStatusOptions, useDates } from 'context/DateContext';
 import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
-import { useTheme } from 'context/ThemeContext';
+import { useTheme } from 'context/hemeContext';
 import { getStatusColor } from '../StatusSelector/StatusSelector';
 
 interface DateItemProps {

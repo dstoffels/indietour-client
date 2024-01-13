@@ -1,6 +1,6 @@
 import { Drawer } from '@mui/material';
 import { useGlobals } from 'context/GlobalContext';
-import { useTheme } from 'context/ThemeContext';
+import { useTheme } from 'context/hemeContext';
 import NewTimeslotForm from '../NewTimeslotForm/NewTimeslotForm';
 import { PropsWithChildren } from 'react';
 import DrawerContents from './DrawerContents';

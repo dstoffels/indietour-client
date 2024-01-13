@@ -1,7 +1,7 @@
 import * as React from 'react';
 import 'themes/global.css';
 import AuthProvider from 'context/AuthContext';
-import ThemeContextProvider from 'context/ThemeContext';
+import ThemeContextProvider from 'context/hemeContext';
 import ErrorProvider from 'context/ErrorContext';
 import BandProvider from 'context/BandContext';
 import TourProvider from 'context/TourContext';

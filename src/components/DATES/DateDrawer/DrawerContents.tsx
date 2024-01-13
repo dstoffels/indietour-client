@@ -3,7 +3,7 @@ import { Ref, forwardRef, useEffect, useRef } from 'react';
 import { useDates } from 'context/DateContext';
 import { useTours } from 'context/TourContext';
 import DateItem from 'components/DATES/DateItem/DateItem';
-import { useTheme } from 'context/ThemeContext';
+import { useTheme } from 'context/hemeContext';
 import NewDateForm, { NewDateFormProps } from '../NewDateForm/NewDateForm';
 import PastDatesSwitch from '../PastDatesSwitch/PastDatesSwitch';
 import { useGlobals } from 'context/GlobalContext';

@@ -1,7 +1,7 @@
 import { AirportShuttle, Flight, Handshake, Schedule } from '@mui/icons-material';
 import { Box, ListItem, ListItemButton, Stack, Typography } from '@mui/material';
 import SideStack from 'components/core/SideStack/SideStack';
-import { useTheme } from 'context/ThemeContext';
+import { useTheme } from 'context/hemeContext';
 import { Timeslot } from 'hooks/useSchedule';
 import * as React from 'react';
 import { useState, useEffect } from 'react';

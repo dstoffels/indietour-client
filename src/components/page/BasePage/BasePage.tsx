@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../Header/Header';
 import { Box } from '@mui/material';
 import Footer from '../Footer/Footer';
-import { useTheme } from 'context/ThemeContext';
+import { useTheme } from 'context/hemeContext';
 
 export interface PageProps extends React.PropsWithChildren {
 	headerChildren?: React.ReactNode;

@@ -11,7 +11,7 @@ import {
 	debounce,
 } from '@mui/material';
 import { useGlobals } from 'context/GlobalContext';
-import { useTheme } from 'context/ThemeContext';
+import { useTheme } from 'context/hemeContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import useKeyPress from 'utils/useKeyPress';

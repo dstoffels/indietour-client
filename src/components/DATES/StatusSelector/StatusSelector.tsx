@@ -13,7 +13,7 @@ import {
 import EditField from 'components/core/EditField/EditField';
 import SideStack from 'components/core/SideStack/SideStack';
 import { TourDate, TourDateStatusOptions, useDates } from 'context/DateContext';
-import { useTheme } from 'context/ThemeContext';
+import { useTheme } from 'context/hemeContext';
 import * as React from 'react';
 import { useState } from 'react';
 

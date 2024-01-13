@@ -9,7 +9,7 @@ import {
 } from 'react';
 import { useTours } from './TourContext';
 import { useDates } from './DateContext';
-import { useTheme } from './ThemeContext';
+import { useTheme } from './hemeContext';
 
 interface GlobalContextValues {
 	activeEditField: number;

@@ -1,5 +1,5 @@
 import { Box, BoxProps } from '@mui/material';
-import { useTheme } from 'context/ThemeContext';
+import { useTheme } from 'context/hemeContext';
 import * as React from 'react';
 
 interface SectionProps extends BoxProps {}

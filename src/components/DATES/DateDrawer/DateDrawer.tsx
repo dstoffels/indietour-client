@@ -2,7 +2,7 @@ import * as React from 'react';
 import MobileDrawer from './MobileDrawer';
 import PersistentDrawer from './PersistentDrawer';
 import { NewDatePropsWithChildren } from '../NewDateForm/NewDateForm';
-import { useTheme } from 'context/ThemeContext';
+import { useTheme } from 'context/hemeContext';
 
 const DateDrawer = (props: NewDatePropsWithChildren) => {
 	const { isMobile } = useTheme();

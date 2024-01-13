@@ -10,7 +10,7 @@ import { useDates } from 'context/DateContext';
 import dayjs from 'dayjs';
 import { useTours } from 'context/TourContext';
 import DatesDrawerBtn from 'components/DATES/DateDrawer/DateDrawerBtn';
-import { useTheme } from 'context/ThemeContext';
+import { useTheme } from 'context/hemeContext';
 import { NewDatePropsWithChildren } from 'components/DATES/NewDateForm/NewDateForm';
 import DateDrawer from 'components/DATES/DateDrawer/DateDrawer';
 import { useGlobals } from 'context/GlobalContext';

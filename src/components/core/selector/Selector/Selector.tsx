@@ -10,7 +10,7 @@ import {
 	useState,
 } from 'react';
 import { SelectorItemProps } from '../SelectorItem/SelectorItem';
-import { useTheme } from 'context/ThemeContext';
+import { useTheme } from 'context/hemeContext';
 
 interface iSelectorItem extends ReactElement<SelectorItemProps> {}
 
