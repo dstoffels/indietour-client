@@ -1,0 +1,4 @@
+FROM nginx:alpine
+
+COPY ./nginx/nginx.dev.conf /etc/nginx/conf.d/default.conf
+COPY /D/workspace/indietour/ssl /etc/ssl

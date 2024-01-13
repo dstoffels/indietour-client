@@ -17,11 +17,21 @@ pipeline {
             }
         }
 
+        stage('Build nginx Image') {
+            steps {
+                script {
+                    sh """
+                    docker build -f ./nginx -t indietour-nginx .
+                    """
+                }
+            }
+        }
+
         stage('Build Frontend Image') {
             steps {
                 script {
                     sh """
-                    docker build -t dstoffels/indietour-frontend-dev .
+                    docker build -t indietour-frontend-dev .
                     """
                 }
             }
