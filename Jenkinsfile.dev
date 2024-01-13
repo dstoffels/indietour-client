@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                    docker build -f ./nginx/Dockerfile -t indietour-nginx .
+                    docker build -f ./nginx/Dockerfile -t indietour-nginx ./nginx
                     """
                 }
             }
