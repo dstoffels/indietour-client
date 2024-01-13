@@ -5,9 +5,9 @@ import { useTours } from 'context/TourContext';
 import { useEffect, useState } from 'react';
 import NewTourForm from '../NewTourForm/NewTourForm';
 import { Add } from '@mui/icons-material';
-import { useBands } from 'context/BandContext';
+import { useBands } from 'context/andContext';
 import ArchivedToursSwitch from '../ArchivedToursSwitch/ArchivedToursSwitch';
-import { useAuth } from 'context/uthContext';
+import { useAuth } from 'context/AuthContext';
 
 const TourSelector = ({}) => {
 	const { user } = useAuth();

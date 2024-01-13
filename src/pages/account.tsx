@@ -4,7 +4,7 @@ import DangerZone from 'components/core/DangerZone/DangerZone';
 import EditField from 'components/core/EditField/EditField';
 import Panel from 'components/core/Panel/Panel';
 import PrivatePage from 'components/page/PrivatePage/PrivatePage';
-import { useAuth } from 'context/uthContext';
+import { useAuth } from 'context/AuthContext';
 import { useGlobals } from 'context/GlobalContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';

@@ -1,7 +1,7 @@
 import { Alert, Box, Button, Grid, Snackbar, Stack, Typography } from '@mui/material';
 import NumberField from 'components/core/NumberField/NumberField';
 import BasePage from 'components/page/BasePage/BasePage';
-import { useAuth } from 'context/uthContext';
+import { useAuth } from 'context/AuthContext';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { useState, useEffect } from 'react';

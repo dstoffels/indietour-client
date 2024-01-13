@@ -1,9 +1,9 @@
 import * as React from 'react';
 import 'themes/global.css';
-import AuthProvider from 'context/uthContext';
+import AuthProvider from 'context/AuthContext';
 import ThemeContextProvider from 'context/ThemeContext';
 import ErrorProvider from 'context/ErrorContext';
-import BandProvider from 'context/BandContext';
+import BandProvider from 'context/andContext';
 import TourProvider from 'context/TourContext';
 import DateProvider from 'context/DateContext';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';

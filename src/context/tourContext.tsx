@@ -1,7 +1,7 @@
 import { createContext, useContext, PropsWithChildren } from 'react';
-import { useAuth } from './uthContext';
+import { useAuth } from './AuthContext';
 import api from 'utils/api';
-import { useBands } from './BandContext';
+import { useBands } from './andContext';
 import { useRouter } from 'next/router';
 
 interface TourContextValues {

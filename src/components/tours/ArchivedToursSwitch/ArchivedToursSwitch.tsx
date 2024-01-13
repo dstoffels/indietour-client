@@ -1,6 +1,6 @@
 import { ListItem, ListItemText, Switch } from '@mui/material';
-import { useAuth } from 'context/uthContext';
-import { useBands } from 'context/BandContext';
+import { useAuth } from 'context/AuthContext';
+import { useBands } from 'context/andContext';
 import { useTours } from 'context/TourContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';

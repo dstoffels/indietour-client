@@ -7,7 +7,7 @@ import {
 	Typography,
 } from '@mui/material';
 import ButtonForm from 'components/core/ButtonForm/ButtonForm';
-import { Banduser, useBands } from 'context/BandContext';
+import { Banduser, useBands } from 'context/andContext';
 import useForm from 'hooks/useForm';
 import * as React from 'react';
 

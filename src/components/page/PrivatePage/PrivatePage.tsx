@@ -1,6 +1,6 @@
 import * as React from 'react';
 import BasePage, { PageProps } from '../BasePage/BasePage';
-import { useAuth } from 'context/uthContext';
+import { useAuth } from 'context/AuthContext';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import MainMenu from 'components/menus/MainMenu/MainMenu';

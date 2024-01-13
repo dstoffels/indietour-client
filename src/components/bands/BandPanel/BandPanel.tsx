@@ -2,7 +2,7 @@ import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import DangerZone from 'components/core/DangerZone/DangerZone';
 import EditField from 'components/core/EditField/EditField';
 import Panel from 'components/core/Panel/Panel';
-import { useBands } from 'context/BandContext';
+import { useBands } from 'context/andContext';
 import { useDates } from 'context/DateContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';

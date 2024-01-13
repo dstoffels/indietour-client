@@ -2,7 +2,7 @@ import { Box, Button, Typography } from '@mui/material';
 import EditField from 'components/core/EditField/EditField';
 import DangerZone from 'components/core/DangerZone/DangerZone';
 import Panel from 'components/core/Panel/Panel';
-import { useAuth } from 'context/uthContext';
+import { useAuth } from 'context/AuthContext';
 import { useDates } from 'context/DateContext';
 import { useTours } from 'context/TourContext';
 import * as React from 'react';
