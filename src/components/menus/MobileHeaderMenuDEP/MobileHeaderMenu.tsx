@@ -3,7 +3,7 @@ import { IconButton, List, ListItem, Stack, SwipeableDrawer, Typography } from '
 import LoginForm from 'components/auth/LoginForm/LoginForm';
 import LogoutBtn from 'components/auth/LogoutBtn/LogoutBtn';
 import BandSelector from 'components/bands/BandSelector/BandSelector';
-import { useAuth } from 'context/AuthContext';
+import { useAuth } from 'context/uthContext';
 import { useTheme } from 'context/ThemeContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';

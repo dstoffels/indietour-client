@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from 'context/AuthContext';
+import { useAuth } from 'context/uthContext';
 import BaseMenu from 'components/core/menu/BaseMenu/BaseMenu';
 import LogoutBtn from 'components/auth/LogoutBtn/LogoutBtn';
 import BaseMenuItem from 'components/core/menu/BaseMenuItem/BaseMenuItem';

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import 'themes/global.css';
-import AuthProvider from 'context/AuthContext';
+import AuthProvider from 'context/uthContext';
 import ThemeContextProvider from 'context/ThemeContext';
 import ErrorProvider from 'context/ErrorContext';
 import BandProvider from 'context/BandContext';

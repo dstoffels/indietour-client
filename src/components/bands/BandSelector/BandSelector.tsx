@@ -6,7 +6,7 @@ import SelectorItem from 'components/core/selector/SelectorItem/SelectorItem';
 import { useBands } from 'context/BandContext';
 import { useEffect, useState } from 'react';
 import ArchivedBandsSwitch from '../ArchivedBandsSwitch/ArchivedBandsSwitch';
-import { useAuth } from 'context/AuthContext';
+import { useAuth } from 'context/uthContext';
 
 const BandSelector = ({}) => {
 	const { user } = useAuth();

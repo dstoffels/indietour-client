@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect, PropsWithChildren } from 'react';
-import { User, useAuth } from './AuthContext';
+import { User, useAuth } from './uthContext';
 import api from 'utils/api';
 import { Tour } from './TourContext';
 

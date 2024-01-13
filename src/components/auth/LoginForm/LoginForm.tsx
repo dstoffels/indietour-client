@@ -1,6 +1,6 @@
 import { Box, Button, Hidden, Stack, TextField } from '@mui/material';
 
-import { useAuth, LoginCredentials } from 'context/AuthContext';
+import { useAuth, LoginCredentials } from 'context/uthContext';
 import useForm from 'hooks/useForm';
 import * as React from 'react';
 

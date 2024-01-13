@@ -1,5 +1,5 @@
 import { ListItem, ListItemText, Switch } from '@mui/material';
-import { useAuth } from 'context/AuthContext';
+import { useAuth } from 'context/uthContext';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 

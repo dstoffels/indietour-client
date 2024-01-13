@@ -1,5 +1,5 @@
 import { createContext, useContext, PropsWithChildren } from 'react';
-import { useAuth } from './AuthContext';
+import { useAuth } from './uthContext';
 import api from 'utils/api';
 import { useBands } from './BandContext';
 import { useRouter } from 'next/router';

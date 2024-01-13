@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { Button, IconButton } from '@mui/material';
-import { useAuth } from 'context/AuthContext';
+import { useAuth } from 'context/uthContext';
 import { useDates } from 'context/DateContext';
 import { useGlobals } from 'context/GlobalContext';
 import { useTours } from 'context/TourContext';

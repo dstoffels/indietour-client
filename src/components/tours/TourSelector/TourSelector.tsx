@@ -7,7 +7,7 @@ import NewTourForm from '../NewTourForm/NewTourForm';
 import { Add } from '@mui/icons-material';
 import { useBands } from 'context/BandContext';
 import ArchivedToursSwitch from '../ArchivedToursSwitch/ArchivedToursSwitch';
-import { useAuth } from 'context/AuthContext';
+import { useAuth } from 'context/uthContext';
 
 const TourSelector = ({}) => {
 	const { user } = useAuth();
