@@ -1,5 +1,5 @@
 import { ToggleButton, ToggleButtonGroup, Tooltip, Typography } from '@mui/material';
-import { useTours } from 'context/ourContext';
+import { useTours } from 'context/TourContext';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { useState, useEffect } from 'react';

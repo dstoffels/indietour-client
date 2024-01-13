@@ -13,7 +13,7 @@ import {
 import DeleteBtn from 'components/core/DeleteBtn/DeleteBtn';
 import SideStack from 'components/core/SideStack/SideStack';
 import { Banduser } from 'context/BandContext';
-import { Touruser } from 'context/ourContext';
+import { Touruser } from 'context/TourContext';
 import * as React from 'react';
 import { useState } from 'react';
 import useKeyPress from 'utils/useKeyPress';

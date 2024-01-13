@@ -7,7 +7,7 @@ import {
 	useRef,
 	useState,
 } from 'react';
-import { useTours } from './ourContext';
+import { useTours } from './TourContext';
 import { useDates } from './DateContext';
 import { useTheme } from './ThemeContext';
 

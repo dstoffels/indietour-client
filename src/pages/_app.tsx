@@ -4,7 +4,7 @@ import AuthProvider from 'context/AuthContext';
 import ThemeContextProvider from 'context/ThemeContext';
 import ErrorProvider from 'context/ErrorContext';
 import BandProvider from 'context/BandContext';
-import TourProvider from 'context/ourContext';
+import TourProvider from 'context/TourContext';
 import DateProvider from 'context/DateContext';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';

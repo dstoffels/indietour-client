@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, useEffect, PropsWithChildren, useRef } from 'react';
 import api from 'utils/api';
-import { useTours } from './ourContext';
+import { useTours } from './TourContext';
 import { useRouter } from 'next/router';
 import dayjs, { Dayjs } from 'dayjs';
 import { useAuth } from './AuthContext';
