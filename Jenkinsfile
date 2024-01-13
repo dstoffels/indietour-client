@@ -58,7 +58,7 @@ pipeline {
 
                     sh """
                         scp -i $SSH_KEY docker-compose.yaml ${env.VM_USERNAME}@${env.VM_IP}:./docker-compose.yaml
-                        scp -i $SSH_KEY ./nginx/nginx.conf ${env.VM_USERNAME}@${env.VM_IP}:/etc/nginx/default.conf
+                        scp -i $SSH_KEY ./nginx/nginx.conf ${env.VM_USERNAME}@${env.VM_IP}:./default.conf
                     """
                 }
             }
