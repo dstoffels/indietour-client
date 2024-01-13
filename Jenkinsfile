@@ -52,7 +52,8 @@ pipeline {
                             sudo apt-get update
                             sudo apt-get install docker docker-compose -y
                             sudo mkdir -p /etc/letsencrypt
-                            sudo mkdir -p /var/www/certbot                          
+                            sudo mkdir -p /var/www/certbot
+                            sudo mkdir -p /etc/nginx
                     """ 
 
                     sh """
