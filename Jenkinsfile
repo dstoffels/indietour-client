@@ -1,10 +1,14 @@
 pipeline {
     agent any
 
-    environment{
+    environment {
         DOCKER_HOST = 'tcp://host.docker.internal:2375'
         def dockerTool = tool name: 'docker-latest-tool', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 
-        PATH = "${dockerTool}/bin:${env.PATH}"    
+        PATH = "${dockerTool}/bin:${env.PATH}"
+        
+        VM_IP = "34.31.255.80"
+        VM_USERNAME = "dan_stoffels"
+        IMAGE_NAME = "dstoffels/indietour-frontend"    
     }
 
     stages {
@@ -17,61 +21,62 @@ pipeline {
             }
         }
 
-        stage('Init VM') {
-            steps{
-                withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY'), file(credentialsId: 'indietour-api-env', variable: 'ENV')]) {
-                     sh '''
-                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY dan_stoffels@104.155.142.30 <<'EOF'
-                            sudo apt-get update
-                            sudo apt-get install certbot python3-certbot-nginx docker docker-compose -y
-                            sudo curl -o docker-compose.yaml https://raw.githubusercontent.com/dstoffels/indietour-client/main/docker-compose.yaml
-                            if [ ! -d ./certbot/www/ ]; 
-                                then sudo mkdir ./certbot/www; 
-                            fi
-                            
-                        ''' 
-                            // sudo curl -o /etc/nginx/nginx.conf https://raw.githubusercontent.com/dstoffels/indietour-client/dev/nginx/init.conf
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh """
+                    docker build -t ${env.IMAGE_NAME}:$BUILD_NUMBER .
+                    """
                 }
             }
         }
 
-        // stage('Build Docker Image') {
-        //     steps {
-        //         script {
-        //             sh """
-        //             docker build -t dstoffels/indietour-frontend:$BUILD_NUMBER .
-        //             """
-        //         }
-        //     }
-        // }
+        stage("Push Docker Image"){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'personal-docker-hub-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh """
+                    docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+                    docker push ${env.IMAGE_NAME}:$BUILD_NUMBER
+                    docker tag ${env.IMAGE_NAME}:$BUILD_NUMBER ${env.IMAGE_NAME}:latest
+                    docker push ${env.IMAGE_NAME}:latest
+                    """
+                }
+            }
+        }
 
-        // stage("Push Docker Image"){
-        //     steps{
-        //         withCredentials([usernamePassword(credentialsId: 'personal-docker-hub-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-        //             sh """
-        //             docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-        //             docker push dstoffels/indietour-frontend:$BUILD_NUMBER
-        //             docker tag dstoffels/indietour-frontend:$BUILD_NUMBER dstoffels/indietour-frontend:latest
-        //             docker push dstoffels/indietour-frontend:latest
-        //             """
-        //         }
-        //     }
-        // }
-
-        stage('Deploy to GCP') {
+        stage('Init VM') {
             steps{
                 withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY'), file(credentialsId: 'indietour-api-env', variable: 'ENV')]) {
-                    sh '''
-                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY dan_stoffels@104.155.142.30 <<'EOF'
+                    sh """
+                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
+                            sudo apt-get update
+                            sudo apt-get install docker docker-compose -y
+                            sudo mkdir -p /etc/letsencrypt
+                            sudo mkdir -p /var/www/certbot                          
+                    """ 
+
+                    sh """
+                        scp -i $SSH_KEY docker-compose.yaml ${env.VM_USERNAME}@${env.VM_IP}:./docker-compose.yaml
+                        scp -i $SSH_KEY ./nginx/nginx.conf ${env.VM_USERNAME}@${env.VM_IP}:/etc/nginx/default.conf
+                    """
+                }
+            }
+        }
+
+        stage('Deploy to VM') {
+            steps{
+                withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY'), file(credentialsId: 'indietour-frontend-env', variable: 'ENV')]) {
+                    sh """
+                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
                         if [ -f .env ]; then
                             sudo rm .env
                         fi
-                    '''
+                    """
                     
-                    sh '''scp -i $SSH_KEY $ENV dan_stoffels@104.155.142.30:./.env'''
+                    sh "scp -i $SSH_KEY $ENV ${env.VM_USERNAME}@${env.VM_IP}:./.env"
 
-                    sh '''
-                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY dan_stoffels@104.155.142.30 <<'EOF'
+                    sh """
+                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
 
                         if [ -f docker-compose.yaml ]; then
                             sudo docker-compose down
@@ -80,22 +85,26 @@ pipeline {
                         sudo docker image prune -af
 
                         sudo docker-compose up -d                   
-                        ''' 
+                    """ 
                 }
             }
         }
 
-        stage('Generate SSH') {
+        stage('Generate SSL') {
             steps{
                 withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY')]) {
-                    sh '''
-                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY dan_stoffels@104.155.142.30 <<'EOF'
+                    sh """
+                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
 
-                        sudo curl -o /etc/nginx/default.conf https://raw.githubusercontent.com/dstoffels/indietour-client/main/nginx/nginx.conf
-
-                        docker-compose restart
-                    '''
-                        // sudo certbot --nginx -n -d indietour.org -d www.indietour.org --email indietour.app@gmail.com --non-interactive --agree-tos --redirect 
+                        
+                        if [ ! -f /etc/letsencrypt/live/indietour.org/fullchain.pem ]; then
+                            echo "generating new SSL cert..."
+                            docker-compose run --rm certbot certonly --webroot --staging --webroot-path=/var/www/certbot --email indietour.app@gmail.com -n --agree-tos -d indietour.org -d www.indietour.org
+                            docker-compose exec nginx nginx -s reload
+                        fi
+                        echo "Setting up cron job for certificate renewal..."
+                        (crontab -l 2>/dev/null; echo "0 0,12 * * * docker-compose run --rm certbot renew --webroot --webroot-path=/var/www/certbot && docker-compose exec nginx nginx -s reload") | crontab -
+                    """
                 }
             }
         }

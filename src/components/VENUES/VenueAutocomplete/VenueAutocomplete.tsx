@@ -29,8 +29,10 @@ const VenueAutocomplete = ({}) => {
 			freeSolo
 			options={venues}
 			value={selectedVenue}
+			// @ts-ignore
 			onChange={handleChange}
 			inputValue={inputValue}
+			// @ts-ignore
 			getOptionLabel={(option: Venue) => option.place?.name}
 			autoComplete
 			onInputChange={(e, newInputValue) => setInputValue(newInputValue)}
