@@ -12,7 +12,7 @@ services:
   frontend:
     image: dstoffels/indietour-frontend-dev
     env_file:
-      - .env.dev
+      - .env
     restart: always
 
   
