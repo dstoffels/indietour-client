@@ -1,0 +1,18 @@
+version: '3.1'
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/nginx.dev.conf:/etc/nginx/conf.d/default.conf
+      - D:\workspace\indietour\ssl:/etc/ssl
+
+  frontend:
+    image: dstoffels/indietour-frontend-dev
+    env_file:
+      - .env.dev
+    restart: always
+
+  
