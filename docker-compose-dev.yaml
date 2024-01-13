@@ -1,17 +1,20 @@
 version: '3.1'
 services:
-  nginx:
-    image: indietour-nginx
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - /D/workspace/indietour/ssl:/etc/ssl
-
   frontend:
     image: indietour-frontend-dev
     env_file:
       - .env
     restart: always
+
+  nginx:
+    image: indietour-nginx
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    depends_on:
+      - frontend
+    volumes:
+      - /D/workspace/indietour/ssl:/etc/ssl
 
   
