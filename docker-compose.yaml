@@ -24,6 +24,7 @@ services:
     volumes:
       - webroot:/var/www/certbot
       - ssl-certs:/etc/letsencrypt
+    command: echo
     depends_on:
       - nginx
 

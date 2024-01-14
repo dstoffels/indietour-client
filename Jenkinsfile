@@ -21,28 +21,28 @@ pipeline {
             }
         }
 
-        // stage('Build Docker Image') {
-        //     steps {
-        //         script {
-        //             sh """
-        //             docker build -t ${env.IMAGE_NAME}:$BUILD_NUMBER .
-        //             """
-        //         }
-        //     }
-        // }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh """
+                    docker build -t ${env.IMAGE_NAME}:$BUILD_NUMBER .
+                    """
+                }
+            }
+        }
 
-        // stage("Push Docker Image"){
-        //     steps{
-        //         withCredentials([usernamePassword(credentialsId: 'personal-docker-hub-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-        //             sh """
-        //             docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-        //             docker push ${env.IMAGE_NAME}:$BUILD_NUMBER
-        //             docker tag ${env.IMAGE_NAME}:$BUILD_NUMBER ${env.IMAGE_NAME}:latest
-        //             docker push ${env.IMAGE_NAME}:latest
-        //             """
-        //         }
-        //     }
-        // }
+        stage("Push Docker Image"){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'personal-docker-hub-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh """
+                    docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+                    docker push ${env.IMAGE_NAME}:$BUILD_NUMBER
+                    docker tag ${env.IMAGE_NAME}:$BUILD_NUMBER ${env.IMAGE_NAME}:latest
+                    docker push ${env.IMAGE_NAME}:latest
+                    """
+                }
+            }
+        }
 
         stage('Init VM') {
             steps{
@@ -67,32 +67,32 @@ pipeline {
             }
         }
 
-        // stage('Deploy to VM') {
-        //     steps{
-        //         withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY'), file(credentialsId: 'indietour-frontend-env', variable: 'ENV')]) {
-        //             sh """
-        //                 ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
-        //                 if [ -f .env ]; then
-        //                     sudo rm .env
-        //                 fi
-        //             """
+        stage('Deploy to VM') {
+            steps{
+                withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY'), file(credentialsId: 'indietour-frontend-env', variable: 'ENV')]) {
+                    sh """
+                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
+                        if [ -f .env ]; then
+                            sudo rm .env
+                        fi
+                    """
                     
-        //             sh "scp -i $SSH_KEY $ENV ${env.VM_USERNAME}@${env.VM_IP}:./.env"
+                    sh "scp -i $SSH_KEY $ENV ${env.VM_USERNAME}@${env.VM_IP}:./.env"
 
-        //             sh """
-        //                 ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
+                    sh """
+                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
 
-        //                 if [ -f docker-compose.yaml ]; then
-        //                     sudo docker-compose down
-        //                 fi
+                        if [ -f docker-compose.yaml ]; then
+                            sudo docker-compose down
+                        fi
 
-        //                 sudo docker image prune -af
+                        sudo docker image prune -af
 
-        //                 sudo docker-compose up -d                   
-        //             """ 
-        //         }
-        //     }
-        // }
+                        sudo docker-compose up -d                   
+                    """ 
+                }
+            }
+        }
 
         stage('Generate SSL') {
             steps{
@@ -106,12 +106,13 @@ pipeline {
                             sudo docker-compose exec nginx nginx -s reload
 
                             echo "generating new SSL cert..."
-                            sudo docker-compose run --rm certbot certonly --webroot --staging --webroot-path=/var/www/certbot --email indietour.app@gmail.com -n --agree-tos -d indietour.org -d www.indietour.org
+                            sudo docker-compose run --rm certbot certonly --webroot  --webroot-path=/var/www/certbot --email indietour.app@gmail.com -n --agree-tos -d indietour.org -d www.indietour.org
 
                             cp ./nginx.conf ./default.conf
                             sudo docker-compose exec nginx nginx -s reload
                         else
                             cp ./nginx.conf ./default.conf
+                            sudo docker-compose exec nginx nginx -s reload
                         fi
                         echo "Setting up cron job for certificate renewal..."
                         (crontab -l 2>/dev/null; echo "0 0,12 * * * docker-compose run --rm certbot renew --webroot --webroot-path=/var/www/certbot && docker-compose exec nginx nginx -s reload") | crontab -
