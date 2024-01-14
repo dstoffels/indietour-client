@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Load ENV'){
             steps{
-                withCredentials([file(credentialsId: 'indietour-api-env', variable: 'ENV')]){
+                withCredentials([file(credentialsId: 'indietour-frontend-env', variable: 'ENV')]){
                     sh "rm -f .env"
                     sh "cp $ENV .env"
                 }
@@ -46,7 +46,7 @@ pipeline {
 
         stage('Init VM') {
             steps{
-                withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY'), file(credentialsId: 'indietour-api-env', variable: 'ENV')]) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY'), file(credentialsId: 'indietour-frontend-env', variable: 'ENV')]) {
                     sh """
                         scp -i $SSH_KEY docker-compose.yaml ${env.VM_USERNAME}@${env.VM_IP}:./docker-compose.yaml
                         scp -i $SSH_KEY ./nginx/nginx.init.conf ${env.VM_USERNAME}@${env.VM_IP}:./nginx.init.conf
@@ -67,32 +67,32 @@ pipeline {
             }
         }
 
-        // stage('Deploy to VM') {
-        //     steps{
-        //         withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY'), file(credentialsId: 'indietour-frontend-env', variable: 'ENV')]) {
-        //             sh """
-        //                 ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
-        //                 if [ -f .env ]; then
-        //                     sudo rm .env
-        //                 fi
-        //             """
+        stage('Deploy to VM') {
+            steps{
+                withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY'), file(credentialsId: 'indietour-frontend-env', variable: 'ENV')]) {
+                    sh """
+                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
+                        if [ -f .env ]; then
+                            sudo rm .env
+                        fi
+                    """
                     
-        //             sh "scp -i $SSH_KEY $ENV ${env.VM_USERNAME}@${env.VM_IP}:./.env"
+                    sh "scp -i $SSH_KEY $ENV ${env.VM_USERNAME}@${env.VM_IP}:./.env"
 
-        //             sh """
-        //                 ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
+                    sh """
+                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
 
-        //                 if [ -f docker-compose.yaml ]; then
-        //                     sudo docker-compose down
-        //                 fi
+                        if [ -f docker-compose.yaml ]; then
+                            sudo docker-compose down
+                        fi
 
-        //                 sudo docker image prune -af
+                        sudo docker image prune -af
 
-        //                 sudo docker-compose up -d                   
-        //             """ 
-        //         }
-        //     }
-        // }
+                        sudo docker-compose up -d                   
+                    """ 
+                }
+            }
+        }
 
         stage('Generate SSL') {
             steps{
