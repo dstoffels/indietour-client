@@ -48,20 +48,21 @@ pipeline {
             steps{
                 withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY'), file(credentialsId: 'indietour-api-env', variable: 'ENV')]) {
                     sh """
+                        scp -i $SSH_KEY docker-compose.yaml ${env.VM_USERNAME}@${env.VM_IP}:./docker-compose.yaml
+                        scp -i $SSH_KEY ./nginx/nginx.init.conf ${env.VM_USERNAME}@${env.VM_IP}:./nginx.init.conf
+                        scp -i $SSH_KEY ./nginx/nginx.conf ${env.VM_USERNAME}@${env.VM_IP}:./nginx.conf
+                    """
+
+                    sh """
                         ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
                             sudo apt-get update
                             sudo apt-get install docker docker-compose -y
                             sudo mkdir -p /etc/letsencrypt
                             sudo mkdir -p /var/www/certbot
                             sudo mkdir -p /etc/nginx
+                            cp ./nginx.init.conf ./default.conf
                     """ 
 
-                    sh """
-                        scp -i $SSH_KEY docker-compose.yaml ${env.VM_USERNAME}@${env.VM_IP}:./docker-compose.yaml
-                        scp -i $SSH_KEY ./nginx/nginx.init.conf ${env.VM_USERNAME}@${env.VM_IP}:./nginx.init.conf
-                        scp -i $SSH_KEY ./nginx/nginx.conf ${env.VM_USERNAME}@${env.VM_IP}:./nginx.conf
-                        cp ./nginx.init.conf ./default.conf
-                    """
                 }
             }
         }
