@@ -82,7 +82,7 @@ pipeline {
 
                         if [ -f docker-compose.yaml ]; then
                             sudo docker-compose down
-                        fi
+                        fipo
 
                         sudo docker image prune -af
 
@@ -103,9 +103,11 @@ pipeline {
                             cp ./default.conf ./nginx.conf
                             cp ./nginx.init.conf ./default.conf
                             docker-compose exec nginx nginx -s reload
-                            
+
                             echo "generating new SSL cert..."
                             docker-compose run --rm certbot certonly --webroot --staging --webroot-path=/var/www/certbot --email indietour.app@gmail.com -n --agree-tos -d indietour.org -d www.indietour.org
+
+                            cp ./nginx.conf ./default.conf
                             docker-compose exec nginx nginx -s reload
                         fi
                         echo "Setting up cron job for certificate renewal..."
