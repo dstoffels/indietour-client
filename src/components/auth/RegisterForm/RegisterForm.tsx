@@ -6,10 +6,10 @@ import * as React from 'react';
 
 const RegisterForm = ({}) => {
 	const initialData = {
-		email: 'dan.stoffels@gmail.com',
-		username: 'danimal',
-		password: 'Spades42!',
-		password2: 'Spades42!',
+		email: '',
+		username: '',
+		password: '',
+		password2: '',
 	};
 
 	const { register } = useAuth();
