@@ -21,28 +21,28 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    sh """
-                    docker build -t ${env.IMAGE_NAME}:$BUILD_NUMBER .
-                    """
-                }
-            }
-        }
+        // stage('Build Docker Image') {
+        //     steps {
+        //         script {
+        //             sh """
+        //             docker build -t ${env.IMAGE_NAME}:$BUILD_NUMBER .
+        //             """
+        //         }
+        //     }
+        // }
 
-        stage("Push Docker Image"){
-            steps{
-                withCredentials([usernamePassword(credentialsId: 'personal-docker-hub-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh """
-                    docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-                    docker push ${env.IMAGE_NAME}:$BUILD_NUMBER
-                    docker tag ${env.IMAGE_NAME}:$BUILD_NUMBER ${env.IMAGE_NAME}:latest
-                    docker push ${env.IMAGE_NAME}:latest
-                    """
-                }
-            }
-        }
+        // stage("Push Docker Image"){
+        //     steps{
+        //         withCredentials([usernamePassword(credentialsId: 'personal-docker-hub-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+        //             sh """
+        //             docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+        //             docker push ${env.IMAGE_NAME}:$BUILD_NUMBER
+        //             docker tag ${env.IMAGE_NAME}:$BUILD_NUMBER ${env.IMAGE_NAME}:latest
+        //             docker push ${env.IMAGE_NAME}:latest
+        //             """
+        //         }
+        //     }
+        // }
 
         stage('Init VM') {
             steps{
@@ -58,6 +58,7 @@ pipeline {
 
                     sh """
                         scp -i $SSH_KEY docker-compose.yaml ${env.VM_USERNAME}@${env.VM_IP}:./docker-compose.yaml
+                        scp -i $SSH_KEY ./nginx/nginx.init.conf ${env.VM_USERNAME}@${env.VM_IP}:./nginx.init.conf
                         scp -i $SSH_KEY ./nginx/nginx.conf ${env.VM_USERNAME}@${env.VM_IP}:./default.conf
                     """
                 }
@@ -99,6 +100,10 @@ pipeline {
 
                         
                         if [ ! -f /etc/letsencrypt/live/indietour.org/fullchain.pem ]; then
+                            cp ./default.conf ./nginx.conf
+                            cp ./nginx.init.conf ./default.conf
+                            docker-compose exec nginx nginx -s reload
+                            
                             echo "generating new SSL cert..."
                             docker-compose run --rm certbot certonly --webroot --staging --webroot-path=/var/www/certbot --email indietour.app@gmail.com -n --agree-tos -d indietour.org -d www.indietour.org
                             docker-compose exec nginx nginx -s reload
