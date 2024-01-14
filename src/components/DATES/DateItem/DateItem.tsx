@@ -31,7 +31,7 @@ const DateItem = ({ tourdate, activeDate }: DateItemProps) => {
 		<ListItem disablePadding>
 			<ListItemButton selected={isActive} onClick={handleClick}>
 				<SideStack width="100%">
-					<Stack textAlign="center">
+					<Stack textAlign="center" marginRight={2}>
 						<Typography color={fontColor} fontStyle={fontStyle} fontWeight={fontWeight}>
 							{dayjs(date).format('DD')} {dayjs(date).format('MMM')}
 						</Typography>

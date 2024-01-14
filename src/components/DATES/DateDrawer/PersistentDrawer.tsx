@@ -4,20 +4,22 @@ import DrawerContent from './DrawerContents';
 import { NewDateFormProps } from '../NewDateForm/NewDateForm';
 import { useGlobals } from 'context/GlobalContext';
 
+const drawerWidth = 350;
+
 const PersistentDrawer = (props: NewDateFormProps) => {
 	const { theme } = useTheme();
-	const { dateDrawerOpen, toggleDateDrawer: setDateDrawerOpen } = useGlobals();
-
-	const toggleDrawer = () => {
-		setDateDrawerOpen(!dateDrawerOpen);
-	};
+	const { dateDrawerOpen, toggleDateDrawer } = useGlobals();
 
 	return (
 		<Drawer
-			sx={{ zIndex: theme.zIndex.drawer - 1 }}
+			sx={{
+				zIndex: theme.zIndex.drawer - 1,
+				maxWidth: drawerWidth,
+				[`& .MuiDrawer-paper`]: { maxWidth: drawerWidth, boxSizing: 'border-box' },
+			}}
 			anchor="left"
 			open={dateDrawerOpen}
-			onClose={toggleDrawer}
+			onClose={toggleDateDrawer}
 			hideBackdrop
 			variant="persistent"
 		>

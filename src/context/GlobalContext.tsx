@@ -20,7 +20,7 @@ interface GlobalContextValues {
 	toggleDateDrawer: () => any;
 	scheduleDrawerRef: MutableRefObject<HTMLElement | null>;
 	scheduleDrawerOpen: boolean;
-	toggleScheduleDrawer: (open: boolean) => any;
+	toggleScheduleDrawer: () => any;
 	marginLeft: string | number;
 	marginRight: string | number;
 	drawerTransition: string;
@@ -57,7 +57,13 @@ const GlobalProvider = ({ children }: PropsWithChildren) => {
 		dateDrawerRef?.current && setDateDrawerWidth(dateDrawerRef.current.clientWidth);
 		scheduleDrawerRef?.current && setScheduleDrawerWidth(scheduleDrawerRef.current.clientWidth);
 		mainRef?.current && setMainWidth(mainRef.current.clientWidth);
-	}, [dateDrawerRef.current, scheduleDrawerRef.current, mainRef.current]);
+	}, [
+		dateDrawerRef.current,
+		scheduleDrawerRef.current,
+		mainRef.current,
+		dateDrawerRef.current?.clientWidth,
+		scheduleDrawerRef.current?.clientWidth,
+	]);
 
 	useEffect(() => {
 		if (mainRef.current) {

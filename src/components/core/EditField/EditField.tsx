@@ -64,7 +64,7 @@ const EditField = (props: EditFieldProps) => {
 		() =>
 			debounce((inputValue: string, open: boolean) => {
 				open && onChange({ [name]: inputValue });
-			}, 300),
+			}, 500),
 
 		[name, onChange],
 	);
