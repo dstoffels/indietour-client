@@ -82,7 +82,7 @@ pipeline {
 
                         if [ -f docker-compose.yaml ]; then
                             sudo docker-compose down
-                        fipo
+                        fi
 
                         sudo docker image prune -af
 
