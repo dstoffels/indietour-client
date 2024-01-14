@@ -121,7 +121,8 @@ pipeline {
 
                         echo "reconfiguring & reloading nginx..."
                         cp ./nginx.conf ./default.conf
-                        sudo docker-compose exec nginx nginx -s reload
+                        sudo docker-compose exec nginx nginx -s reload >> nginx_reload.log 2>&1
+                        cat nginx_reload.log
                     """
                 }
             }
