@@ -5,7 +5,7 @@ import { NewDateFormProps } from '../NewDateForm/NewDateForm';
 import { useGlobals } from 'context/GlobalContext';
 
 const MobileDrawer = (props: NewDateFormProps) => {
-	const { dateDrawerOpen, setDateDrawerOpen } = useGlobals();
+	const { dateDrawerOpen, toggleDateDrawer: setDateDrawerOpen } = useGlobals();
 
 	const handleOpen = () => {
 		!dateDrawerOpen && setDateDrawerOpen(true);

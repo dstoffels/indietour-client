@@ -162,4 +162,7 @@ export interface User {
 	show_archived_bands?: boolean;
 	show_archived_tours?: boolean;
 	show_past_dates?: boolean;
+	show_dates_list?: boolean;
+	show_schedule_list?: boolean;
+	booking_mode?: boolean;
 }

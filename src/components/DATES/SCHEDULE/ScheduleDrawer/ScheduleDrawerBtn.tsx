@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 
 const ScheduleDrawerBtn = () => {
 	const { activeDate } = useDates();
-	const { scheduleDrawerOpen, setScheduleDrawerOpen } = useGlobals();
+	const { scheduleDrawerOpen, toggleScheduleDrawer: setScheduleDrawerOpen } = useGlobals();
 
 	const handleDrawerOpen = () => {
 		setScheduleDrawerOpen(!scheduleDrawerOpen);

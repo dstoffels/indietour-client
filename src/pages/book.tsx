@@ -6,13 +6,15 @@ import { useRouter } from 'next/router';
 import ShowPanel from 'components/DATES/PANELS/ShowPanel/ShowPanel';
 import ContactsPanel from 'components/DATES/PANELS/ContactsPanel/ContactsPanel';
 import LodgingPanel from 'components/DATES/PANELS/LodgingPanel/LodgingPanel';
+import { useAuth } from 'context/AuthContext';
 
 const BookingPage = ({}) => {
 	const { isTourAdmin } = useTours();
 	const { push } = useRouter();
+	const { user } = useAuth();
 
 	React.useEffect(() => {
-		!isTourAdmin && push('/tour');
+		(!isTourAdmin || !user?.booking_mode) && push('/tour');
 	}, []);
 
 	return (

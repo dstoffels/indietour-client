@@ -4,7 +4,7 @@ import { PropsWithChildren } from 'react';
 import DrawerContents from './DrawerContents';
 
 const MobileDrawer = () => {
-	const { scheduleDrawerOpen, setScheduleDrawerOpen } = useGlobals();
+	const { scheduleDrawerOpen, toggleScheduleDrawer: setScheduleDrawerOpen } = useGlobals();
 
 	const handleOpen = () => {
 		setScheduleDrawerOpen(true);

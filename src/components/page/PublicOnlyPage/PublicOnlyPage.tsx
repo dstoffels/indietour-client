@@ -9,7 +9,9 @@ const PublicOnlyPage = (props: PageProps) => {
 	const { user } = useAuth();
 
 	if (user) {
-		user.email_verified ? push('/tour') : push('/verify');
+		if (user.email_verified) {
+			user.booking_mode ? push('/book') : push('/tour');
+		}
 		return null;
 	}
 

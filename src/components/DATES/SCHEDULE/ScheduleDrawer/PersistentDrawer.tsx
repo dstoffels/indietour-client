@@ -7,7 +7,7 @@ import DrawerContents from './DrawerContents';
 
 const PersistentDrawer = () => {
 	const { theme } = useTheme();
-	const { scheduleDrawerOpen, setScheduleDrawerOpen } = useGlobals();
+	const { scheduleDrawerOpen, toggleScheduleDrawer: setScheduleDrawerOpen } = useGlobals();
 
 	const toggleDrawer = () => {
 		setScheduleDrawerOpen(!scheduleDrawerOpen);

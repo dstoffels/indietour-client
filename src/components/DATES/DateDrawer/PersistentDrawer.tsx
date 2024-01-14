@@ -6,7 +6,7 @@ import { useGlobals } from 'context/GlobalContext';
 
 const PersistentDrawer = (props: NewDateFormProps) => {
 	const { theme } = useTheme();
-	const { dateDrawerOpen, setDateDrawerOpen } = useGlobals();
+	const { dateDrawerOpen, toggleDateDrawer: setDateDrawerOpen } = useGlobals();
 
 	const toggleDrawer = () => {
 		setDateDrawerOpen(!dateDrawerOpen);

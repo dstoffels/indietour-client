@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 
 const DatesDrawerBtn = ({}) => {
 	const { user } = useAuth();
-	const { dateDrawerOpen, setDateDrawerOpen } = useGlobals();
+	const { dateDrawerOpen, toggleDateDrawer: setDateDrawerOpen } = useGlobals();
 	const { activeTour } = useTours();
 
 	const handleDrawerOpen = () => {

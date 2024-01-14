@@ -17,6 +17,7 @@ import { useGlobals } from 'context/GlobalContext';
 import ScheduleDrawerBtn from 'components/DATES/SCHEDULE/ScheduleDrawer/ScheduleDrawerBtn';
 import ScheduleDrawer from 'components/DATES/SCHEDULE/ScheduleDrawer/ScheduleDrawer';
 import BookingToggle from '../TourModeToggle/TourModeToggle';
+import { useAuth } from 'context/AuthContext';
 
 export interface MainPageProps extends NewDatePropsWithChildren {}
 
@@ -46,7 +47,7 @@ const MainPage = (props: MainPageProps) => {
 				</>
 			}
 			footerLeft={<DatesDrawerBtn />}
-			footerCenter={<BookingToggle />}
+			// footerCenter={}
 			footerRight={<ScheduleDrawerBtn />}
 		>
 			<Box display="flex">
