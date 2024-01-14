@@ -9,18 +9,14 @@ import { useState, useEffect } from 'react';
 
 const DatesDrawerBtn = ({}) => {
 	const { user } = useAuth();
-	const { dateDrawerOpen, toggleDateDrawer: setDateDrawerOpen } = useGlobals();
+	const { dateDrawerOpen, toggleDateDrawer } = useGlobals();
 	const { activeTour } = useTours();
-
-	const handleDrawerOpen = () => {
-		setDateDrawerOpen(!dateDrawerOpen);
-	};
 
 	return (
 		<Button
 			color="info"
 			disabled={!activeTour}
-			onClick={handleDrawerOpen}
+			onClick={toggleDateDrawer}
 			endIcon={dateDrawerOpen ? <ChevronLeft /> : <ChevronRight />}
 		>
 			Dates

@@ -7,17 +7,13 @@ import { useState, useEffect } from 'react';
 
 const ScheduleDrawerBtn = () => {
 	const { activeDate } = useDates();
-	const { scheduleDrawerOpen, toggleScheduleDrawer: setScheduleDrawerOpen } = useGlobals();
-
-	const handleDrawerOpen = () => {
-		setScheduleDrawerOpen(!scheduleDrawerOpen);
-	};
+	const { scheduleDrawerOpen, toggleScheduleDrawer } = useGlobals();
 
 	return (
 		<Button
 			color="info"
 			disabled={!activeDate}
-			onClick={handleDrawerOpen}
+			onClick={toggleScheduleDrawer}
 			startIcon={scheduleDrawerOpen ? <ChevronRight /> : <ChevronLeft />}
 		>
 			Schedule
