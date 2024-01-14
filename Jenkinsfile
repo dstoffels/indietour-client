@@ -101,13 +101,11 @@ pipeline {
                         ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
 
                         
-                        if [ ! -f /etc/letsencrypt/live/indietour.org/fullchain.pem ]; then
                             cp ./nginx.init.conf ./default.conf
                             sudo docker-compose exec nginx nginx -s reload
 
                             echo "generating new SSL cert..."
                             sudo docker-compose run --rm certbot certonly --webroot --webroot-path=/var/www/certbot --email indietour.app@gmail.com -n --agree-tos --cert-name indietour.org -d indietour.org -d www.indietour.org
-                        fi
 
                         cp ./nginx.conf ./default.conf
                         sudo docker-compose exec nginx nginx -s reload
