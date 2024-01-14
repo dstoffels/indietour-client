@@ -67,32 +67,32 @@ pipeline {
             }
         }
 
-        stage('Deploy to VM') {
-            steps{
-                withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY'), file(credentialsId: 'indietour-frontend-env', variable: 'ENV')]) {
-                    sh """
-                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
-                        if [ -f .env ]; then
-                            sudo rm .env
-                        fi
-                    """
+        // stage('Deploy to VM') {
+        //     steps{
+        //         withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY'), file(credentialsId: 'indietour-frontend-env', variable: 'ENV')]) {
+        //             sh """
+        //                 ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
+        //                 if [ -f .env ]; then
+        //                     sudo rm .env
+        //                 fi
+        //             """
                     
-                    sh "scp -i $SSH_KEY $ENV ${env.VM_USERNAME}@${env.VM_IP}:./.env"
+        //             sh "scp -i $SSH_KEY $ENV ${env.VM_USERNAME}@${env.VM_IP}:./.env"
 
-                    sh """
-                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
+        //             sh """
+        //                 ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
 
-                        if [ -f docker-compose.yaml ]; then
-                            sudo docker-compose down
-                        fi
+        //                 if [ -f docker-compose.yaml ]; then
+        //                     sudo docker-compose down
+        //                 fi
 
-                        sudo docker image prune -af
+        //                 sudo docker image prune -af
 
-                        sudo docker-compose up -d                   
-                    """ 
-                }
-            }
-        }
+        //                 sudo docker-compose up -d                   
+        //             """ 
+        //         }
+        //     }
+        // }
 
         stage('Generate SSL') {
             steps{
@@ -107,13 +107,11 @@ pipeline {
 
                             echo "generating new SSL cert..."
                             sudo docker-compose run --rm certbot certonly --webroot --webroot-path=/var/www/certbot --email indietour.app@gmail.com -n --agree-tos --cert-name indietour.org -d indietour.org -d www.indietour.org
-
-                            cp ./nginx.conf ./default.conf
-                            sudo docker-compose exec nginx nginx -s reload
-                        else
-                            cp ./nginx.conf ./default.conf
-                            sudo docker-compose exec nginx nginx -s reload
                         fi
+
+                        cp ./nginx.conf ./default.conf
+                        sudo docker-compose exec nginx nginx -s reload
+
                         echo "Setting up cron job for certificate renewal..."
                         crontab -r
                         (crontab -l 2>/dev/null; echo "0 0,12 * * * docker-compose run --rm certbot renew --webroot --webroot-path=/var/www/certbot && docker-compose exec nginx nginx -s reload") | crontab -
