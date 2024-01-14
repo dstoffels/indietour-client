@@ -21,7 +21,7 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build Image') {
             steps {
                 script {
                     sh """
@@ -31,7 +31,7 @@ pipeline {
             }
         }
 
-        stage("Push Docker Image"){
+        stage("Push Image"){
             steps{
                 withCredentials([usernamePassword(credentialsId: 'personal-docker-hub-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh """
@@ -67,7 +67,7 @@ pipeline {
             }
         }
 
-        stage('Deploy to VM') {
+        stage('Deploy') {
             steps{
                 withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY'), file(credentialsId: 'indietour-frontend-env', variable: 'ENV')]) {
                     sh """
@@ -121,7 +121,7 @@ pipeline {
 
                         echo "reconfiguring & reloading nginx..."
                         cp ./nginx.conf ./default.conf
-                        sudo docker-compose exec nginx nginx -s reload || echo "***nginx reload failed***"
+                        sudo docker-compose exec nginx nginx -s reload 2>&1"
                     """
                 }
             }
@@ -129,6 +129,13 @@ pipeline {
 
         stage("Clean Up"){
             steps{
+                withCredentials([sshUserPrivateKey(credentialsId: 'indietour-frontend-ssh', keyFileVariable: 'SSH_KEY')]) {
+                    sh """
+                        ssh -o StrictHostKeyChecking=no -i $SSH_KEY ${env.VM_USERNAME}@${env.VM_IP} <<'EOF'
+
+                        sudo docker image prune -f
+                    """
+                }
                 sh "docker image prune -f"
             }
         }
