@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Load ENV'){
             steps{
-                withCredentials([file(credentialsId: 'indietour-frontend-dev-env', variable: 'ENV')]){
+                withCredentials([file(credentialsId: 'indietour-frontend-staging', variable: 'ENV')]){
                     sh "rm -f .env"
                     sh "cp $ENV .env"
                 }
