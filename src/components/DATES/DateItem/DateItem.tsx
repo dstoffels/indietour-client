@@ -5,6 +5,8 @@ import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
 import { useTheme } from 'context/ThemeContext';
 import { getStatusColor } from '../StatusSelector/StatusSelector';
+import { useAuth } from 'context/AuthContext';
+import { useGlobals } from 'context/GlobalContext';
 
 interface DateItemProps {
 	tourdate: TourDate;
@@ -13,10 +15,14 @@ interface DateItemProps {
 
 const DateItem = ({ tourdate, activeDate }: DateItemProps) => {
 	const { push, query } = useRouter();
+	const { isMobile } = useTheme();
+	const { toggleDateDrawer } = useGlobals();
+
 	const isActive = tourdate.id === activeDate?.id;
 
 	const handleClick = () => {
 		isActive ? push({ query: {} }) : push({ query: { ...query, date_id: tourdate.id } });
+		isMobile && toggleDateDrawer();
 	};
 
 	const fontStyle = tourdate.status !== 'CONFIRMED' ? 'italic' : '';

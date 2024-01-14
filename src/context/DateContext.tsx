@@ -129,6 +129,7 @@ export interface TourDate {
 	contacts?: [];
 	tour_id?: string;
 	place_id?: string;
+	is_show_day?: boolean;
 }
 
 export type TourDateStatusOptions =

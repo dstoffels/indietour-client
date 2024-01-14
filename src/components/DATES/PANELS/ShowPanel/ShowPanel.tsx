@@ -14,7 +14,8 @@ const ShowPanel = () => {
 	q.capacity = 'x';
 
 	return (
-		activeDate && (
+		activeDate &&
+		activeDate.is_show_day && (
 			<Panel title="Shows">
 				<VenueAutocomplete />
 			</Panel>
