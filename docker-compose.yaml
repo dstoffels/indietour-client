@@ -24,6 +24,8 @@ services:
     volumes:
       - webroot:/var/www/certbot
       - ssl-certs:/etc/letsencrypt
+    depends_on:
+      - nginx
 
 volumes:
   ssl-certs:
