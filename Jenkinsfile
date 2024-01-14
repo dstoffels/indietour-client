@@ -59,7 +59,8 @@ pipeline {
                     sh """
                         scp -i $SSH_KEY docker-compose.yaml ${env.VM_USERNAME}@${env.VM_IP}:./docker-compose.yaml
                         scp -i $SSH_KEY ./nginx/nginx.init.conf ${env.VM_USERNAME}@${env.VM_IP}:./nginx.init.conf
-                        scp -i $SSH_KEY ./nginx/nginx.conf ${env.VM_USERNAME}@${env.VM_IP}:./default.conf
+                        scp -i $SSH_KEY ./nginx/nginx.conf ${env.VM_USERNAME}@${env.VM_IP}:./nginx.conf
+                        cp ./nginx.init.conf ./default.conf
                     """
                 }
             }
@@ -100,7 +101,6 @@ pipeline {
 
                         
                         if [ ! -f /etc/letsencrypt/live/indietour.org/fullchain.pem ]; then
-                            cp ./default.conf ./nginx.conf
                             cp ./nginx.init.conf ./default.conf
                             docker-compose exec nginx nginx -s reload
 
@@ -109,6 +109,8 @@ pipeline {
 
                             cp ./nginx.conf ./default.conf
                             docker-compose exec nginx nginx -s reload
+                        else
+                            cp ./nginx.conf ./default.conf
                         fi
                         echo "Setting up cron job for certificate renewal..."
                         (crontab -l 2>/dev/null; echo "0 0,12 * * * docker-compose run --rm certbot renew --webroot --webroot-path=/var/www/certbot && docker-compose exec nginx nginx -s reload") | crontab -
