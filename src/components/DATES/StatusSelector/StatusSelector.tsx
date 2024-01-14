@@ -99,3 +99,27 @@ export function getStatusColor(status: TourDateStatusOptions) {
 			return 'inherit';
 	}
 }
+
+// export function getStatusTooltip(status: TourDateStatusOptions) {
+
+// 	switch (status) {
+// 		case 'PROSPECT':
+// 			return "A prospective date when routing is still up in the air."
+// 		case 'INQUIRED':
+// 			return "When you've reached out "
+// 		case 'HOLD':
+// 			return theme.palette.info.main;
+// 		case 'CHALLENGED':
+// 			return theme.palette.warning.main;
+// 		case 'OPTION':
+// 			return theme.palette.success.main;
+// 		case 'RELEASED':
+// 			return theme.palette.action.disabled;
+// 		case 'CONFIRMED':
+// 			return theme.palette.error.main;
+// 		case 'CANCELLED':
+// 			return theme.palette.error.main;
+// 		default:
+// 			return 'inherit';
+// 	}
+// }

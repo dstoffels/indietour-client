@@ -5,6 +5,8 @@ import StatusSelector from '../../StatusSelector/StatusSelector';
 import EditField from 'components/core/EditField/EditField';
 import PlaceEditField from 'components/core/PlaceEditField/PlaceEditField';
 import DangerZone from 'components/core/DangerZone/DangerZone';
+import { FormControlLabel, Switch } from '@mui/material';
+import ShowDaySwitch from 'components/DATES/ShowDaySwitch/ShowDaySwitch';
 
 const DatePanel = ({}) => {
 	const { activeDate, updateTourdate, deleteTourdate, isTourAdmin } = useDates();
@@ -22,6 +24,7 @@ const DatePanel = ({}) => {
 				}
 			>
 				<StatusSelector />
+				<ShowDaySwitch />
 				<PlaceEditField
 					name="place_id"
 					label="Location"
