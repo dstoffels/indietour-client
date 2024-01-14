@@ -105,8 +105,6 @@ pipeline {
                             cp ./nginx.init.conf ./default.conf
                             sudo docker-compose exec nginx nginx -s reload
 
-                            sudo rm -rf /etc/letsencrypt/*
-
                             echo "generating new SSL cert..."
                             sudo docker-compose run --rm certbot certonly --webroot --webroot-path=/var/www/certbot --email indietour.app@gmail.com -n --agree-tos --cert-name indietour.org -d indietour.org -d www.indietour.org
 
