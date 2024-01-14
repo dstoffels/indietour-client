@@ -106,7 +106,7 @@ pipeline {
                             sudo docker-compose exec nginx nginx -s reload
 
                             echo "generating new SSL cert..."
-                            sudo docker-compose run --rm certbot certonly --webroot  --webroot-path=/var/www/certbot --email indietour.app@gmail.com -n --agree-tos -d indietour.org -d www.indietour.org
+                            sudo docker-compose run --rm certbot certonly --webroot --webroot-path=/var/www/certbot --email indietour.app@gmail.com -n --agree-tos --cert-name indietour.org -d indietour.org -d www.indietour.org
 
                             cp ./nginx.conf ./default.conf
                             sudo docker-compose exec nginx nginx -s reload
@@ -115,6 +115,7 @@ pipeline {
                             sudo docker-compose exec nginx nginx -s reload
                         fi
                         echo "Setting up cron job for certificate renewal..."
+                        crontab -r
                         (crontab -l 2>/dev/null; echo "0 0,12 * * * docker-compose run --rm certbot renew --webroot --webroot-path=/var/www/certbot && docker-compose exec nginx nginx -s reload") | crontab -
                     """
                 }
