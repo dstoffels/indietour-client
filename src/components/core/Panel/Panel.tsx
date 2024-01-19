@@ -18,7 +18,7 @@ const Panel = ({ title, titleColor = 'inherit', children, footer }: PanelProps) 
 
 	if (mainWidth < 650) cols = 12;
 	else if (mainWidth < 960) cols = 6;
-	else cols = 6;
+	else cols = 4;
 
 	useEffect(() => {
 		loaded && setLoaded(false);
@@ -37,7 +37,7 @@ const Panel = ({ title, titleColor = 'inherit', children, footer }: PanelProps) 
 						</Typography>
 					</Box>
 					<Divider />
-					<Stack padding={2} spacing={2}>
+					<Stack padding={1} spacing={1}>
 						{children}
 					</Stack>
 					{footer && <Divider />}

@@ -15,11 +15,7 @@ const ShowPanel = () => {
 
 	return (
 		activeDate &&
-		activeDate.is_show_day && (
-			<Panel title="Shows">
-				<VenueAutocomplete />
-			</Panel>
-		)
+		activeDate.is_show_day && <Panel title="Shows">{/* <VenueAutocomplete /> */}</Panel>
 	);
 };
 

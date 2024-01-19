@@ -49,10 +49,13 @@ const StatusSelector = () => {
 			<Stack flexGrow={1}>
 				<FormControl variant="outlined" fullWidth>
 					<InputLabel>
-						<Typography color={color}>Status</Typography>
+						<Typography color="" variant="overline">
+							Status
+						</Typography>
 					</InputLabel>
 					<Select
 						fullWidth
+						size="small"
 						variant="outlined"
 						label="Status"
 						value={activeDate?.status}
