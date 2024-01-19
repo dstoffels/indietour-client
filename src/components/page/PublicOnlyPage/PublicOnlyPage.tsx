@@ -11,6 +11,8 @@ const PublicOnlyPage = (props: PageProps) => {
 	if (user) {
 		if (user.email_verified) {
 			user.booking_mode ? push('/book') : push('/tour');
+		} else {
+			push('/verify');
 		}
 		return null;
 	}

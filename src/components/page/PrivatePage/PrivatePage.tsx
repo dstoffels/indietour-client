@@ -17,7 +17,7 @@ const PrivatePage = (props: PageProps) => {
 		}
 	}, [user]);
 
-	return user && <BasePage {...props} headerMenu={<MainMenu />} />;
+	return user && user.email_verified && <BasePage {...props} headerMenu={<MainMenu />} />;
 };
 
 export default PrivatePage;
