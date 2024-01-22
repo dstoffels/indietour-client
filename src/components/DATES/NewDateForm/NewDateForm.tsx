@@ -54,7 +54,7 @@ const NewDateForm = ({ defaultDateFields, disableDuplicateDates }: NewDateFormPr
 			btnIcon={<Add />}
 			btnColor="primary"
 			btnText="Add Tour Date"
-			submitBtnTxt="Add TourDate"
+			submitBtnTxt="Add Tour Date"
 			onSubmit={handleSubmit}
 			onClose={reset}
 		>
@@ -63,7 +63,7 @@ const NewDateForm = ({ defaultDateFields, disableDuplicateDates }: NewDateFormPr
 				onChange={(newValue) => setDate(newValue as Dayjs)}
 				existingDates={existingDates}
 			/>
-			<PlaceSelector value={place} onChange={setPlace} required />
+			{/* <PlaceSelector value={place} onChange={setPlace} required /> */}
 		</ButtonForm>
 	);
 };

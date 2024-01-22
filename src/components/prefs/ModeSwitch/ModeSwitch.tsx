@@ -1,17 +1,19 @@
 import { Box, Typography } from '@mui/material';
 import BaseMenuItem from 'components/core/menu/BaseMenuItem/BaseMenuItem';
 import { useAuth } from 'context/AuthContext';
+import { useDates } from 'context/DateContext';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 
 const ModeSwitch = ({}) => {
+	const { activeDate } = useDates();
 	const { user, updateUser, loaded } = useAuth();
-	const { push } = useRouter();
+	const { push, query } = useRouter();
 
 	const toggleBookingMode = async () => {
 		await updateUser({ booking_mode: !user?.booking_mode });
-		const page = user?.booking_mode ? '/tour' : '/book';
-		loaded && push(page);
+		const pathname = user?.booking_mode ? '/tour' : '/book';
+		loaded && push({ pathname, query: activeDate?.is_published ? query : {} });
 	};
 
 	if (!user?.is_tour_admin) return null;

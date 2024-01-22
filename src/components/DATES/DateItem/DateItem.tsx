@@ -1,11 +1,9 @@
 import { Box, ListItem, ListItemButton, Stack, Theme, Typography } from '@mui/material';
 import SideStack from 'components/core/SideStack/SideStack';
-import { TourDate, TourDateStatusOptions, useDates } from 'context/DateContext';
+import { TourDate, useDates } from 'context/DateContext';
 import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
 import { useTheme } from 'context/ThemeContext';
-import { getStatusColor } from '../StatusSelector/StatusSelector';
-import { useAuth } from 'context/AuthContext';
 import { useGlobals } from 'context/GlobalContext';
 
 interface DateItemProps {
@@ -25,11 +23,9 @@ const DateItem = ({ tourdate, activeDate }: DateItemProps) => {
 		isMobile && toggleDateDrawer();
 	};
 
-	const fontStyle = tourdate.status !== 'CONFIRMED' ? 'italic' : '';
+	const fontStyle = tourdate.is_published ? '' : 'italic';
 
-	const fontWeight = tourdate.status === 'CONFIRMED' ? '500' : 'inherit';
-
-	const fontColor = getStatusColor(tourdate.status as TourDateStatusOptions);
+	const fontWeight = tourdate.is_show_day ? '500' : 'inherit';
 
 	const date = tourdate.date;
 
@@ -38,28 +34,18 @@ const DateItem = ({ tourdate, activeDate }: DateItemProps) => {
 			<ListItemButton selected={isActive} onClick={handleClick}>
 				<SideStack width="100%">
 					<Stack textAlign="center" marginRight={2}>
-						<Typography color={fontColor} fontStyle={fontStyle} fontWeight={fontWeight}>
+						<Typography fontStyle={fontStyle} fontWeight={fontWeight}>
 							{dayjs(date).format('DD')} {dayjs(date).format('MMM')}
 						</Typography>
-						<Typography
-							color={fontColor}
-							fontStyle={fontStyle}
-							fontWeight={fontWeight}
-							variant="caption"
-						>
+						<Typography fontStyle={fontStyle} fontWeight={fontWeight} variant="caption">
 							{dayjs(date).format('ddd')}
 						</Typography>
 					</Stack>
 					<Stack textAlign="right">
-						<Typography color={fontColor} fontStyle={fontStyle} fontWeight={fontWeight}>
+						<Typography fontStyle={fontStyle} fontWeight={fontWeight}>
 							{tourdate.title || tourdate.place?.name}
 						</Typography>
-						<Typography
-							color={fontColor}
-							fontStyle={fontStyle}
-							fontWeight={fontWeight}
-							variant="caption"
-						>
+						<Typography fontStyle={fontStyle} fontWeight={fontWeight} variant="caption">
 							{tourdate.place?.political_address}
 						</Typography>
 					</Stack>

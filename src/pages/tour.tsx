@@ -18,13 +18,13 @@ const TourPage = ({}) => {
 	}, []);
 
 	return (
-		<MainPage defaultDateFields={{ status: 'CONFIRMED' }} disableDuplicateDates>
+		<MainPage disableDuplicateDates>
 			{/* TOUR */}
 			<BandPanel />
 			<TourPanel />
 			{/* DATES */}
-			<ContactsPanel />
-			<LodgingPanel />
+			{/* <ContactsPanel /> */}
+			{/* <LodgingPanel /> */}
 			<DatePanel />
 		</MainPage>
 	);
