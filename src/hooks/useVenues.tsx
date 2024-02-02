@@ -3,18 +3,19 @@ import api from 'utils/api';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 
-const useVenues = () => {
+const useVenues = (initVenue: Venue | null = null) => {
 	const [venueTypes, setVenueTypes] = useState<VenueType[]>([]);
 	const [venues, setVenues] = useState<Venue[]>([]);
-	const [selectedVenue, setSelectedVenue] = useState<Venue | null>(null);
+	const [selectedVenue, setSelectedVenue] = useState<Venue | null>(initVenue);
 
 	const createVenue = async (venueData: Venue) => {
 		const response = await api.post(`/venues`, venueData);
 		setSelectedVenue(response.data);
+		return response.data;
 	};
 
-	const fetchVenues = async (query: VenueParams) => {
-		const response = await api.get(`/venues${query.toString()}`);
+	const fetchVenues = async (query: string) => {
+		const response = await api.get(`/venues?q=${query}`);
 		setVenues(response.data);
 	};
 

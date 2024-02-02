@@ -1,11 +1,13 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { LocationOn } from '@mui/icons-material';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 import * as React from 'react';
 
 import { useState, useEffect } from 'react';
+import SideStack from '../SideStack/SideStack';
 
 export interface PlaceSelectorOptionProps {
 	props: object;
-	option: PlaceType;
+	option: PlaceMin;
 }
 const PlaceSelectorOption = ({ props, option }: PlaceSelectorOptionProps) => {
 	const matches = option.structured_formatting.main_text_matched_substrings || [];
@@ -14,12 +16,13 @@ const PlaceSelectorOption = ({ props, option }: PlaceSelectorOptionProps) => {
 
 	return (
 		<li {...props}>
-			<Grid container alignItems="center">
-				<Grid item sx={{ wordWrap: 'break-word' }}>
+			<SideStack width="100%">
+				<Stack>
 					<Typography fontWeight="500">{option.structured_formatting.main_text}</Typography>
 					<Typography variant="caption">{option.structured_formatting.secondary_text}</Typography>
-				</Grid>
-			</Grid>
+				</Stack>
+				<LocationOn />
+			</SideStack>
 		</li>
 	);
 };
@@ -30,13 +33,19 @@ interface MainTextMatchedSubstrings {
 	offset: number;
 	length: number;
 }
-interface StructuredFormatting {
-	main_text: string;
-	secondary_text: string;
-	main_text_matched_substrings?: readonly MainTextMatchedSubstrings[];
-}
-export interface PlaceType {
+
+export type PlaceMin = {
 	place_id: string;
 	description: string;
-	structured_formatting: StructuredFormatting;
-}
+	structured_formatting: {
+		main_text: string;
+		secondary_text: string;
+		main_text_matched_substrings?: [{ offset: number; length: number }];
+	};
+	geometry: {
+		location: {
+			lat: number;
+			lng: number;
+		};
+	};
+};

@@ -7,7 +7,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { Add } from '@mui/icons-material';
 import PlaceSelector from 'components/core/PlaceSelector/PlaceSelector';
 import { Typography } from '@mui/material';
-import { PlaceType } from 'components/core/PlaceSelector/PlaceSelectorOption';
+import { PlaceMin } from 'components/core/PlaceSelector/PlaceSelectorOption';
 
 export interface NewDateFormProps {
 	defaultDateFields?: TourDate;
@@ -22,7 +22,7 @@ const NewDateForm = ({ defaultDateFields, disableDuplicateDates }: NewDateFormPr
 	const existingDates = disableDuplicateDates ? dates.map(({ date }) => date as string) : [];
 
 	const [date, setDate] = useState<Dayjs>(dayjs());
-	const [place, setPlace] = useState<PlaceType | null>(null);
+	const [place, setPlace] = useState<PlaceMin | null>(null);
 
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();

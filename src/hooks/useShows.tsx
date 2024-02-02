@@ -13,7 +13,7 @@ const useShows = () => {
 		setStatusOptions(response.data);
 	};
 
-	const addShow = async (show: Show) => {
+	const createShow = async (show: Partial<Show>) => {
 		const response = await api.post(`/dates/${activeDate?.id}/shows`, show);
 		fetchDate();
 	};
@@ -27,7 +27,7 @@ const useShows = () => {
 		fetchStatusOptions();
 	}, []);
 
-	return { statusOptions, fetchStatusOptions, updateShow };
+	return { statusOptions, fetchStatusOptions, updateShow, createShow };
 };
 
 export default useShows;

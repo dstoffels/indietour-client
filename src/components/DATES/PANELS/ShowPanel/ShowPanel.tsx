@@ -1,4 +1,5 @@
 import { Autocomplete, Box, TextField } from '@mui/material';
+import ShowForm from 'components/SHOWS/ShowForm/ShowForm';
 import ShowItem from 'components/SHOWS/ShowItem/ShowItem';
 import StatusSelector, { getStatusColor } from 'components/SHOWS/StatusSelector/StatusSelector';
 import { Show } from 'components/SHOWS/types';
@@ -29,7 +30,7 @@ const ShowPanel = ({ confirmedOnly = false }: ShowPanelProps) => {
 			show={show}
 			index={i}
 			activeIndex={activeIndex}
-			key={show.date_id}
+			key={show.id}
 			onClick={setActiveIndex}
 		/>
 	));
@@ -38,6 +39,7 @@ const ShowPanel = ({ confirmedOnly = false }: ShowPanelProps) => {
 		activeDate?.is_show_day && (
 			<Panel title="Shows">
 				<Box>{showItems}</Box>
+				<ShowForm />
 			</Panel>
 		)
 	);

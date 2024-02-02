@@ -2,11 +2,11 @@ import { Autocomplete, TextField, debounce } from '@mui/material';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import api from 'utils/api';
-import PlaceSelectorOption, { PlaceType } from './PlaceSelectorOption';
+import PlaceSelectorOption, { PlaceMin } from './PlaceSelectorOption';
 
 interface PlaceSelectorProps {
-	value: PlaceType | null;
-	onChange: (place: PlaceType | null) => void;
+	value: PlaceMin | null;
+	onChange: (place: PlaceMin | null) => void;
 	label?: string;
 	initialInputValue?: string;
 	required?: boolean;
@@ -20,7 +20,7 @@ const PlaceSelector = ({
 	required,
 }: PlaceSelectorProps) => {
 	const [inputValue, setInputValue] = useState<string>(initialInputValue);
-	const [options, setOptions] = useState<PlaceType[]>([]);
+	const [options, setOptions] = useState<PlaceMin[]>([]);
 
 	const fetchPlaceOptions = React.useMemo(
 		() =>
@@ -31,7 +31,7 @@ const PlaceSelector = ({
 				} else {
 					setOptions([]);
 				}
-			}, 250),
+			}, 300),
 		[],
 	);
 
@@ -48,12 +48,12 @@ const PlaceSelector = ({
 	// 	!value && !inputValue && setInputValue('');
 	// }, [value]);
 
-	const handleChange = (event: any, newValue: PlaceType | null) => {
+	const handleChange = (event: any, newValue: PlaceMin | null) => {
 		onChange(newValue);
 	};
 
 	return (
-		<Autocomplete<PlaceType>
+		<Autocomplete<PlaceMin>
 			// @ts-expect-error
 			freeSolo
 			value={value}
@@ -65,7 +65,7 @@ const PlaceSelector = ({
 			inputValue={inputValue}
 			onInputChange={(e, newInputValue) => setInputValue(newInputValue)}
 			filterSelectedOptions
-			getOptionLabel={(option: PlaceType) => option.description}
+			getOptionLabel={(option: PlaceMin) => option.description}
 			renderInput={(params) => (
 				<TextField {...params} required={required} variant="standard" label={label} />
 			)}

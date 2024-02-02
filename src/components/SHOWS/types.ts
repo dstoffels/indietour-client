@@ -6,6 +6,7 @@ export type Show = {
 	id: string;
 	date_id: string;
 	venue: Venue;
+	venue_id?: string;
 	status: ShowStatus;
 	hold: number;
 	deal: string;

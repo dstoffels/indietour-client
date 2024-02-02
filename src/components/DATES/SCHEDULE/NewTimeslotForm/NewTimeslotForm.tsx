@@ -10,7 +10,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import SideStack from 'components/core/SideStack/SideStack';
 import PlaceSelector from 'components/core/PlaceSelector/PlaceSelector';
-import { PlaceType } from 'components/core/PlaceSelector/PlaceSelectorOption';
+import { PlaceMin } from 'components/core/PlaceSelector/PlaceSelectorOption';
 
 dayjs.extend(customParseFormat);
 
@@ -39,8 +39,8 @@ const NewTimeslotForm = ({}) => {
 		end_after_midnight: false,
 	};
 
-	const [origin, setOrigin] = useState<PlaceType | null>(null);
-	const [destination, setDestination] = useState<PlaceType | null>(null);
+	const [origin, setOrigin] = useState<PlaceMin | null>(null);
+	const [destination, setDestination] = useState<PlaceMin | null>(null);
 
 	const { formData, handleChange, handleSubmit, reset } = useForm(initData, createTimeslot);
 

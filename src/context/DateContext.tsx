@@ -30,8 +30,7 @@ const DateProvider = ({ children }: DateProviderProps) => {
 
 	const [dates, setDates] = useState<TourDate[]>([]);
 	const [activeDate, setActiveDate] = useState<TourDate | null>(null);
-	console.log(activeDate);
-	// const [statusOptions, setStatusOptions] = useState<string[]>([]);
+
 	const { activeTour, isTourAdmin } = useTours();
 
 	const { push, pathname, query } = useRouter();
@@ -75,15 +74,6 @@ const DateProvider = ({ children }: DateProviderProps) => {
 			setActiveDate(null);
 		}
 	}, [activeTour]);
-
-	// const fetchStatusOptions = async () => {
-	// 	const response = await api.get('/dates/status');
-	// 	setStatusOptions(response.data);
-	// };
-
-	// useEffect(() => {
-	// 	fetchStatusOptions();
-	// }, []);
 
 	const createTourdate = async (tourdataData: TourDate) => {
 		const response = await api.post(`/tours/${activeTour?.id}/dates`, tourdataData);

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import EditField, { EditFieldProps } from '../EditField/EditField';
 import PlaceSelector from '../PlaceSelector/PlaceSelector';
-import { PlaceType } from '../PlaceSelector/PlaceSelectorOption';
+import { PlaceMin } from '../PlaceSelector/PlaceSelectorOption';
 
 interface ExtendedProps {
 	initialInputValue: string;
@@ -13,9 +13,9 @@ export type PlaceEditFieldProps = EditFieldProps & ExtendedProps;
 const PlaceEditField = (props: PlaceEditFieldProps) => {
 	const { onChange, name, initialInputValue, ...otherProps } = props;
 
-	const [place, setPlace] = useState<PlaceType | null>(null);
+	const [place, setPlace] = useState<PlaceMin | null>(null);
 
-	const handleChange = (place: PlaceType | null) => {
+	const handleChange = (place: PlaceMin | null) => {
 		setPlace(place);
 	};
 

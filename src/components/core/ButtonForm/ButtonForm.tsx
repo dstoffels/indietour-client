@@ -1,13 +1,4 @@
-import {
-	Box,
-	Button,
-	Collapse,
-	IconButton,
-	ListSubheader,
-	Stack,
-	Tooltip,
-	Typography,
-} from '@mui/material';
+import { Box, Button, Collapse, IconButton, Stack, Tooltip, Typography } from '@mui/material';
 import * as React from 'react';
 import { useState } from 'react';
 import SideStack from '../SideStack/SideStack';

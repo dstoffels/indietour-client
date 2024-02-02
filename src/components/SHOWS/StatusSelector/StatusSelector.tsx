@@ -101,6 +101,8 @@ export function getStatusColor(status: ShowStatus, theme: Theme) {
 		case 'CHALLENGED':
 			return theme.palette.warning.main;
 		case 'OPTION':
+			return theme.palette.primary.main;
+		case 'CONFIRMED':
 			return theme.palette.success.main;
 		case 'DECLINED':
 			return theme.palette.action.disabled;

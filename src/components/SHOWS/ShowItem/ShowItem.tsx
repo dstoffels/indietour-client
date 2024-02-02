@@ -2,7 +2,6 @@ import {
 	Accordion,
 	AccordionDetails,
 	AccordionSummary,
-	Collapse,
 	Stack,
 	Typography,
 	useTheme,
