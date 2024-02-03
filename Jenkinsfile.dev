@@ -20,7 +20,7 @@ pipeline {
         stage('Build Images') {
             steps {
                 script {
-                    sh "docker-compose -f docker-compose-dev.yaml build frontend"
+                    sh "docker-compose -f docker-compose-dev.yaml build nginx"
                 }
             }
         }
