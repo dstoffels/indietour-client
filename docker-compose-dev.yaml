@@ -1,12 +1,14 @@
-version: '3.1'
+version: '3.5'
 services:
   frontend:
+    build: .
     image: indietour-frontend-dev
     env_file:
       - .env
     restart: always
 
   nginx:
+    build: ./nginx
     image: indietour-nginx
     ports:
       - 80:80
