@@ -16,6 +16,8 @@ const Map = ({ place, options }: MapProps) => {
 		googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string,
 	});
 
+	console.log(process.env.NEXT_PUBLIC_GOOGLE_API_KEY);
+
 	const center = place.geometry.location;
 
 	return (
