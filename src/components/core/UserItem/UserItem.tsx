@@ -59,7 +59,7 @@ const UserItem = ({ user, canEdit, onAdminChange, onDelete }: BandUserItemProps)
 					</Stack>
 				</ListItemButton>
 
-				<Collapse in={open}>
+				<Collapse in={canEdit && open}>
 					<SideStack justifyContent="end" alignItems="center" spacing={2}>
 						<FormControlLabel
 							checked={user.is_admin}
@@ -76,11 +76,6 @@ const UserItem = ({ user, canEdit, onAdminChange, onDelete }: BandUserItemProps)
 								onDelete={() => onDelete(user.id)}
 								variant="icon"
 							/>
-							<Tooltip title="Close">
-								<IconButton size="large" onClick={toggleOpen}>
-									<Close color="info" />
-								</IconButton>
-							</Tooltip>
 						</SideStack>
 					</SideStack>
 				</Collapse>
