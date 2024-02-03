@@ -48,11 +48,11 @@ const VenueForm = ({ place_id, onClose }: VenueFormProps) => {
 						<Typography variant="caption">{place?.formatted_address}</Typography>
 					</Stack>
 				</Stack>
-				<DialogContentText marginBottom={3}>
+				{place && <Map place={place} options={{ mapTypeControl: false }} />}
+				<DialogContentText>
 					This place is not in our venue database. Click Add Venue to add it and assign it to your
 					show!
 				</DialogContentText>
-				{place && <Map place={place} options={{ mapTypeControl: false }} />}
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={() => onClose(null)} color="error">

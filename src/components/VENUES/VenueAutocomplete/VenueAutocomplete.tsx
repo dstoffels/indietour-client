@@ -54,18 +54,24 @@ const VenueAutocomplete = ({ onSelect }: VenueAutocompleteProps) => {
 		if (option.place_id) {
 			const duplicate = venues.find((venue) => venue.place?.id === option.place_id);
 			if (duplicate || option.types.includes('locality')) return null;
-			return <PlaceSelectorOption props={props} option={option} key={option.place_id} />;
+			return (
+				<Tooltip title="Unconfirmed venue" key={option.place_id}>
+					<PlaceSelectorOption props={props} option={option} key={option.place_id} />
+				</Tooltip>
+			);
 		}
 		return (
-			<li {...props}>
-				<SideStack width="100%">
-					<Stack>
-						<Typography fontWeight="500">{option.place?.name}</Typography>
-						<Typography variant="caption">{option.place?.political_address}</Typography>
-					</Stack>
-					<LocationOn color="success" />
-				</SideStack>
-			</li>
+			<Tooltip title="Confirmed venue" key={option.id}>
+				<li {...props}>
+					<SideStack width="100%">
+						<Stack>
+							<Typography fontWeight="500">{option.place?.name}</Typography>
+							<Typography variant="caption">{option.place?.political_address}</Typography>
+						</Stack>
+						<LocationOn color="success" />
+					</SideStack>
+				</li>
+			</Tooltip>
 		);
 	};
 
