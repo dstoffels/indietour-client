@@ -20,9 +20,9 @@ pipeline {
         stage('Build Images') {
             steps {
                 script {
-                    // sh "docker-compose -f docker-compose-dev.yaml build"
-                    sh "docker -v"
-                    sh "docker-compose -v"
+                    sh "docker-compose -f docker-compose-dev.yaml build"
+                    // sh "docker -v"
+                    // sh "docker-compose -v"
                 }
             }
         }
