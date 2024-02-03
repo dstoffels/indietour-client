@@ -30,7 +30,7 @@ const NewTourForm = ({ onClose, autoFocus }: TourFormProps) => {
 			<IconButton disabled={disabled} type="submit" color="info">
 				<Check />
 			</IconButton>
-			<IconButton disabled={!tours?.length} color="error" onClick={onClose}>
+			<IconButton color="error" onClick={onClose}>
 				<Close />
 			</IconButton>
 		</Box>
