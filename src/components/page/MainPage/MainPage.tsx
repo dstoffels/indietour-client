@@ -43,7 +43,14 @@ const MainPage = (props: MainPageProps) => {
 					<Hidden smDown>
 						<BandSelector />
 					</Hidden>
-					<TourSelector />
+					<Hidden smDown>
+						<TourSelector />
+					</Hidden>
+					{activeDate && (
+						<Typography variant="h6">
+							{dayjs(activeDate?.date).format('dddd, DD MMMM, YYYY')}
+						</Typography>
+					)}
 				</>
 			}
 			footerLeft={<DatesDrawerBtn />}
@@ -63,13 +70,6 @@ const MainPage = (props: MainPageProps) => {
 							transition: drawerTransition,
 						}}
 					>
-						{activeDate && (
-							<Box width="100%">
-								<Typography padding={2} variant="h6">
-									{dayjs(activeDate?.date).format('dddd, DD MMMM, YYYY')}
-								</Typography>
-							</Box>
-						)}
 						<Grid container columnSpacing={1} rowSpacing={2} justifyContent="center">
 							{children}
 						</Grid>
