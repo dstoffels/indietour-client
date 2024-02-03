@@ -8,7 +8,7 @@ services:
     restart: always
 
   nginx:
-    build: ./nginx/
+    build: ./nginx
     image: indietour-nginx
     ports:
       - 80:80
