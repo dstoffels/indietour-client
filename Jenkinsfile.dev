@@ -21,23 +21,21 @@ pipeline {
             steps {
                 script {
                     sh "docker-compose -f docker-compose-dev.yaml build"
-                    // sh "docker -v"
-                    // sh "docker-compose -v"
                 }
             }
         }
 
-        // stage('Local Composition') {
-        //     steps {
-        //         sh "docker-compose -f docker-compose-dev.yaml down"
-        //         sh "docker-compose -f docker-compose-dev.yaml -p indietour-frontend-dev up -d"
-        //     }
-        // }
+        stage('Local Composition') {
+            steps {
+                sh "docker-compose -f docker-compose-dev.yaml down"
+                sh "docker-compose -f docker-compose-dev.yaml -p indietour-frontend-dev up -d"
+            }
+        }
 
-        // stage("Clean Up"){
-        //     steps{
-        //         sh "docker image prune -f"
-        //     }
-        // }
+        stage("Clean Up"){
+            steps{
+                sh "docker image prune -f"
+            }
+        }
     }
 }
