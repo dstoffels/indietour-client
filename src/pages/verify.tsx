@@ -10,7 +10,7 @@ const VerifyPage = ({}) => {
 	const [verification_code, setVerificationCode] = useState('');
 	const [msg, setMsg] = useState('');
 
-	const { user, verifyUser, resendCode } = useAuth();
+	const { user, verifyUser, resendCode, logout } = useAuth();
 	const { push } = useRouter();
 
 	useEffect(() => {
@@ -34,7 +34,7 @@ const VerifyPage = ({}) => {
 	}
 
 	if (user.email_verified) {
-		push('/tour');
+		user.booking_mode ? push('/booking') : push('/tour');
 		return null;
 	}
 
@@ -51,7 +51,7 @@ const VerifyPage = ({}) => {
 				<Stack maxWidth={500} spacing={2}>
 					<Typography variant="h5">Verify Email</Typography>
 					<Typography>
-						Please enter the verification code sent to your email address when you signed up.
+						Please enter the verification code sent to {user.email} when you signed up.
 					</Typography>
 					<Box>
 						<NumberField
@@ -61,6 +61,11 @@ const VerifyPage = ({}) => {
 					</Box>
 					<Box>
 						<Button onClick={handleResend}>Resend Code</Button>
+					</Box>
+					<Box>
+						<Button color="warning" onClick={logout}>
+							Log Out
+						</Button>
 					</Box>
 				</Stack>
 			</Grid>

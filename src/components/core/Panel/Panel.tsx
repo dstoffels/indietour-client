@@ -18,7 +18,7 @@ const Panel = ({ title, titleColor = 'inherit', children, footer }: PanelProps) 
 
 	if (mainWidth < 650) cols = 12;
 	else if (mainWidth < 960) cols = 6;
-	else cols = 6;
+	else cols = 4;
 
 	useEffect(() => {
 		loaded && setLoaded(false);
@@ -29,21 +29,21 @@ const Panel = ({ title, titleColor = 'inherit', children, footer }: PanelProps) 
 
 	return (
 		<Grid item xs={cols}>
-			<Collapse in={loaded}>
-				<Paper elevation={2}>
-					<Box paddingX={2} paddingY={1}>
-						<Typography align="center" variant="h6" fontWeight={600} color={titleColor}>
-							{title}
-						</Typography>
-					</Box>
-					<Divider />
-					<Stack padding={2} spacing={2}>
-						{children}
-					</Stack>
-					{footer && <Divider />}
-					<Box>{footer}</Box>
-				</Paper>
-			</Collapse>
+			{/* <Collapse in={loaded}> */}
+			<Paper elevation={2}>
+				<Box paddingX={2} paddingY={1}>
+					<Typography align="center" variant="h6" fontWeight={600} color={titleColor}>
+						{title}
+					</Typography>
+				</Box>
+				<Divider />
+				<Stack padding={1} spacing={1}>
+					{children}
+				</Stack>
+				{footer && <Divider />}
+				<Box>{footer}</Box>
+			</Paper>
+			{/* </Collapse> */}
 		</Grid>
 	);
 };

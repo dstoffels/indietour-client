@@ -1,12 +1,14 @@
 import Panel from 'components/core/Panel/Panel';
 import { useDates } from 'context/DateContext';
 import * as React from 'react';
-import StatusSelector from '../../StatusSelector/StatusSelector';
+import StatusSelector from '../../../SHOWS/StatusSelector/StatusSelector';
 import EditField from 'components/core/EditField/EditField';
 import PlaceEditField from 'components/core/PlaceEditField/PlaceEditField';
 import DangerZone from 'components/core/DangerZone/DangerZone';
-import { FormControlLabel, Switch } from '@mui/material';
+import { Box, FormControlLabel, Switch } from '@mui/material';
 import ShowDaySwitch from 'components/DATES/ShowDaySwitch/ShowDaySwitch';
+import PublishDateSwitch from 'components/DATES/PublishDateSwitch/PublishDateSwitch';
+import dayjs from 'dayjs';
 
 const DatePanel = ({}) => {
 	const { activeDate, updateTourdate, deleteTourdate, isTourAdmin } = useDates();
@@ -14,7 +16,7 @@ const DatePanel = ({}) => {
 	return (
 		activeDate && (
 			<Panel
-				title="Tour Date"
+				title="Details"
 				footer={
 					<DangerZone
 						onDelete={deleteTourdate}
@@ -23,15 +25,6 @@ const DatePanel = ({}) => {
 					></DangerZone>
 				}
 			>
-				<StatusSelector />
-				<ShowDaySwitch />
-				<PlaceEditField
-					name="place_id"
-					label="Location"
-					canEdit={isTourAdmin}
-					onChange={updateTourdate}
-					initialInputValue={`${activeDate?.place?.name}, ${activeDate?.place?.political_address}`}
-				/>
 				<EditField
 					canEdit={isTourAdmin}
 					label="Title"
@@ -39,6 +32,13 @@ const DatePanel = ({}) => {
 					value={activeDate.title}
 					onChange={updateTourdate}
 					fullWidth
+				/>
+				<PlaceEditField
+					name="place_id"
+					label="Location"
+					canEdit={isTourAdmin}
+					onChange={updateTourdate}
+					initialInputValue={`${activeDate?.place?.name}, ${activeDate?.place?.political_address}`}
 				/>
 				<EditField
 					canEdit={isTourAdmin}
@@ -49,6 +49,10 @@ const DatePanel = ({}) => {
 					onChange={updateTourdate}
 					multiline
 				/>
+				<Box>
+					<PublishDateSwitch />
+					<ShowDaySwitch />
+				</Box>
 			</Panel>
 		)
 	);
