@@ -9,7 +9,7 @@ export const globalErrorHandler = (setErrors: (errorMsgs: string[]) => void) => 
 	// REQUEST INTERCEPTORS
 	api.interceptors.request.use(
 		(config) => {
-			setErrors([]);
+			// setErrors([]);
 			return config;
 		},
 		(error) => {

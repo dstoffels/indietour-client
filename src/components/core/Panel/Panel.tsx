@@ -29,7 +29,6 @@ const Panel = ({ title, titleColor = 'inherit', children, footer }: PanelProps) 
 
 	return (
 		<Grid item xs={cols}>
-			{/* <Collapse in={loaded}> */}
 			<Paper elevation={2}>
 				<Box paddingX={2} paddingY={1}>
 					<Typography align="center" variant="h6" fontWeight={600} color={titleColor}>
@@ -40,10 +39,8 @@ const Panel = ({ title, titleColor = 'inherit', children, footer }: PanelProps) 
 				<Stack padding={1} spacing={1}>
 					{children}
 				</Stack>
-				{footer && <Divider />}
 				<Box>{footer}</Box>
 			</Paper>
-			{/* </Collapse> */}
 		</Grid>
 	);
 };

@@ -37,6 +37,7 @@ const TourPanel = ({}: TourPanelProps) => {
 						onDelete={deleteTour}
 						confirmationText={activeTour.name}
 						deleteBtnText="Delete Tour"
+						show={isTourAdmin}
 					>
 						<Button fullWidth variant="text" color="warning" onClick={handleArchiveTour}>
 							{activeTour.is_archived ? 'Restore Tour' : 'Archive Tour'}

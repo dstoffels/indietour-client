@@ -13,6 +13,10 @@ import dayjs from 'dayjs';
 const DatePanel = ({}) => {
 	const { activeDate, updateTourdate, deleteTourdate, isTourAdmin } = useDates();
 
+	const initPlace = activeDate?.place
+		? `${activeDate?.place?.name}, ${activeDate?.place?.political_address}`
+		: '';
+
 	return (
 		activeDate && (
 			<Panel
@@ -38,7 +42,7 @@ const DatePanel = ({}) => {
 					label="Location"
 					canEdit={isTourAdmin}
 					onChange={updateTourdate}
-					initialInputValue={`${activeDate?.place?.name}, ${activeDate?.place?.political_address}`}
+					initialInputValue={initPlace}
 				/>
 				<EditField
 					canEdit={isTourAdmin}

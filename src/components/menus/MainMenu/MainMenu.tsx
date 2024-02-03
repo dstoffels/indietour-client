@@ -9,6 +9,7 @@ import { AccountCircle } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import ModeSwitch from 'components/prefs/ModeSwitch/ModeSwitch';
 import SideStack from 'components/core/SideStack/SideStack';
+import TourSelector from 'components/tours/TourSelector/TourSelector';
 
 const MainMenu = ({}) => {
 	const { user } = useAuth();
@@ -25,6 +26,14 @@ const MainMenu = ({}) => {
 						<BaseMenuItem>
 							<Box padding={1}>
 								<BandSelector />
+							</Box>
+						</BaseMenuItem>
+						<Divider />
+					</Hidden>
+					<Hidden smUp>
+						<BaseMenuItem>
+							<Box padding={1}>
+								<TourSelector />
 							</Box>
 						</BaseMenuItem>
 						<Divider />

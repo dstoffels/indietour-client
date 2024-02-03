@@ -37,6 +37,7 @@ const BandPanel = () => {
 						onDelete={deleteBand}
 						confirmationText={activeBand.name}
 						deleteBtnText="Delete Band"
+						show={isBandAdmin}
 					>
 						<Button color="warning" fullWidth variant="text" onClick={handleArchiveBand}>
 							{activeBand.is_archived ? 'Restore Band' : 'Archive Band'}
