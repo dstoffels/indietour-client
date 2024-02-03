@@ -39,7 +39,7 @@ const TourProvider = ({ children }: TourProviderProps) => {
 	const createTour = async (tourData: object) => {
 		const response = await api.post(`/bands/${activeBand?.id}/tours?include=dates`, tourData);
 		const tour: Tour = response.data;
-		setActiveTour(tour.id);
+		tour && setActiveTour(tour.id);
 		await fetchBands();
 	};
 

@@ -9,7 +9,6 @@ const useForm = <T extends object>(initialData: T, onSubmit: (formData: T) => Pr
 	const [loading, setLoading] = useState(false);
 
 	const reset = () => {
-		console.log('reset');
 		setformData(initialData);
 	};
 

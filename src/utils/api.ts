@@ -9,7 +9,7 @@ export const globalErrorHandler = (setErrors: (errorMsgs: string[]) => void) => 
 	// REQUEST INTERCEPTORS
 	api.interceptors.request.use(
 		(config) => {
-			setErrors([]);
+			// setErrors([]);
 			return config;
 		},
 		(error) => {
@@ -23,7 +23,7 @@ export const globalErrorHandler = (setErrors: (errorMsgs: string[]) => void) => 
 			return response;
 		},
 		(error: AxiosError) => {
-			console.log(error.response?.data);
+			// console.log(error.response?.data);
 			if (error.response) {
 				const { status } = error.response;
 				const data = error.response.data as ErrorData;
